@@ -127,7 +127,112 @@ function btn(label,fn,cls=''){return `<button class="btn ${cls}" onclick="${fn}"
 function render(){document.getElementById('seasonPill').textContent=`SEASON ${db.season} • ${db.year}`;const brand=document.getElementById('brandLogo');if(brand)brand.innerHTML=db.mslLogo?`<img src="${db.mslLogo}" style="width:100%;height:100%;object-fit:contain;border-radius:inherit">`:'MSL';const m=document.getElementById('main');const pages={home:homePage,matches:matchesPage,teams:teamsPage,players:playersPage,points:pointsPage,stats:statsPage,seasons:seasonsPage,admin:adminPage};m.innerHTML=(pages[page]||homePage)()}
 function stat(label,value,symbol){return `<div class="card stat"><div><div class="label">${label}</div><div class="value">${value}</div></div><div class="symbol">${symbol}</div></div>`}
 function matchCard(m){let a=team(m.teamA),b=team(m.teamB),status=m.status;let inn=m.innings||[],score=inn.length?`${inn[inn.length-1].runs}/${inn[inn.length-1].wickets}`:'—';return `<div class="match-card"><div class="match-top"><span>${esc(m.venue||'Jhabar Cricket Ground')}</span><span class="${status==='Live'?'live':''}">${status==='Live'?'● LIVE':status.toUpperCase()}</span></div><div class="teams-line"><div class="team-mini"><div class="team-badge" style="background:${a.color};color:#101a2b">${a.short}</div><strong>${esc(a.name)}</strong><small>${esc(a.captain)}</small></div><div class="versus">VS</div><div class="team-mini"><div class="team-badge" style="background:${b.color};color:#101a2b">${b.short}</div><strong>${esc(b.name)}</strong><small>${esc(b.captain)}</small></div></div><div class="scoreline">${score} <small>${inn.length?`(${inn[inn.length-1].legal}/${m.oversLimit||8} ov)`:'• '+fmtDate(m.date)}</small></div><div style="display:flex;justify-content:center;margin-top:13px">${status==='Live'?btn('Open live score',`openMatch('${m.id}')`,'primary'):status==='Completed'?btn('View scorecard',`openMatch('${m.id}')`):btn('Match details',`openMatch('${m.id}')`)}${db.admin?` <div style="display:flex;justify-content:center;gap:7px;margin-top:8px">${btn('Edit',`editMatch('${m.id}')`)}${btn('Delete',`deleteMatch('${m.id}')`,'danger')}</div>`:''}</div></div>`}
-function homePage(){let live=db.matches.filter(m=>m.status==='Live'),up=db.matches.filter(m=>m.status==='Upcoming'),done=db.matches.filter(m=>m.status==='Completed');return `${head('League overview','Welcome to the home of Mariwala Super League.',db.admin?btn('+ Schedule match','matchForm()','primary'): '')}<div class="grid stats">${stat('TEAMS',db.teams.length,'♜')}${stat('PLAYERS',db.players.length,'♟')}${stat('MATCHES PLAYED',done.length,'▣')}${stat('UPCOMING',up.length,'◷')}</div><div class="grid two"><div><div class="section-title"><h2>${live.length?'Live match':'Featured matches'}</h2><span>${live.length?'FOLLOW THE ACTION':'SEASON '+db.season}</span></div>${live.length?live.map(matchCard).join(''):(up.length?matchCard(up[0]):`<div class="card empty">No scheduled matches yet.</div>`)}<div class="section-title"><h2>Upcoming fixtures</h2><span>${up.length} scheduled</span></div><div class="grid">${up.slice(live.length?0:1,3).map(matchCard).join('')||'<div class="card empty">More fixtures will appear here.</div>'}</div></div><div><div class="section-title"><h2>Teams this season</h2><span>${db.teams.length} teams</span></div><div class="card">${db.teams.map(t=>`<div class="player-card" style="margin:10px 0"><div class="team-badge" style="background:${t.color};color:#101a2b;overflow:hidden">${t.logo?`<img src="${t.logo}" alt="">`:t.short}</div><div style="flex:1"><h3>${esc(t.name)}</h3><p>Captain: ${esc(t.captain)}</p></div><span class="badge">${db.players.filter(p=>p.teamId===t.id).length} players</span></div>`).join('')}</div><div class="section-title"><h2>League information</h2></div><div class="card"><div class="eyebrow">HOME GROUND</div><h3 style="margin:7px 0">Jhabar Cricket Ground</h3><p class="muted" style="font-size:13px;margin:0">Thamewali, Mianwali · Pakistan</p><div style="border-top:1px solid var(--line);margin-top:15px;padding-top:13px;color:var(--muted);font-size:12px">MSL brings local cricket communities together through competition, teamwork and sportsmanship.</div></div></div></div>`}
+
+function homePage(){
+ let live=db.matches.filter(m=>m.status==='Live'),
+     up=db.matches.filter(m=>m.status==='Upcoming'),
+     done=db.matches.filter(m=>m.status==='Completed');
+
+ let organizers=db.teams.map(t=>{
+   let captainName=String(t.captain||'').trim();
+   let cp=db.players.find(p=>
+     p.teamId===t.id &&
+     (p.isCaptain || String(p.name||'').trim().toLowerCase()===captainName.toLowerCase())
+   );
+   return {
+     team:t,
+     name:captainName||cp?.name||'Team Captain',
+     photo:cp?.photo||''
+   };
+ });
+
+ return `${head('League overview','Welcome to the home of Mariwala Super League.',db.admin?btn('+ Schedule match','matchForm()','primary'): '')}
+
+ <div class="grid stats">
+   ${stat('TEAMS',db.teams.length,'♜')}
+   ${stat('PLAYERS',db.players.length,'♟')}
+   ${stat('MATCHES PLAYED',done.length,'▣')}
+   ${stat('UPCOMING',up.length,'◷')}
+ </div>
+
+ <div class="card" style="margin-bottom:18px;background:linear-gradient(120deg,#182e49,#102139);border-color:#705b2d">
+   <div class="section-title">
+     <div>
+       <div class="eyebrow">THE PEOPLE BEHIND MSL</div>
+       <h2>MSL Organizers</h2>
+     </div>
+     <span>${organizers.length} TEAM CAPTAINS</span>
+   </div>
+   <p class="muted" style="font-size:13px;margin-bottom:18px">
+     Meet the team captains who help bring Mariwala Super League together.
+   </p>
+
+   <div class="grid cards-grid">
+     ${organizers.map(o=>`
+       <div class="card" style="text-align:center;background:rgba(255,255,255,.04);padding:18px 12px">
+         <div style="width:105px;height:105px;border-radius:50%;margin:0 auto 12px;overflow:hidden;border:3px solid #c5a45e;background:${o.team.color||'#263b55'};display:flex;align-items:center;justify-content:center">
+           ${o.photo
+             ? `<img src="${o.photo}" alt="${esc(o.name)}" style="width:100%;height:100%;object-fit:cover">`
+             : `<span style="font-size:30px;font-weight:800;color:#fff">${esc(o.name.charAt(0).toUpperCase())}</span>`
+           }
+         </div>
+         <div class="eyebrow">ORGANIZER & CAPTAIN</div>
+         <h3 style="margin:7px 0 5px">${esc(o.name)}</h3>
+         <p class="muted" style="font-size:12px;margin:0">${esc(o.team.name)}</p>
+       </div>
+     `).join('')}
+   </div>
+ </div>
+
+ <div class="grid two">
+   <div>
+     <div class="section-title">
+       <h2>${live.length?'Live match':'Featured matches'}</h2>
+       <span>${live.length?'FOLLOW THE ACTION':'SEASON '+db.season}</span>
+     </div>
+     ${live.length?live.map(matchCard).join(''):(up.length?matchCard(up[0]):`<div class="card empty">No scheduled matches yet.</div>`)}
+     <div class="section-title">
+       <h2>Upcoming fixtures</h2>
+       <span>${up.length} scheduled</span>
+     </div>
+     <div class="grid">
+       ${up.slice(live.length?0:1,3).map(matchCard).join('')||'<div class="card empty">More fixtures will appear here.</div>'}
+     </div>
+   </div>
+
+   <div>
+     <div class="section-title">
+       <h2>Teams this season</h2>
+       <span>${db.teams.length} teams</span>
+     </div>
+     <div class="card">
+       ${db.teams.map(t=>`
+         <div class="player-card" style="margin:10px 0">
+           <div class="team-badge" style="background:${t.color};color:#101a2b;overflow:hidden">
+             ${t.logo?`<img src="${t.logo}" alt="">`:t.short}
+           </div>
+           <div style="flex:1">
+             <h3>${esc(t.name)}</h3>
+             <p>Captain: ${esc(t.captain)}</p>
+           </div>
+           <span class="badge">${db.players.filter(p=>p.teamId===t.id).length} players</span>
+         </div>
+       `).join('')}
+     </div>
+
+     <div class="section-title"><h2>League information</h2></div>
+     <div class="card">
+       <div class="eyebrow">HOME GROUND</div>
+       <h3 style="margin:7px 0">Jhabar Cricket Ground</h3>
+       <p class="muted" style="font-size:13px;margin:0">Thamewali, Mianwali · Pakistan</p>
+       <div style="border-top:1px solid var(--line);margin-top:15px;padding-top:13px;color:var(--muted);font-size:12px">
+         MSL brings local cricket communities together through competition, teamwork and sportsmanship.
+       </div>
+     </div>
+   </div>
+ </div>`;
+}
+
 function matchesPage(){let all=db.matches;return `${head('Matches & scores','Live action, upcoming fixtures and completed results.',db.admin?btn('+ Create fixture','matchForm()')+' '+btn('▶ Start a match','quickStartMatch()','primary'):'' )}<div class="tabs"><button class="active" onclick="filterMatches('All',this)">All matches</button><button onclick="filterMatches('Live',this)">Live</button><button onclick="filterMatches('Upcoming',this)">Upcoming</button><button onclick="filterMatches('Completed',this)">Results</button></div><div id="matchList" class="grid cards-grid">${all.map(matchCard).join('')||'<div class="card empty">No matches scheduled.</div>'}</div>`}
 function filterMatches(f,b){document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');let list=f==='All'?db.matches:db.matches.filter(m=>m.status===f);document.getElementById('matchList').innerHTML=list.map(matchCard).join('')||'<div class="card empty">No matches in this category.</div>'}
 function teamsPage(){return `${head('The teams','Meet the clubs competing in MSL Season '+db.season+'.',db.admin?btn('+ Add team','teamForm()','primary'):'')}<div class="grid cards-grid">${db.teams.map(t=>`<div class="card team-card" style="--team-color:${t.color}"><div class="team-card-head"><div class="team-emblem">${t.logo?`<img src="${t.logo}" alt="${esc(t.name)} logo">`:t.short}</div><div><h3>${esc(t.name)}</h3><p>Captain: ${esc(t.captain)}</p></div></div><div class="team-meta"><span>♟ ${db.players.filter(p=>p.teamId===t.id).length} players</span><span>Season ${db.season}</span></div>${db.admin?`<div style="margin-top:12px">${btn('Edit team',`teamForm('${t.id}')`,'')}</div>`:''}</div>`).join('')}</div>`}
