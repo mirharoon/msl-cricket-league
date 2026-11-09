@@ -54,7 +54,7 @@ const KEY = 'msl_league_v1';
 
 let cloudUser = null, cloudReady = false, applyingCloud = false, initialServerSnapshot = false, saveQueue = Promise.resolve(), localDirtyBeforeCloud = localStorage.getItem(KEY + '_dirty') === '1'; initialServerSnapshot=false, saveQueue=Promise.resolve(), localDirtyBeforeCloud=localStorage.getItem(KEY+'_dirty')==='1';
 try{firestore.enablePersistence({synchronizeTabs:true}).catch(()=>{});}catch(e){}
-const KEY='msl_league_v1';
+
 const seed={
  season:9,year:2026,admin:false,
  teams:[
