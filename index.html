@@ -93,6 +93,26 @@ body{background:radial-gradient(ellipse at 82% -12%,rgba(37,91,127,.32),transpar
 }
 @media(min-width:701px){.mobile-nav{display:none!important}}
 
+
+/* MSL MODAL FIX — keep form actions visible on phones and desktop */
+:root{--msl-vh:100dvh}
+.modal-backdrop{z-index:1000!important;align-items:center!important;justify-content:center!important;padding:12px!important;overflow:hidden}
+.modal{display:flex!important;flex-direction:column!important;width:min(600px,100%)!important;max-height:calc(var(--msl-vh,100dvh) - 24px)!important;max-height:calc(var(--msl-vh,100vh) - 24px)!important;overflow:hidden!important;padding:0!important;border-radius:20px!important}
+.modal-head{flex:0 0 auto!important;margin:0!important;padding:17px 20px 13px!important;border-bottom:1px solid rgba(150,180,210,.16)!important;background:#10243a!important;position:relative!important;z-index:2!important}
+#modalBody{flex:1 1 auto!important;min-height:0!important;overflow-y:auto!important;overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;padding:17px 20px max(18px,env(safe-area-inset-bottom))!important;scrollbar-width:thin}
+#modalBody form{padding-bottom:4px}
+#modalBody form>button[type=submit],#modalBody form>button.btn{position:sticky!important;bottom:0!important;z-index:5!important;display:block!important;width:100%!important;min-height:48px!important;margin:12px 0 0!important;border:1px solid rgba(255,224,160,.55)!important;box-shadow:0 -10px 20px rgba(8,20,35,.55),0 5px 18px rgba(0,0,0,.2)!important}
+.modal-backdrop.show{display:flex!important}
+@media(max-width:700px){
+ .modal-backdrop{align-items:center!important;padding:8px 10px calc(8px + env(safe-area-inset-bottom))!important}
+ .modal{width:100%!important;max-height:calc(var(--msl-vh,100dvh) - 16px - env(safe-area-inset-bottom))!important;border-radius:19px!important}
+ .modal-head{padding:14px 16px 11px!important}
+ #modalBody{padding:14px 16px max(18px,env(safe-area-inset-bottom))!important}
+ #modalBody .field{margin-bottom:12px}
+ #modalBody .field input,#modalBody .field select,#modalBody .field textarea{font-size:16px;min-height:46px}
+ .mobile-nav{z-index:40!important}
+}
+
 </style>
 </head>
 <body>
@@ -242,7 +262,9 @@ function toggleAdmin(){if(db.admin){logout();return}go('admin')}
 async function login(e){if(e)e.preventDefault();if(!auth){alert('The sign-in service is not available right now. Reconnect to the internet and reload the app.');return}const email=document.getElementById('loginEmail')?.value.trim(),password=document.getElementById('loginPass')?.value;if(!email||!password)return;try{await auth.signInWithEmailAndPassword(email,password)}catch(err){alert(err.code==='auth/invalid-credential'?'Incorrect email or password.':(err.message||'Sign-in failed.'))}}
 async function logout(){if(!auth){db.admin=false;render();return}try{await auth.signOut()}catch(err){alert('Could not sign out: '+err.message)}}
 function requireAdmin(){if(!db.admin||!cloudUser){alert('Please sign in with the authorized MSL administrator account first.');return false}return true}
-function openModal(title,body){document.getElementById('modalTitle').textContent=title;document.getElementById('modalBody').innerHTML=body;document.getElementById('modalBackdrop').classList.add('show')}
+function updateModalViewport(){const h=window.visualViewport?window.visualViewport.height:window.innerHeight;document.documentElement.style.setProperty('--msl-vh',Math.max(240,h)+'px')}
+window.addEventListener('resize',updateModalViewport,{passive:true});if(window.visualViewport)window.visualViewport.addEventListener('resize',updateModalViewport,{passive:true});
+function openModal(title,body){updateModalViewport();document.getElementById('modalTitle').textContent=title;const bodyEl=document.getElementById('modalBody');bodyEl.innerHTML=body;bodyEl.scrollTop=0;document.getElementById('modalBackdrop').classList.add('show')}
 function closeModal(){document.getElementById('modalBackdrop').classList.remove('show')}
 function teamForm(id=''){if(!requireAdmin())return;let t=db.teams.find(x=>x.id===id)||{name:'',captain:'',short:'',color:'#f5b82e'};openModal(id?'Edit team':'Add team',`<form onsubmit="saveTeam(event,'${id}')"><div class="field"><label>Team name</label><input name="name" required value="${esc(t.name)}"></div><div class="form-grid"><div class="field"><label>Captain</label><input name="captain" required value="${esc(t.captain)}"></div><div class="field"><label>Short name (2–3 letters)</label><input name="short" maxlength="3" required value="${esc(t.short)}"></div></div><div class="field"><label>Team color</label><input name="color" type="color" value="${t.color}"></div><button class="btn primary">Save team</button></form>`)}
 function saveTeam(e,id){e.preventDefault();let f=new FormData(e.target),v=Object.fromEntries(f);if(id)Object.assign(team(id),v);else db.teams.push({id:'t'+Date.now(),...v});save();closeModal();render()}
