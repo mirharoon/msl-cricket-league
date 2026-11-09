@@ -1,0 +1,19 @@
+{
+  "name": "Mariwala Super League",
+  "short_name": "MSL Cricket",
+  "description": "Official MSL cricket scores, teams, players and standings.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#081426",
+  "theme_color": "#081426",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/msl-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
