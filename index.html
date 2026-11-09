@@ -89,9 +89,10 @@ body{background:radial-gradient(ellipse at 50% -18%,#18385a 0%,#091a30 42%,#0613
 const firebaseConfig={apiKey:"AIzaSyBxcMJgbuu__w_EZcVxTH7IbyclIlO3UW8",authDomain:"msl-cricket-league.firebaseapp.com",projectId:"msl-cricket-league",storageBucket:"msl-cricket-league.firebasestorage.app",messagingSenderId:"907435432625",appId:"1:907435432625:web:24a1f484af333e3fcee090"};
 firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth(), firestore=firebase.firestore();
-let cloudUser=null, cloudReady=false, applyingCloud=false, initialServerSnapshot=false, saveQueue=Promise.resolve(), localDirtyBeforeCloud=localStorage.getItem(KEY+'_dirty')==='1';
+let cloudUser=null, cloudReady=false, applyingCloud=false, initialServerSnapshot=false, saveQueue=Promise.resolve(), localDirtyBeforeCloud=localStorage.getItem(KEY+'_let cloudUser=null, cloudReady=false, applyingCloud=false, initialServerSnapshot=false, saveQueue=Promise.resolve(), localDirtyBeforeCloud=false;dirty')==='1';
 try{firestore.enablePersistence({synchronizeTabs:true}).catch(()=>{});}catch(e){}
 const KEY='msl_league_v1';
+ localDirtyBeforeCloud=localStorage.getItem(KEY+'_dirty')==='1';
 const seed={
  season:9,year:2026,admin:false,
  teams:[
