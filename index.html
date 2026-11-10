@@ -130,6 +130,40 @@ body{background:radial-gradient(ellipse at 82% -12%,rgba(37,91,127,.32),transpar
 .batter-row strong{font-size:14px}
 @media(max-width:700px){.score-workspace,.score-workspace-flow{grid-template-columns:1fr}.score-workspace-flow .batter-card{order:0}.score-workspace-flow .bowler-card{order:1}.score-workspace-flow .score-action-card{order:2;grid-column:auto}.score-workspace-flow .over-card{order:3;grid-column:auto}.score-workspace-flow .innings-card{order:4;grid-column:auto}.score-action-card{grid-row:auto}.score-hero-redesigned{padding:15px 12px}.score-hero-redesigned .score-details{gap:8px 14px;font-size:11px}.score-controls-redesigned .run-btn{min-height:58px}.score-controls-redesigned.wicket-controls .run-btn{min-height:46px}.score-action-card{position:relative}.score-action-card .section-title{margin-top:13px}}
 @media(min-width:701px){.score-workspace .score-action-card{position:sticky;top:14px}}
+
+/* ===== NEW: Chase bar, match header, animations ===== */
+.msl-match-header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:14px 16px;margin-bottom:12px;border-radius:16px;background:linear-gradient(120deg,#173553,#0e2237);border:1px solid rgba(242,189,85,.25)}
+.msl-match-header .mh-team{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;min-width:0}
+.msl-match-header .mh-team .mh-badge{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-weight:1000;font-size:15px;background:#29415d;border:2px solid rgba(245,207,131,.45);overflow:hidden;color:#0f1c2c}
+.msl-match-header .mh-team .mh-badge img{width:100%;height:100%;object-fit:contain;background:#071222}
+.msl-match-header .mh-team .mh-name{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.msl-match-header .mh-team .mh-sub{font-size:10px;color:#9eb0c5}
+.msl-match-header .mh-vs{font-size:11px;font-weight:900;color:var(--gold2);letter-spacing:1.5px}
+.msl-match-header .mh-team.batting .mh-badge{box-shadow:0 0 0 3px rgba(242,189,85,.28)}
+
+.chase-bar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0 0}
+.chase-bar .chase-cell{padding:11px 10px;border-radius:12px;background:#10253d;border:1px solid #2d4660;text-align:center}
+.chase-bar .chase-cell .cc-label{font-size:9px;letter-spacing:1.2px;color:#9eb0c5;font-weight:800;text-transform:uppercase}
+.chase-bar .chase-cell .cc-value{font-size:20px;font-weight:1000;margin-top:3px;color:#f5cf83}
+.chase-bar.target .chase-cell .cc-value{color:#9af0cb}
+.chase-note{font-size:11px;color:#a8b9cc;text-align:center;margin:8px 0 0}
+
+.over-panel{margin-bottom:14px}
+.over-panel .delivery-list{max-height:220px;overflow:auto}
+
+/* Animations */
+#mslFxLayer{position:fixed;inset:0;pointer-events:none;z-index:9999;display:grid;place-items:center;overflow:hidden}
+.fx-burst{position:absolute;inset:0;display:grid;place-items:center;animation:fxFade 1.15s ease forwards}
+.fx-text{font-size:clamp(90px,22vw,190px);font-weight:1000;letter-spacing:-6px;line-height:1;color:#ffe0a0;text-shadow:0 0 40px rgba(242,189,85,.55),0 10px 40px rgba(0,0,0,.5);animation:fxPop .9s cubic-bezier(.2,.9,.3,1.2)}
+.fx-text.six{color:#ffe28a;text-shadow:0 0 50px rgba(255,209,102,.75),0 10px 40px rgba(0,0,0,.55)}
+.fx-text.four{color:#9af0cb;text-shadow:0 0 40px rgba(73,215,160,.55),0 10px 40px rgba(0,0,0,.5)}
+.fx-text.wicket{color:#ff9aa3;font-size:clamp(46px,10vw,96px);letter-spacing:0;text-shadow:0 0 40px rgba(255,115,125,.55),0 10px 40px rgba(0,0,0,.5)}
+.fx-ring{position:absolute;width:min(70vw,520px);height:min(70vw,520px);border-radius:50%;border:4px solid rgba(245,207,131,.55);animation:fxRing 1s ease-out forwards}
+.fx-ring.r2{animation-delay:.12s;border-color:rgba(245,207,131,.28)}
+.fx-ring.wicket{border-color:rgba(255,115,125,.6)}
+@keyframes fxPop{0%{transform:scale(.35);opacity:0}55%{transform:scale(1.08);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes fxRing{0%{transform:scale(.25);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+@keyframes fxFade{0%{opacity:0}12%{opacity:1}80%{opacity:1}100%{opacity:0}}
 </style>
 </head>
 <body>
@@ -165,6 +199,7 @@ body{background:radial-gradient(ellipse at 82% -12%,rgba(37,91,127,.32),transpar
 <div class="footer">MSL – Mariwala Super League · Season 9 · Jhabar Cricket Ground</div>
 </div>
 <div class="modal-backdrop" id="modalBackdrop" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="modal-head"><h2 id="modalTitle">Add item</h2><button class="close" onclick="closeModal()">×</button></div><div id="modalBody"></div></div></div>
+<div id="mslFxLayer" aria-hidden="true"></div>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
@@ -332,7 +367,179 @@ function chooseScoringMatch(){if(!requireAdmin())return;let choices=db.matches.f
 function startMatch(id){if(!requireAdmin())return;let m=db.matches.find(x=>x.id===id);if(!m)return;if(!m.innings)m.innings=[];if(m.innings.length){m.status='Live';db.activeMatch=id;save();scorePage(id);return}let playersA=db.players.filter(p=>p.teamId===m.teamA),playersB=db.players.filter(p=>p.teamId===m.teamB);if(playersA.length<2||playersB.length<1){alert('Add at least two players to the batting team and one to the bowling team before starting.');return}openModal('Match setup · Toss & officials',`<form onsubmit="setupMatch(event,'${id}')"><div class="field"><label>Toss winner</label><select name="tossWinner"><option value="${m.teamA}">${esc(team(m.teamA).name)}</option><option value="${m.teamB}">${esc(team(m.teamB).name)}</option></select></div><div class="field"><label>Toss decision</label><select name="decision"><option value="bat">Elected to bat</option><option value="bowl">Elected to bowl</option></select></div><div class="field"><label>First innings batting team</label><select name="batting" id="setupBatting" onchange="refreshSetupPlayers('${id}')"><option value="${m.teamA}">${esc(team(m.teamA).name)}</option><option value="${m.teamB}">${esc(team(m.teamB).name)}</option></select></div><div class="field"><label>Opening striker</label><select name="striker" id="setupStriker" required>${[...playersA,...playersB].map(p=>`<option value="${p.id}">${esc(p.name)} · ${esc(team(p.teamId).name)}</option>`).join('')}</select></div><div class="field"><label>Opening non-striker</label><select name="nonStriker" id="setupNonStriker" required>${[...playersA,...playersB].map(p=>`<option value="${p.id}">${esc(p.name)} · ${esc(team(p.teamId).name)}</option>`).join('')}</select></div><div class="field"><label>Opening bowler</label><select name="bowler" id="setupBowler" required>${[...playersA,...playersB].map(p=>`<option value="${p.id}">${esc(p.name)} · ${esc(team(p.teamId).name)}</option>`).join('')}</select></div><div class="form-grid"><div class="field"><label>Umpire 1</label><input name="umpire1" placeholder="Umpire name"></div><div class="field"><label>Umpire 2</label><input name="umpire2" placeholder="Umpire name"></div></div><div class="field"><label>Scorer</label><input name="scorer" placeholder="Scorer name"></div><button class="btn primary">Confirm toss & start innings</button></form>`)}
 function refreshSetupPlayers(id){let m=db.matches.find(x=>x.id===id),bat=document.getElementById('setupBatting')?.value;if(!m||!bat)return;let bowl=bat===m.teamA?m.teamB:m.teamA;let batters=db.players.filter(p=>p.teamId===bat),bowlers=db.players.filter(p=>p.teamId===bowl);['setupStriker','setupNonStriker'].forEach(k=>{let el=document.getElementById(k),old=el.value;el.innerHTML=batters.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');if(batters.some(p=>p.id===old))el.value=old});let be=document.getElementById('setupBowler'),old=be.value;be.innerHTML=bowlers.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');if(bowlers.some(p=>p.id===old))be.value=old}
 function setupMatch(e,id){e.preventDefault();let v=Object.fromEntries(new FormData(e.target)),m=db.matches.find(x=>x.id===id);let batting=v.batting,bowling=batting===m.teamA?m.teamB:m.teamA;let validBat=db.players.filter(p=>p.teamId===batting).map(p=>p.id);let validBowl=db.players.filter(p=>p.teamId===bowling).map(p=>p.id);if(!validBat.includes(v.striker)||!validBat.includes(v.nonStriker)||v.striker===v.nonStriker||!validBowl.includes(v.bowler)){alert('Choose two different batters from the batting team and a bowler from the opposing team.');return}m.tossWinner=v.tossWinner;m.tossDecision=v.decision;m.umpires=[v.umpire1,v.umpire2].filter(Boolean);m.scorer=v.scorer||'';m.innings=[newInnings(batting,bowling,v.striker,v.nonStriker,v.bowler)];m.status='Live';db.activeMatch=id;save();closeModal();scorePage(id)}
-function newInnings(bat,bowl,striker,non,bowler){return {batting:bat,bowling:bowl,runs:0,wickets:0,legal:0,balls:[],striker:striker||'',nonStriker:non||'',bowler:bowler||'',batStats:{},bowlStats:{},extras:{wide:0,noBall:0,bye:0,legBye:0,penalty:0},fow:[],dismissals:[],overBowlers:[],pendingBowler:false}}
+function newInnings(bat,bowl,striker,non,bowler){return {batting:bat,bowling:bowl,runs:0,wickets:0,legal:0,balls:[],striker:striker||'',nonStriker:non||'',bowler:bowler||'',batStats:{},bowlStats:{},extras:{wide:0,noBall:0,bye:0,legBye:0,penalty:0},fow:[],dismissals:[],overBowlers:[],pendingBowler:false,undoStack:[]}}
+
+/* ============================================================
+   Match header (both teams + logos) — used inside scorer.
+============================================================ */
+function matchHeaderHTML(m){
+  const a=team(m.teamA), b=team(m.teamB);
+  const lastInn=m.innings?.[m.innings.length-1];
+  const battingId=lastInn?.batting;
+  const logoOrShort=(t)=>t.logo?`<img src="${t.logo}" alt="${esc(t.name)} logo">`:t.short;
+  const subFor=(t)=>{
+    const inn=m.innings||[];
+    const own=inn.filter(i=>i.batting===t.id);
+    if(!own.length)return 'Yet to bat';
+    const i=own[own.length-1];
+    return `${i.runs}/${i.wickets} (${Math.floor(i.legal/6)}.${i.legal%6})`;
+  };
+  return `<div class="msl-match-header">
+    <div class="mh-team ${battingId===m.teamA?'batting':''}">
+      <div class="mh-badge" style="background:${a.color}">${logoOrShort(a)}</div>
+      <div class="mh-name">${esc(a.name)}</div>
+      <div class="mh-sub">${esc(subFor(a))}</div>
+    </div>
+    <div class="mh-vs">VS</div>
+    <div class="mh-team ${battingId===m.teamB?'batting':''}">
+      <div class="mh-badge" style="background:${b.color}">${logoOrShort(b)}</div>
+      <div class="mh-name">${esc(b.name)}</div>
+      <div class="mh-sub">${esc(subFor(b))}</div>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   Chase info: runs required + balls remaining.
+============================================================ */
+function chaseInfoHTML(m){
+  const inn=m.innings||[];
+  if(inn.length<2)return '';
+  const first=inn[0], second=inn[1];
+  const target=first.runs+1;
+  const runsNeeded=Math.max(0, target-second.runs);
+  const ballsTotal=m.oversLimit*6;
+  const ballsRemaining=Math.max(0, ballsTotal-second.legal);
+  const wicketsLeft=Math.max(0,10-second.wickets);
+  if(runsNeeded===0){
+    return `<div class="chase-bar target">
+      <div class="chase-cell"><div class="cc-label">Result</div><div class="cc-value">WON</div></div>
+      <div class="chase-cell"><div class="cc-label">Balls left</div><div class="cc-value">${ballsRemaining}</div></div>
+      <div class="chase-cell"><div class="cc-label">Wkts in hand</div><div class="cc-value">${wicketsLeft}</div></div>
+    </div><p class="chase-note">${esc(team(second.batting).name)} chased down ${target} with ${ballsRemaining} ball${ballsRemaining===1?'':'s'} to spare.</p>`;
+  }
+  return `<div class="chase-bar">
+    <div class="chase-cell"><div class="cc-label">Runs required</div><div class="cc-value">${runsNeeded}</div></div>
+    <div class="chase-cell"><div class="cc-label">Balls remaining</div><div class="cc-value">${ballsRemaining}</div></div>
+    <div class="chase-cell"><div class="cc-label">Wickets left</div><div class="cc-value">${wicketsLeft}</div></div>
+  </div><p class="chase-note">${esc(team(second.batting).name)} need ${runsNeeded} run${runsNeeded===1?'':'s'} from ${ballsRemaining} ball${ballsRemaining===1?'':'s'} · Target ${target}</p>`;
+}
+
+/* ============================================================
+   Animation: 4 / 6 / Wicket.
+============================================================ */
+function playFx(kind){
+  const layer=document.getElementById('mslFxLayer');
+  if(!layer)return;
+  layer.innerHTML='';
+  let cls='',text='',ringCls='';
+  if(kind==='four'){cls='four';text='4';}
+  else if(kind==='six'){cls='six';text='6';}
+  else if(kind==='wicket'){cls='wicket';text='OUT';ringCls='wicket';}
+  else return;
+  const burst=document.createElement('div');
+  burst.className='fx-burst';
+  const ring1=document.createElement('div');ring1.className='fx-ring '+ringCls;
+  const ring2=document.createElement('div');ring2.className='fx-ring r2 '+ringCls;
+  const t=document.createElement('div');t.className='fx-text '+cls;t.textContent=text;
+  burst.appendChild(ring1);burst.appendChild(ring2);burst.appendChild(t);
+  layer.appendChild(burst);
+  setTimeout(()=>{if(layer.firstChild===burst)layer.innerHTML='';},1250);
+}
+
+/* ============================================================
+   Extras prompt (wide/no-ball/bye/leg-bye) — asks runs.
+============================================================ */
+function askExtraRuns(id,type){
+  if(!requireAdmin())return;
+  const titleMap={wide:'Wide',noBall:'No-ball',bye:'Bye',legBye:'Leg-bye'};
+  const isNoBall=type==='noBall', isWide=type==='wide';
+  const isBye=type==='bye'||type==='legBye';
+  openModal(titleMap[type]+' · how many runs?', `
+    <form onsubmit="confirmExtra(event,'${id}','${type}')">
+      ${isNoBall?`
+        <div class="field">
+          <label>Runs off the bat</label>
+          <select name="batRuns">${[0,1,2,3,4,6].map(n=>`<option value="${n}">${n}</option>`).join('')}</select>
+        </div>
+        <div class="field">
+          <label>Extra runs run (byes/leg-byes on top of no-ball)</label>
+          <select name="extraRuns">${[0,1,2,3,4].map(n=>`<option value="${n}">${n}</option>`).join('')}</select>
+        </div>
+        <p class="upload-help">No-ball penalty (1 run) is added automatically. The delivery does not count as a legal ball.</p>`:''}
+      ${isWide?`
+        <div class="field">
+          <label>Total wide runs (including the penalty)</label>
+          <select name="totalRuns">${[1,2,3,4,5].map(n=>`<option value="${n}">${n}</option>`).join('')}</select>
+        </div>
+        <p class="upload-help">Wide penalty (1 run) plus any runs run. Not a legal ball, and no bat runs are allowed.</p>`:''}
+      ${isBye?`
+        <div class="field">
+          <label>Runs completed (${titleMap[type].toLowerCase()})</label>
+          <select name="extraRuns">${[1,2,3,4].map(n=>`<option value="${n}">${n}</option>`).join('')}</select>
+        </div>
+        <p class="upload-help">Byes and leg-byes are legal deliveries. The bowler is not charged for these runs.</p>`:''}
+      <button class="btn primary" type="submit">Record delivery</button>
+    </form>`);
+}
+
+function confirmExtra(e,id,type){
+  e.preventDefault();
+  if(!requireAdmin())return;
+  const v=Object.fromEntries(new FormData(e.target));
+  const [m,i]=getInn(id);
+  // Guard overs limit for legal-ball extras
+  if((type==='bye'||type==='legBye')&&i.legal>=m.oversLimit*6){alert('Overs limit reached.');return;}
+  pushUndo(i);
+  const bat=addBat(i,i.striker), bw=addBowl(i,i.bowler);
+  let fxKind=null;
+
+  if(type==='wide'){
+    const total=Number(v.totalRuns)||1;
+    i.runs+=total;
+    i.extras.wide=(i.extras.wide||0)+total;
+    bw.runs+=total;
+    i.balls.push({label:'Wd'+(total>1?`+${total-1}`:''),runs:total,legal:false,kind:'wide',batter:i.striker,bowler:i.bowler});
+    if(total%2===1){/* runs run, striker keeps strike on odd runs but wide penalty (1) alone doesn't rotate */ if(total>1)[i.striker,i.nonStriker]=[i.nonStriker,i.striker];}
+    save();closeModal();scorePage(id);return;
+  }
+
+  if(type==='noBall'){
+    const batRuns=Number(v.batRuns)||0;
+    const extraRuns=Number(v.extraRuns)||0;
+    const penalty=1;
+    const total=penalty+extraRuns+batRuns;
+    i.runs+=total;
+    i.extras.noBall=(i.extras.noBall||0)+penalty+extraRuns;
+    if(batRuns>0){bat.runs+=batRuns;bat.balls+=1;}
+    bw.runs+=total;
+    i.balls.push({label:'Nb'+(batRuns?`+${batRuns}`:'')+(extraRuns?`+${extraRuns}b`:''),runs:total,legal:false,kind:'noBall',batter:i.striker,bowler:i.bowler});
+    if(batRuns%2===1)[i.striker,i.nonStriker]=[i.nonStriker,i.striker];
+    else if(batRuns===0&&extraRuns%2===1)[i.striker,i.nonStriker]=[i.nonStriker,i.striker];
+    save();closeModal();scorePage(id);return;
+  }
+
+  // bye / legBye
+  const runs=Number(v.extraRuns)||0;
+  if(runs<1){alert('Select at least 1 run.');return;}
+  i.runs+=runs;
+  i.extras[type]=(i.extras[type]||0)+runs;
+  bat.balls+=1;
+  bw.balls+=1;
+  i.legal+=1;
+  i.balls.push({label:(type==='bye'?'B':'Lb')+(runs>1?String(runs):''),runs,legal:true,kind:type,batter:i.striker,bowler:i.bowler});
+  if(runs%2===1)[i.striker,i.nonStriker]=[i.nonStriker,i.striker];
+  if(i.legal%6===0){
+    [i.striker,i.nonStriker]=[i.nonStriker,i.striker];
+    if(i.legal<m.oversLimit*6)i.pendingBowler=true;
+  }
+  save();closeModal();
+  if(i.pendingBowler)chooseNextBowler(id);else scorePage(id);
+}
+
+/* ============================================================
+   Live scorer page.
+============================================================ */
 function scorePageContent(id){
  let m=db.matches.find(x=>x.id===id);
  if(!m)return '<div class="card"><h2>Match not found</h2><p class="muted">The saved match could not be found on this device yet.</p>'+btn('Back to matches',"go('matches')")+'</div>';
@@ -345,11 +552,12 @@ function scorePageContent(id){
  let overBalls=inn.balls||[];let currentOverStart=0,legalSeen=0;overBalls.forEach((delivery,index)=>{if(delivery.legal){legalSeen++;if(legalSeen%6===0)currentOverStart=index+1}});overBalls=overBalls.slice(currentOverStart);
  const ballName=b=>{if(b.kind==='wide')return 'Wide';if(b.kind==='noBall')return 'No-ball';if(b.kind==='bye')return 'Bye';if(b.kind==='legBye')return 'Leg-bye';if(b.kind==='wicket')return 'Wicket'+(b.dismissal?' · '+b.dismissal:'');if(b.kind==='run')return b.runs===0?'Dot ball':b.runs+' run'+(b.runs===1?'':'s');return b.label||'Delivery'};
  return `${head('Live scoring',`${esc(team(m.teamA).name)} vs ${esc(team(m.teamB).name)} · ${esc(m.venue||'Jhabar Cricket Ground')}`,btn('Match centre',`openMatch('${id}')`))}
+ ${matchHeaderHTML(m)}
  <div class="admin-banner"><span>● LIVE SCORING</span><span style="float:right">${fmtDate(m.date)} · ${m.oversLimit} overs</span></div>
- <section class="score-hero score-hero-redesigned"><div class="eyebrow">${esc(bat.name)} BATTING · INNINGS ${m.innings.length}</div><div class="score-big"><span>${Number(inn.runs)||0}</span><small>/ ${Number(inn.wickets)||0}</small></div><div class="score-notation">RUNS / WICKETS</div><div class="score-details"><span><b>${over}.${ball}</b> Overs</span><span><b>${inn.legal||0}</b> Legal balls</span><span><b>${inn.legal?(inn.runs/(inn.legal/6)).toFixed(2):'0.00'}</b> Run rate</span><span><b>${extras}</b> Extras</span></div><div class="score-opposition">Bowling: ${esc(bowl.name)}</div></section>
+ <section class="score-hero score-hero-redesigned"><div class="eyebrow">${esc(bat.name)} BATTING · INNINGS ${m.innings.length}</div><div class="score-big"><span>${Number(inn.runs)||0}</span><small>/ ${Number(inn.wickets)||0}</small></div><div class="score-notation">RUNS / WICKETS</div><div class="score-details"><span><b>${over}.${ball}</b> Overs</span><span><b>${inn.legal||0}</b> Legal balls</span><span><b>${inn.legal?(inn.runs/(inn.legal/6)).toFixed(2):'0.00'}</b> Run rate</span><span><b>${extras}</b> Extras</span></div><div class="score-opposition">Bowling: ${esc(bowl.name)}</div>${chaseInfoHTML(m)}</section>
  <div class="score-workspace score-workspace-flow">
   <section class="card batter-card"><div class="section-title" style="margin-top:0"><div><div class="eyebrow">AT THE CREASE</div><h2>Batters</h2></div><span class="badge live">● LIVE</span></div>
-   <div class="batter-stat-row ${'striker'}"><div><strong>${esc(sr.name)} *</strong><span class="strike-tag">ON STRIKE</span></div><strong>${srs.runs||0} <small>(${srs.balls||0})</small></strong></div>
+   <div class="batter-stat-row striker"><div><strong>${esc(sr.name)} *</strong><span class="strike-tag">ON STRIKE</span></div><strong>${srs.runs||0} <small>(${srs.balls||0})</small></strong></div>
    <div class="batter-stat-row"><div><strong>${esc(ns.name)}</strong><span class="muted">NON-STRIKER</span></div><strong>${nss.runs||0} <small>(${nss.balls||0})</small></strong></div>
    <div class="batter-note">* = currently facing the next delivery · Runs (balls faced)</div>
    <div class="field"><label>Change striker / batter at crease</label><select id="newStriker">${db.players.filter(p=>p.teamId===inn.batting).map(p=>`<option value="${p.id}" ${p.id===inn.striker?'selected':''}>${esc(p.name)}</option>`).join('')}</select></div><button class="btn" onclick="changePlayer('${id}','striker')">Update striker</button>
@@ -358,15 +566,15 @@ function scorePageContent(id){
    <div class="bowler-figures"><div><strong>${Math.floor((bwsNow.balls||0)/6)}.${(bwsNow.balls||0)%6}</strong><span>Overs</span></div><div><strong>${bwsNow.runs||0}</strong><span>Runs</span></div><div><strong>${bwsNow.wickets||0}</strong><span>Wickets</span></div></div>
    <div class="field"><label>Change bowler</label><select id="newBowler">${db.players.filter(p=>p.teamId===inn.bowling).map(p=>`<option value="${p.id}" ${p.id===inn.bowler?'selected':''}>${esc(p.name)}</option>`).join('')}</select></div><button class="btn" onclick="changePlayer('${id}','bowler')">Update bowler</button>
   </section>
-  <section class="card score-action-card"><div class="section-title"><div><div class="eyebrow">SCORER CONTROLS</div><h2>Record this ball</h2></div><span class="muted">One tap per delivery</span></div>
-   <div class="score-controls score-controls-redesigned"><button class="run-btn" onclick="recordBall('${id}',0)">0</button><button class="run-btn" onclick="recordBall('${id}',1)">1</button><button class="run-btn" onclick="recordBall('${id}',2)">2</button><button class="run-btn" onclick="recordBall('${id}',3)">3</button><button class="run-btn boundary" onclick="recordBall('${id}',4)">4</button><button class="run-btn six" onclick="recordBall('${id}',6)">6</button></div>
-   <div class="section-title"><h2>Extras</h2><span class="muted">Select if applicable</span></div><div class="score-controls score-controls-redesigned"><button class="run-btn" onclick="recordExtra('${id}','wide')">Wide</button><button class="run-btn" onclick="recordExtra('${id}','noBall')">No-ball</button><button class="run-btn" onclick="recordExtra('${id}','bye')">Bye</button><button class="run-btn" onclick="recordExtra('${id}','legBye')">Leg-bye</button></div>
-   <div class="section-title"><h2>Wicket</h2></div><div class="score-controls score-controls-redesigned wicket-controls"><button class="run-btn wicket" onclick="recordWicket('${id}','Bowled')">Bowled</button><button class="run-btn wicket" onclick="recordWicket('${id}','Caught')">Caught</button><button class="run-btn wicket" onclick="recordWicket('${id}','LBW')">LBW</button><button class="run-btn wicket" onclick="recordWicket('${id}','Run out')">Run out</button><button class="run-btn wicket" onclick="recordWicket('${id}','Stumped')">Stumped</button><button class="run-btn wicket" onclick="recordWicket('${id}','Hit wicket')">Hit wicket</button></div>
-  </section>
-  <section class="card over-card"><div class="section-title" style="margin-top:0"><div><div class="eyebrow">BALL-BY-BALL</div><h2>Over ${over+1} deliveries</h2></div><span class="badge">${overBalls.length} recorded</span></div>
+  <section class="card over-card over-panel"><div class="section-title" style="margin-top:0"><div><div class="eyebrow">BALL-BY-BALL</div><h2>Over ${over+1} deliveries</h2></div><span class="badge">${overBalls.length} recorded</span></div>
    <div class="delivery-list">${overBalls.map((b,n)=>`<div class="delivery-row"><span class="delivery-number">${n+1}</span><span>${esc(ballName(b))}</span><strong>${esc(b.label||'—')}</strong></div>`).join('')||'<p class="muted">No deliveries recorded in this over yet.</p>'}</div>
    <div class="over-actions"><button class="btn undo-btn" onclick="undoBall('${id}')" ${!inn.balls?.length||!inn.undoStack?.length?'disabled':''}>↶ Undo last action</button>${btn('End innings',`endInnings('${id}')`,'danger')}</div>
    <p class="batter-note">Undo reverses the last recorded delivery and restores the score, batters, bowler figures and wickets.</p>
+  </section>
+  <section class="card score-action-card"><div class="section-title"><div><div class="eyebrow">SCORER CONTROLS</div><h2>Record this ball</h2></div><span class="muted">One tap per delivery</span></div>
+   <div class="score-controls score-controls-redesigned"><button class="run-btn" onclick="recordBall('${id}',0)">0</button><button class="run-btn" onclick="recordBall('${id}',1)">1</button><button class="run-btn" onclick="recordBall('${id}',2)">2</button><button class="run-btn" onclick="recordBall('${id}',3)">3</button><button class="run-btn boundary" onclick="recordBall('${id}',4)">4</button><button class="run-btn six" onclick="recordBall('${id}',6)">6</button></div>
+   <div class="section-title"><h2>Extras</h2><span class="muted">Select if applicable</span></div><div class="score-controls score-controls-redesigned"><button class="run-btn" onclick="askExtraRuns('${id}','wide')">Wide</button><button class="run-btn" onclick="askExtraRuns('${id}','noBall')">No-ball</button><button class="run-btn" onclick="askExtraRuns('${id}','bye')">Bye</button><button class="run-btn" onclick="askExtraRuns('${id}','legBye')">Leg-bye</button></div>
+   <div class="section-title"><h2>Wicket</h2></div><div class="score-controls score-controls-redesigned wicket-controls"><button class="run-btn wicket" onclick="recordWicket('${id}','Bowled')">Bowled</button><button class="run-btn wicket" onclick="recordWicket('${id}','Caught')">Caught</button><button class="run-btn wicket" onclick="recordWicket('${id}','LBW')">LBW</button><button class="run-btn wicket" onclick="recordWicket('${id}','Run out')">Run out</button><button class="run-btn wicket" onclick="recordWicket('${id}','Stumped')">Stumped</button><button class="run-btn wicket" onclick="recordWicket('${id}','Hit wicket')">Hit wicket</button></div>
   </section>
   <section class="card innings-card"><div class="section-title" style="margin-top:0"><h2>Innings summary</h2></div><div class="summary-row"><span>Legal deliveries</span><strong>${inn.legal||0}</strong></div><div class="summary-row"><span>Wickets</span><strong>${inn.wickets||0}</strong></div><div class="summary-row"><span>Extras</span><strong>${extras}</strong></div><div class="summary-row"><span>Umpires</span><strong>${esc((m.umpires||[]).join(' / ')||'—')}</strong></div><div class="section-title"><h2>Match controls</h2></div>${btn('Complete match',`completeMatch('${id}')`,'danger')}</section>
  </div>`;
@@ -377,10 +585,33 @@ function snapshot(inn){return JSON.parse(JSON.stringify(inn))}
 function pushUndo(i){i.undoStack=i.undoStack||[];let c=snapshot(i);delete c.undoStack;i.undoStack.push(c);if(i.undoStack.length>100)i.undoStack.shift()}
 function addBat(inn,id){if(!inn.batStats[id])inn.batStats[id]={runs:0,balls:0,fours:0,sixes:0};return inn.batStats[id]}
 function addBowl(inn,id){if(!inn.bowlStats[id])inn.bowlStats[id]={runs:0,balls:0,wickets:0};return inn.bowlStats[id]}
-function recordBall(id,r){if(!requireAdmin())return;let [m,i]=getInn(id);if(i.legal>=m.oversLimit*6){alert('Overs limit reached.');return}pushUndo(i);let b=addBat(i,i.striker),bw=addBowl(i,i.bowler);i.runs+=r;b.runs+=r;b.balls++;if(r===4)b.fours++;if(r===6)b.sixes++;bw.runs+=r;bw.balls++;i.legal++;i.balls.push({label:String(r),runs:r,legal:true,kind:'run',batter:i.striker,bowler:i.bowler});if(r%2)[i.striker,i.nonStriker]=[i.nonStriker,i.striker];if(i.legal%6===0){[i.striker,i.nonStriker]=[i.nonStriker,i.striker];if(i.legal<m.oversLimit*6)i.pendingBowler=true}save();if(i.pendingBowler)chooseNextBowler(id);else scorePage(id)}
-function recordExtra(id,type){if(!requireAdmin())return;let [m,i]=getInn(id);if(i.legal>=m.oversLimit*6){alert('Overs limit reached.');return}pushUndo(i);let amount=1;i.runs+=amount;i.extras[type]=(i.extras[type]||0)+amount;let legal=type==='bye'||type==='legBye';let label=type==='wide'?'Wd':type==='noBall'?'Nb':type==='bye'?'B':'Lb';if(type==='wide'||type==='noBall')addBowl(i,i.bowler).runs+=amount;else addBowl(i,i.bowler).balls++;if(legal){if(amount%2)[i.striker,i.nonStriker]=[i.nonStriker,i.striker];i.legal++;if(i.legal%6===0){[i.striker,i.nonStriker]=[i.nonStriker,i.striker];if(i.legal<m.oversLimit*6)i.pendingBowler=true}}i.balls.push({label,runs:amount,legal,kind:type,batter:i.striker,bowler:i.bowler});save();if(i.pendingBowler)chooseNextBowler(id);else scorePage(id)}
+
+/* ============================================================
+   recordBall now fires animations for 4 and 6.
+============================================================ */
+function recordBall(id,r){
+  if(!requireAdmin())return;
+  let [m,i]=getInn(id);
+  if(i.legal>=m.oversLimit*6){alert('Overs limit reached.');return}
+  pushUndo(i);
+  let b=addBat(i,i.striker),bw=addBowl(i,i.bowler);
+  i.runs+=r;b.runs+=r;b.balls++;
+  if(r===4)b.fours++;
+  if(r===6)b.sixes++;
+  bw.runs+=r;bw.balls++;i.legal++;
+  i.balls.push({label:String(r),runs:r,legal:true,kind:'run',batter:i.striker,bowler:i.bowler});
+  if(r%2)[i.striker,i.nonStriker]=[i.nonStriker,i.striker];
+  if(i.legal%6===0){
+    [i.striker,i.nonStriker]=[i.nonStriker,i.striker];
+    if(i.legal<m.oversLimit*6)i.pendingBowler=true
+  }
+  save();
+  if(r===4)playFx('four');else if(r===6)playFx('six');
+  if(i.pendingBowler)chooseNextBowler(id);else scorePage(id)
+}
+function recordExtra(id,type){/* legacy — unused; kept for safety. */askExtraRuns(id,type)}
 function recordWicket(id,kind){if(!requireAdmin())return;let [m,i]=getInn(id);if(i.legal>=m.oversLimit*6){alert('Overs limit reached.');return}pushUndo(i);let out=i.striker;let remaining=db.players.filter(p=>p.teamId===i.batting&&! [i.striker,i.nonStriker].includes(p.id)&&!i.dismissals.some(d=>d.player===p.id));let fielders=db.players.filter(p=>p.teamId===i.bowling);openModal('Wicket details',`<form onsubmit="confirmWicket(event,'${id}','${kind}','${out}')"><p><strong>${esc(player(out).name)}</strong> · ${esc(kind)}</p><div class="field"><label>Dismissed batter</label><select name="dismissed"><option value="${i.striker}">Striker: ${esc(player(i.striker).name)}</option><option value="${i.nonStriker}">Non-striker: ${esc(player(i.nonStriker).name)}</option></select></div>${kind==='Caught'?`<div class="field"><label>Caught by</label><select name="fielder">${fielders.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div>`:''}${kind==='Run out'?`<div class="field"><label>Run out by (fielder)</label><select name="fielder">${fielders.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Which end / batter dismissed?</label><select name="dismissed"><option value="${i.striker}">${esc(player(i.striker).name)} (striker)</option><option value="${i.nonStriker}">${esc(player(i.nonStriker).name)} (non-striker)</option></select></div><div class="field"><label>Completed runs before run out</label><select name="completedRuns"><option>0</option><option>1</option><option>2</option><option>3</option></select></div>`:''}<div class="field"><label>Next batter</label><select name="nextBatter"><option value="">Select after wicket</option>${remaining.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><button class="btn primary">Confirm wicket</button></form>`)}
-function confirmWicket(e,id,kind,out){e.preventDefault();let [m,i]=getInn(id),v=Object.fromEntries(new FormData(e.target)),dismissed=v.dismissed||out,legal=true;pushUndo(i);let completed=Number(v.completedRuns||0);i.runs+=completed;i.wickets++;i.legal++;let bw=addBowl(i,i.bowler);bw.balls++;if(!['Run out'].includes(kind))bw.wickets++;i.fow.push({w:i.wickets,r:i.runs,over:`${Math.floor((i.legal-1)/6)}.${(i.legal-1)%6}`,player:dismissed});i.dismissals.push({player:dismissed,kind,fielder:v.fielder||'',bowler:i.bowler,over:i.legal});m.fielding=m.fielding||{};if(v.fielder){m.fielding[v.fielder]=m.fielding[v.fielder]||{catches:0,runOuts:0};if(kind==='Caught')m.fielding[v.fielder].catches++;if(kind==='Run out')m.fielding[v.fielder].runOuts++;}i.balls.push({label:'W',runs:completed,legal,kind:'wicket',dismissal:kind,player:dismissed,fielder:v.fielder||'',bowler:i.bowler});let next=v.nextBatter,end=dismissed===i.striker?'striker':'nonStriker';i[end]=next||'';i.pendingWicketEnd=end;if(i.legal%6===0){[i.striker,i.nonStriker]=[i.nonStriker,i.striker];if(i.legal<m.oversLimit*6)i.pendingBowler=true}save();closeModal();if(i.wickets>=10||i.legal>=m.oversLimit*6){scorePage(id);return}if(!next){openModal('Select next batter',`<p>Choose the incoming batter to continue.</p><div class="field"><select id="nextBatter">${db.players.filter(p=>p.teamId===i.batting&&!i.dismissals.some(d=>d.player===p.id)).map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><button class="btn primary" onclick="setNextBatter('${id}','${dismissed}')">Continue</button>`);return}if(i.pendingBowler)chooseNextBowler(id);else scorePage(id)}
+function confirmWicket(e,id,kind,out){e.preventDefault();let [m,i]=getInn(id),v=Object.fromEntries(new FormData(e.target)),dismissed=v.dismissed||out,legal=true;pushUndo(i);let completed=Number(v.completedRuns||0);i.runs+=completed;i.wickets++;i.legal++;let bw=addBowl(i,i.bowler);bw.balls++;if(!['Run out'].includes(kind))bw.wickets++;i.fow.push({w:i.wickets,r:i.runs,over:`${Math.floor((i.legal-1)/6)}.${(i.legal-1)%6}`,player:dismissed});i.dismissals.push({player:dismissed,kind,fielder:v.fielder||'',bowler:i.bowler,over:i.legal});m.fielding=m.fielding||{};if(v.fielder){m.fielding[v.fielder]=m.fielding[v.fielder]||{catches:0,runOuts:0};if(kind==='Caught')m.fielding[v.fielder].catches++;if(kind==='Run out')m.fielding[v.fielder].runOuts++;}i.balls.push({label:'W',runs:completed,legal,kind:'wicket',dismissal:kind,player:dismissed,fielder:v.fielder||'',bowler:i.bowler});let next=v.nextBatter,end=dismissed===i.striker?'striker':'nonStriker';i[end]=next||'';i.pendingWicketEnd=end;if(i.legal%6===0){[i.striker,i.nonStriker]=[i.nonStriker,i.striker];if(i.legal<m.oversLimit*6)i.pendingBowler=true}save();closeModal();playFx('wicket');if(i.wickets>=10||i.legal>=m.oversLimit*6){scorePage(id);return}if(!next){openModal('Select next batter',`<p>Choose the incoming batter to continue.</p><div class="field"><select id="nextBatter">${db.players.filter(p=>p.teamId===i.batting&&!i.dismissals.some(d=>d.player===p.id)).map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><button class="btn primary" onclick="setNextBatter('${id}','${dismissed}')">Continue</button>`);return}if(i.pendingBowler)chooseNextBowler(id);else scorePage(id)}
 function setNextBatter(id,dismissed){let [m,i]=getInn(id),v=document.getElementById('nextBatter').value;if(!v)return;i[i.pendingWicketEnd||'striker']=v;delete i.pendingWicketEnd;closeModal();save();if(i.pendingBowler)chooseNextBowler(id);else scorePage(id)}
 function chooseNextBowler(id){let [m,i]=getInn(id);let eligible=db.players.filter(p=>p.teamId===i.bowling&&p.id!==i.bowler);openModal('Over complete · Select next bowler',`<p>Six legal balls completed. Select the bowler for over ${Math.floor(i.legal/6)+1}.</p><div class="field"><label>Next over bowler</label><select id="nextBowler">${eligible.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><button class="btn primary" onclick="setNextBowler('${id}')">Start next over</button>`)}
 function setNextBowler(id){let [m,i]=getInn(id),v=document.getElementById('nextBowler').value;if(!v){alert('Select a bowler.');return}i.bowler=v;i.pendingBowler=false;i.overBowlers.push(v);closeModal();save();scorePage(id)}
