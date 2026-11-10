@@ -190,6 +190,8 @@ body{background:radial-gradient(ellipse at 82% -12%,rgba(37,91,127,.32),transpar
 @keyframes fxFade{0%{opacity:0}12%{opacity:1}80%{opacity:1}100%{opacity:0}}
 .fs-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#f5cf83;margin-right:4px}
 .bowler-locked{opacity:.5;pointer-events:none}
+ #inningsBreakLayer{position:relative;z-index:800}
+.innings-break{z-index:800!important}
 </style>
 </head>
 <body>
@@ -658,12 +660,25 @@ function renderInningsBreak(){
   </div></div>`;
 }
 function startSecondInningsFromBreak(id){
+  if(!requireAdmin())return;
   const host=document.getElementById('inningsBreakLayer');
   if(host)host.innerHTML='';
-  // Reuse endInnings flow
-  endInnings(id);
+  openSecondInningsForm(id);
 }
 
+ function openSecondInningsForm(id){
+  if(!requireAdmin())return;
+  let m=db.matches.find(x=>x.id===id);
+  if(!m)return;
+  if(m.innings.length>=2){alert('Innings 2 has already started.');return}
+  let i=m.innings[m.innings.length-1];
+  if(!i)return;
+  let batting=i.bowling, bowling=i.batting;
+  let eligible=db.players.filter(p=>p.teamId===batting);
+  let other=db.players.filter(p=>p.teamId===bowling);
+  if(eligible.length<2||other.length<1){alert('Add at least two batters and one bowler for the second innings.');return}
+  openModal('Start second innings',`<form onsubmit="secondInnings(event,'${id}','${batting}','${bowling}')"><p class="muted">Innings 1 complete: ${esc(team(i.batting).name)} ${i.runs}/${i.wickets} (${Math.floor(i.legal/6)}.${i.legal%6} ov). Target ${i.runs+1}.</p><div class="field"><label>Opening striker</label><select name="striker">${eligible.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Non-striker</label><select name="nonStriker">${eligible.map(p=>`<option value="${p.id}" ${p.id!==eligible[0]?.id?'':''}>${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Opening bowler</label><select name="bowler">${other.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><button class="btn primary">Start second innings</button></form>`);
+}
 /* ============ Live scorer page ============ */
 function scorePageContent(id){
  let m=db.matches.find(x=>x.id===id);
@@ -814,9 +829,13 @@ function endInnings(id){
   let [m,i]=getInn(id);
   if(!requireAdmin())return;
   if(m.innings.length>=2){alert('Both innings have been recorded. Complete the match.');return}
-  i.ended=true;save();
-  // Show innings break overlay
+  i.ended=true;
+  i.paused=false;
+  save();
+  // Do NOT auto-open the modal — the innings-break overlay handles that.
   renderInningsBreak();
+  scorePage(id);
+}
   // Optionally prep the second-innings form right away when admin proceeds
   let batting=i.bowling,bowling=i.batting;
   let eligible=db.players.filter(p=>p.teamId===batting);
