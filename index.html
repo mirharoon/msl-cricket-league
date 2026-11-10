@@ -162,7 +162,7 @@ body{background:radial-gradient(ellipse at 82% -12%,rgba(37,91,127,.32),transpar
 .resume-panel .resume-card{padding:14px 16px;border-radius:14px;background:linear-gradient(140deg,#3b321d,#243044);border:1px solid #8b6b2c;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .resume-panel .resume-card strong{color:#ffe0a0}
 .resume-panel .resume-card small{color:#bcd0e6;display:block;margin-top:4px;font-size:11px}
-.innings-break{position:fixed;inset:0;z-index:9000;background:rgba(3,10,22,.94);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
+.innings-break{position:fixed;inset:0;z-index:800;background:rgba(3,10,22,.94);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center}
 .innings-break .ib-inner{max-width:640px;width:100%;background:linear-gradient(155deg,#152f4a,#0a1b2d);border:1px solid rgba(242,189,85,.35);border-radius:22px;padding:28px;box-shadow:0 24px 80px rgba(0,0,0,.6)}
 .innings-break h2{margin:0 0 8px;font-size:clamp(22px,4vw,32px);letter-spacing:-.6px}
 .innings-break p{color:#bcd0e6;margin:0 0 18px;font-size:13px}
@@ -190,8 +190,10 @@ body{background:radial-gradient(ellipse at 82% -12%,rgba(37,91,127,.32),transpar
 @keyframes fxFade{0%{opacity:0}12%{opacity:1}80%{opacity:1}100%{opacity:0}}
 .fs-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#f5cf83;margin-right:4px}
 .bowler-locked{opacity:.5;pointer-events:none}
- #inningsBreakLayer{position:relative;z-index:800}
-.innings-break{z-index:800!important}
+
+/* Fix innings-break stacking so the modal can sit above it when open */
+#inningsBreakLayer{position:relative;z-index:800}
+#inningsBreakLayer .innings-break{z-index:800}
 </style>
 </head>
 <body>
@@ -241,7 +243,6 @@ let cloudUser=null, cloudReady=false, applyingCloud=false, initialServerSnapshot
 let localDirtyBeforeCloud=localStorage.getItem(KEY+'_dirty')==='1';
 let localRevision=0,lastSyncedRevision=0,syncTimer=null,syncInProgress=false;
 let knownCloudDocIds=new Set(),lastCloudPayload=new Map();
-let lastRenderedVersion=0; // used to force re-render on cloud sync
 try{if(firestore)firestore.enablePersistence({synchronizeTabs:true}).catch(e=>console.warn('Firestore offline cache unavailable; local saving remains enabled.',e));}catch(e){}
 const seed={
  season:9,year:2026,admin:false,
@@ -316,7 +317,7 @@ function applyCloudDocs(snapshot){
 if(firestore){firestore.collection('mslData').onSnapshot({includeMetadataChanges:true},snap=>{if(snap.metadata.fromCache&&!initialServerSnapshot){status('● Opening saved device copy · checking cloud…');return;}initialServerSnapshot=true;cloudReady=true;applyCloudDocs(snap)},err=>{console.error(err);status('● Saved on this device · cloud unavailable');});}
 if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(err=>console.warn('Offline app shell unavailable',err)));
 if(auth){auth.onAuthStateChanged(user=>{cloudUser=user;db.admin=!!(user&&user.email&&user.email.toLowerCase()==='mirharoonofficial@gmail.com');render();if(user)status('● Admin signed in · cloud connected');else status('● Public view · cloud connected')});}else{status('● Local mode · cloud connection unavailable');}
-function manualRefresh(){if(page==='score'&&activeScoreMatchId){render();}else{render();}status('● Refreshed at '+new Date().toLocaleTimeString());}
+function manualRefresh(){render();status('● Refreshed at '+new Date().toLocaleTimeString());}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function team(id){return db.teams.find(t=>t.id===id)||{name:'Unknown',short:'??',color:'#778899',captain:'—'}}
 function player(id){return db.players.find(p=>p.id===id)||{name:'—'}}
@@ -331,7 +332,7 @@ function go(p){page=p;if(p!=='score')activeScoreMatchId=null;persistRoute();docu
 document.addEventListener('click',event=>{const navButton=event.target.closest('[data-page]');if(navButton){event.preventDefault();go(navButton.dataset.page)}});
 function head(title,sub,buttons=''){return `<div class="page-head"><div><div class="eyebrow">MARIWALA SUPER LEAGUE / SEASON ${db.season}</div><h1>${title}</h1><p class="sub">${sub}</p></div><div class="actions">${buttons}</div></div>`}
 function btn(label,fn,cls=''){return `<button type="button" class="btn ${cls}" onclick="${fn}">${label}</button>`}
-function render(){const m=document.getElementById('main');try{document.getElementById('seasonPill').textContent=`SEASON ${db.season} • ${db.year}`;const adminToggle=document.getElementById('adminToggle'),adminLogout=document.getElementById('adminLogout');if(adminToggle){adminToggle.textContent=db.admin?`✓ ${cloudUser?.displayName||'Haroon'}`:'⚙ Admin Login';adminToggle.title=db.admin?'Open administrator panel':'Administrator login';adminToggle.onclick=()=>go('admin');}if(adminLogout)adminLogout.style.display=db.admin?'':'none';const brand=document.getElementById('brandLogo');if(brand)brand.innerHTML=db.mslLogo?`<img src="${db.mslLogo}" alt="MSL logo" style="width:100%;height:100%;object-fit:contain;border-radius:inherit">`:'MSL';const pages={home:homePage,matches:matchesPage,teams:teamsPage,players:playersPage,points:pointsPage,stats:statsPage,seasons:seasonsPage,admin:adminPage,score:()=>scorePageContent(activeScoreMatchId),more:morePage};m.innerHTML=(pages[page]||homePage)();renderInningsBreak();lastRenderedVersion++}catch(err){console.error('MSL page render failed:',err);m.innerHTML=`<div class="card error-card"><div class="eyebrow">MSL DISPLAY ERROR</div><h2>This section could not be displayed</h2><p class="muted">Your saved league data has not been deleted. Please return to Home or reload the page.</p><button type="button" class="btn primary" onclick="go('home')">Return to Home</button></div>`}}
+function render(){const m=document.getElementById('main');try{document.getElementById('seasonPill').textContent=`SEASON ${db.season} • ${db.year}`;const adminToggle=document.getElementById('adminToggle'),adminLogout=document.getElementById('adminLogout');if(adminToggle){adminToggle.textContent=db.admin?`✓ ${cloudUser?.displayName||'Haroon'}`:'⚙ Admin Login';adminToggle.title=db.admin?'Open administrator panel':'Administrator login';adminToggle.onclick=()=>go('admin');}if(adminLogout)adminLogout.style.display=db.admin?'':'none';const brand=document.getElementById('brandLogo');if(brand)brand.innerHTML=db.mslLogo?`<img src="${db.mslLogo}" alt="MSL logo" style="width:100%;height:100%;object-fit:contain;border-radius:inherit">`:'MSL';const pages={home:homePage,matches:matchesPage,teams:teamsPage,players:playersPage,points:pointsPage,stats:statsPage,seasons:seasonsPage,admin:adminPage,score:()=>scorePageContent(activeScoreMatchId),more:morePage};m.innerHTML=(pages[page]||homePage)();renderInningsBreak();}catch(err){console.error('MSL page render failed:',err);m.innerHTML=`<div class="card error-card"><div class="eyebrow">MSL DISPLAY ERROR</div><h2>This section could not be displayed</h2><p class="muted">Your saved league data has not been deleted. Please return to Home or reload the page.</p><button type="button" class="btn primary" onclick="go('home')">Return to Home</button></div>`}}
 function stat(label,value,symbol){return `<div class="card stat"><div><div class="label">${label}</div><div class="value">${value}</div></div><div class="symbol">${symbol}</div></div>`}
 
 function matchCard(m){let a=team(m.teamA),b=team(m.teamB),status=m.status;let inn=m.innings||[],score=inn.length?`${inn[inn.length-1].runs}/${inn[inn.length-1].wickets}`:'—';return `<div class="match-card"><div class="match-top"><span>${esc(m.venue||'Jhabar Cricket Ground')}</span><span class="${status==='Live'?'live':''}">${status==='Live'?'● LIVE':status.toUpperCase()}</span></div><div class="teams-line"><div class="team-mini">${teamLogoHTML(a)}<strong>${esc(a.name)}</strong><small>${esc(a.captain)}</small></div><div class="versus">VS</div><div class="team-mini">${teamLogoHTML(b)}<strong>${esc(b.name)}</strong><small>${esc(b.captain)}</small></div></div><div class="scoreline">${score} <small>${inn.length?`(${Math.floor((inn[inn.length-1].legal||0)/6)}.${(inn[inn.length-1].legal||0)%6}/${m.oversLimit||8} ov)`:'• '+fmtDate(m.date)}</small></div><div style="display:flex;justify-content:center;margin-top:13px">${status==='Live'?btn('Open live score',`openMatch('${m.id}')`,'primary'):status==='Completed'?btn('View scorecard',`openMatch('${m.id}')`):btn('Match details',`openMatch('${m.id}')`)}${db.admin?` <div style="display:flex;justify-content:center;gap:7px;margin-top:8px">${btn('Edit',`editMatch('${m.id}')`)}${btn('Delete',`deleteMatch('${m.id}')`,'danger')}</div>`:''}</div></div>`}
@@ -399,7 +400,7 @@ function chooseScoringMatch(){if(!requireAdmin())return;let choices=db.matches.f
 function startMatch(id){if(!requireAdmin())return;let m=db.matches.find(x=>x.id===id);if(!m)return;if(!m.innings)m.innings=[];if(m.innings.length){m.status='Live';db.activeMatch=id;save();scorePage(id);return}let playersA=db.players.filter(p=>p.teamId===m.teamA),playersB=db.players.filter(p=>p.teamId===m.teamB);if(playersA.length<2||playersB.length<1){alert('Add at least two players to the batting team and one to the bowling team before starting.');return}openModal('Match setup · Toss & officials',`<form onsubmit="setupMatch(event,'${id}')"><div class="field"><label>Toss winner</label><select name="tossWinner"><option value="${m.teamA}">${esc(team(m.teamA).name)}</option><option value="${m.teamB}">${esc(team(m.teamB).name)}</option></select></div><div class="field"><label>Toss decision</label><select name="decision"><option value="bat">Elected to bat</option><option value="bowl">Elected to bowl</option></select></div><div class="field"><label>First innings batting team</label><select name="batting" id="setupBatting" onchange="refreshSetupPlayers('${id}')"><option value="${m.teamA}">${esc(team(m.teamA).name)}</option><option value="${m.teamB}">${esc(team(m.teamB).name)}</option></select></div><div class="field"><label>Opening striker</label><select name="striker" id="setupStriker" required>${[...playersA,...playersB].map(p=>`<option value="${p.id}">${esc(p.name)} · ${esc(team(p.teamId).name)}</option>`).join('')}</select></div><div class="field"><label>Opening non-striker</label><select name="nonStriker" id="setupNonStriker" required>${[...playersA,...playersB].map(p=>`<option value="${p.id}">${esc(p.name)} · ${esc(team(p.teamId).name)}</option>`).join('')}</select></div><div class="field"><label>Opening bowler</label><select name="bowler" id="setupBowler" required>${[...playersA,...playersB].map(p=>`<option value="${p.id}">${esc(p.name)} · ${esc(team(p.teamId).name)}</option>`).join('')}</select></div><div class="form-grid"><div class="field"><label>Umpire 1</label><input name="umpire1" placeholder="Umpire name"></div><div class="field"><label>Umpire 2</label><input name="umpire2" placeholder="Umpire name"></div></div><div class="field"><label>Scorer</label><input name="scorer" placeholder="Scorer name"></div><button class="btn primary">Confirm toss & start innings</button></form>`)}
 function refreshSetupPlayers(id){let m=db.matches.find(x=>x.id===id),bat=document.getElementById('setupBatting')?.value;if(!m||!bat)return;let bowl=bat===m.teamA?m.teamB:m.teamA;let batters=db.players.filter(p=>p.teamId===bat),bowlers=db.players.filter(p=>p.teamId===bowl);['setupStriker','setupNonStriker'].forEach(k=>{let el=document.getElementById(k),old=el.value;el.innerHTML=batters.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');if(batters.some(p=>p.id===old))el.value=old});let be=document.getElementById('setupBowler'),old=be.value;be.innerHTML=bowlers.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');if(bowlers.some(p=>p.id===old))be.value=old}
 function setupMatch(e,id){e.preventDefault();let v=Object.fromEntries(new FormData(e.target)),m=db.matches.find(x=>x.id===id);let batting=v.batting,bowling=batting===m.teamA?m.teamB:m.teamA;let validBat=db.players.filter(p=>p.teamId===batting).map(p=>p.id);let validBowl=db.players.filter(p=>p.teamId===bowling).map(p=>p.id);if(!validBat.includes(v.striker)||!validBat.includes(v.nonStriker)||v.striker===v.nonStriker||!validBowl.includes(v.bowler)){alert('Choose two different batters from the batting team and a bowler from the opposing team.');return}m.tossWinner=v.tossWinner;m.tossDecision=v.decision;m.umpires=[v.umpire1,v.umpire2].filter(Boolean);m.scorer=v.scorer||'';m.innings=[newInnings(batting,bowling,v.striker,v.nonStriker,v.bowler)];m.status='Live';db.activeMatch=id;save();closeModal();scorePage(id)}
-function newInnings(bat,bowl,striker,non,bowler){return {batting:bat,bowling:bowl,runs:0,wickets:0,legal:0,balls:[],striker:striker||'',nonStriker:non||'',bowler:bowler||'',batStats:{},bowlStats:{},extras:{wide:0,noBall:0,bye:0,legBye:0,penalty:0},fow:[],dismissals:[],overBowlers:[],pendingBowler:false,undoStack:[],paused:false}}
+function newInnings(bat,bowl,striker,non,bowler){return {batting:bat,bowling:bowl,runs:0,wickets:0,legal:0,balls:[],striker:striker||'',nonStriker:non||'',bowler:bowler||'',batStats:{},bowlStats:{},extras:{wide:0,noBall:0,bye:0,legBye:0,penalty:0},fow:[],dismissals:[],overBowlers:[],pendingBowler:false,undoStack:[],paused:false,ended:false}}
 
 /* ============ Match header, chase info, animations ============ */
 function matchHeaderHTML(m){
@@ -549,10 +550,11 @@ function inningsBannerHTML(m){
   const currentIdx=inn.length-1;
   const cards=inn.map((i,idx)=>{
     const t=team(i.batting);
-    const isCurrent=idx===currentIdx&&m.status==='Live';
+    const isCurrent=idx===currentIdx&&m.status==='Live'&&!i.ended;
     const over=Math.floor(i.legal/6),ball=i.legal%6;
+    const label=isCurrent?'CURRENT INNINGS':(idx<currentIdx||i.ended?'INNINGS '+(idx+1)+' · COMPLETED':'INNINGS '+(idx+1));
     return `<div class="ib-card ${isCurrent?'current':''}">
-      <div class="ib-label">${isCurrent?'CURRENT INNINGS':'INNINGS '+(idx+1)+(idx<currentIdx?' · COMPLETED':'')}</div>
+      <div class="ib-label">${label}</div>
       <div class="ib-team">${esc(t.name)}</div>
       <div class="ib-score">${i.runs}/${i.wickets}<small>(${over}.${ball} ov)</small></div>
     </div>`;
@@ -641,13 +643,11 @@ function checkAutoWin(id){
 function renderInningsBreak(){
   const host=document.getElementById('inningsBreakLayer');
   if(!host)return;
-  // Show only on the score page for the active match
   if(page!=='score'||!activeScoreMatchId){host.innerHTML='';return;}
   const m=db.matches.find(x=>x.id===activeScoreMatchId);
   if(!m){host.innerHTML='';return;}
   const inn=m.innings||[];
   if(inn.length!==1||m.status!=='Live'){host.innerHTML='';return;}
-  // Hide if the innings is actually still in progress (has balls and not ended)
   if(!inn[0].ended){host.innerHTML='';return;}
   const first=inn[0];
   const t1=team(first.batting);
@@ -665,8 +665,7 @@ function startSecondInningsFromBreak(id){
   if(host)host.innerHTML='';
   openSecondInningsForm(id);
 }
-
- function openSecondInningsForm(id){
+function openSecondInningsForm(id){
   if(!requireAdmin())return;
   let m=db.matches.find(x=>x.id===id);
   if(!m)return;
@@ -677,8 +676,9 @@ function startSecondInningsFromBreak(id){
   let eligible=db.players.filter(p=>p.teamId===batting);
   let other=db.players.filter(p=>p.teamId===bowling);
   if(eligible.length<2||other.length<1){alert('Add at least two batters and one bowler for the second innings.');return}
-  openModal('Start second innings',`<form onsubmit="secondInnings(event,'${id}','${batting}','${bowling}')"><p class="muted">Innings 1 complete: ${esc(team(i.batting).name)} ${i.runs}/${i.wickets} (${Math.floor(i.legal/6)}.${i.legal%6} ov). Target ${i.runs+1}.</p><div class="field"><label>Opening striker</label><select name="striker">${eligible.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Non-striker</label><select name="nonStriker">${eligible.map(p=>`<option value="${p.id}" ${p.id!==eligible[0]?.id?'':''}>${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Opening bowler</label><select name="bowler">${other.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><button class="btn primary">Start second innings</button></form>`);
+  openModal('Start second innings',`<form onsubmit="secondInnings(event,'${id}','${batting}','${bowling}')"><p class="muted">Innings 1 complete: ${esc(team(i.batting).name)} ${i.runs}/${i.wickets} (${Math.floor(i.legal/6)}.${i.legal%6} ov). Target ${i.runs+1}.</p><div class="field"><label>Opening striker</label><select name="striker">${eligible.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Non-striker</label><select name="nonStriker">${eligible.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Opening bowler</label><select name="bowler">${other.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><button class="btn primary">Start second innings</button></form>`);
 }
+
 /* ============ Live scorer page ============ */
 function scorePageContent(id){
  let m=db.matches.find(x=>x.id===id);
@@ -697,11 +697,9 @@ function scorePageContent(id){
  const nss=bs[inn.nonStriker]||{runs:0,balls:0,fours:0,sixes:0,dots:0};
  const bwsNow=bws[inn.bowler]||{runs:0,balls:0,wickets:0,wides:0,noBalls:0,foursConceded:0,sixesConceded:0};
  const winDone=checkAutoWin(id);
- const motm=winDone&&m.motm?{...m.motm,stats:predictMOTM(m)}:null;
  const ballName=b=>{if(b.kind==='wide')return 'Wide';if(b.kind==='noBall')return 'No-ball';if(b.kind==='bye')return 'Bye';if(b.kind==='legBye')return 'Leg-bye';if(b.kind==='wicket')return 'Wicket'+(b.dismissal?' · '+b.dismissal:'');if(b.kind==='run')return b.runs===0?'Dot ball':b.runs+' run'+(b.runs===1?'':'s');return b.label||'Delivery'};
- const oversThisInn=Math.floor(inn.legal/6),ballsThisInn=inn.legal%6;
- const bowlerMustFinishOver=ballsThisInn!==0;
- const canChangeBowler=ballsThisInn===0;
+ const ballsThisInn=inn.legal%6;
+ const canChangeBowler=ballsThisInn===0&&!inn.pendingBowler;
  const resumePanel=paused?`<div class="resume-panel"><div class="resume-card"><div><strong>⏸ Scoring paused</strong><small>Resume to select the next delivery, next over, or next innings.</small></div><div style="display:flex;gap:8px;flex-wrap:wrap">${isAdmin?`<button class="btn primary" onclick="resumeScoring('${id}')">▶ Resume scoring</button>`:'<span class="muted" style="font-size:12px">Waiting for scorer…</span>'}</div></div></div>`:'';
  return `${head('Live scoring',`${esc(team(m.teamA).name)} vs ${esc(team(m.teamB).name)} · ${esc(m.venue||'Jhabar Cricket Ground')}`,btn('Match centre',`openMatch('${id}')`))}
  ${matchHeaderHTML(m)}
@@ -792,7 +790,6 @@ function confirmWicket(e,id,kind,out){
   if(i.legal%6===0){[i.striker,i.nonStriker]=[i.nonStriker,i.striker];if(i.legal<m.oversLimit*6)i.pendingBowler=true}
   save();
   closeModal();
-  // Play wicket animation immediately — before next batter selection
   playFx('wicket');
   if(checkAutoWin(id)){scorePage(id);return}
   if(i.wickets>=10||i.legal>=m.oversLimit*6){scorePage(id);return}
@@ -820,7 +817,6 @@ function resumeScoring(id){
   let [m,i]=getInn(id);
   i.paused=false;
   save();
-  // After resume, ask what's next if we're at an innings break or over break
   if(m.innings.length===1&&i.ended){renderInningsBreak();scorePage(id);return}
   if(i.legal%6===0&&i.legal>0&&i.legal<m.oversLimit*6){chooseNextBowler(id);return}
   scorePage(id);
@@ -832,15 +828,8 @@ function endInnings(id){
   i.ended=true;
   i.paused=false;
   save();
-  // Do NOT auto-open the modal — the innings-break overlay handles that.
   renderInningsBreak();
   scorePage(id);
-}
-  // Optionally prep the second-innings form right away when admin proceeds
-  let batting=i.bowling,bowling=i.batting;
-  let eligible=db.players.filter(p=>p.teamId===batting);
-  let other=db.players.filter(p=>p.teamId===bowling);
-  openModal('Start second innings',`<form onsubmit="secondInnings(event,'${id}','${batting}','${bowling}')"><p class="muted">Innings 1 complete: ${esc(team(i.batting).name)} ${i.runs}/${i.wickets} (${Math.floor(i.legal/6)}.${i.legal%6} ov). Target ${i.runs+1}.</p><div class="field"><label>Opening striker</label><select name="striker">${eligible.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Non-striker</label><select name="nonStriker">${eligible.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Opening bowler</label><select name="bowler">${other.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><button class="btn primary">Start second innings</button></form>`);
 }
 function secondInnings(e,id,bat,bowl){
   e.preventDefault();
@@ -849,7 +838,6 @@ function secondInnings(e,id,bat,bowl){
   m.innings.push(newInnings(bat,bowl,v.striker,v.nonStriker,v.bowler));
   m.innings[0].ended=true;
   save();closeModal();
-  // Hide innings break overlay
   const host=document.getElementById('inningsBreakLayer');if(host)host.innerHTML='';
   scorePage(id);
 }
@@ -869,10 +857,9 @@ function completeMatch(id){
 function openMatch(id){
   let m=db.matches.find(x=>x.id===id);
   if(!m)return;
-  // Show score page for live matches (public + admin), or full match centre for completed/upcoming
   if(m.status==='Live'){scorePage(id);return}
   let inn=m.innings||[];
-  openModal('Match centre',`<div>${esc(team(m.teamA).name)} <strong>vs</strong> ${esc(team(m.teamB).name)}</div><p class="muted">${fmtDate(m.date)} · ${esc(m.venue)} · Umpires: ${esc((m.umpires||[]).join(' / ')||'—')} · Scorer: ${esc(m.scorer||'—')}</p>${inn.map((i,n)=>`<div class="card" style="margin:10px 0"><strong>${esc(team(i.batting).name)}</strong><h2>${i.runs}/${i.wickets} <small class="muted">${Math.floor(i.legal/6)}.${i.legal%6} overs</small></h2><p class="muted">Extras: ${Object.values(i.extras).reduce((a,b)=>a+b,0)} · ${Math.floor(i.legal/6)}.${i.legal%6} overs</p><div class="table-wrap"><table><thead><tr><th>Batter</th><th>Dismissal</th><th>R</th><th>B</th><th>4s</th><th>6s</th><th>Dots</th></tr></thead><tbody>${Object.entries(i.batStats).map(([pid,s])=>{let d=(i.dismissals||[]).find(x=>x.player===pid);return `<tr><td>${esc(player(pid).name)}</td><td>${d?esc(d.kind)+(d.fielder?' · '+esc(player(d.fielder).name):''):'Not out'}</td><td>${s.runs}</td><td>${s.balls}</td><td>${s.fours||0}</td><td>${s.sixes||0}</td><td>${s.dots||0}</td></tr>`}).join('')}</tbody></table></div><h4>Bowling</h4><div class="table-wrap"><table><thead><tr><th>Bowler</th><th>O</th><th>R</th><th>W</th><th>4s</th><th>6s</th><th>Wd</th><th>Nb</th><th>Eco</th></tr></thead><tbody>${Object.entries(i.bowlStats||{}).map(([pid,s])=>`<tr><td>${esc(player(pid).name)}</td><td>${Math.floor((s.balls||0)/6)}.${(s.balls||0)%6}</td><td>${s.runs}</td><td>${s.wickets||0}</td><td>${s.foursConceded||0}</td><td>${s.sixesConceded||0}</td><td>${s.wides||0}</td><td>${s.noBalls||0}</td><td>${(s.balls?(s.runs/(s.balls/6)).toFixed(2):'0.00')}</td></tr>`).join('')}</tbody></table></div><p class="muted">Fall of wickets: ${(i.fow||[]).map(x=>`${x.r}/${x.w} (${esc(player(x.player).name)}, ${x.over})`).join(' · ')||'—'}</p></div>`).join('')||'<p class="muted">Match has not started yet.</p>'}<p><strong>${esc(m.result||m.status)}</strong></p>${m.motm?`<div class="motm-card"><div class="eyebrow">MAN OF THE MATCH PREDICTION</div><h3>🏆 ${esc(m.motm.name)}</h3><div class="motm-stats">${esc(m.motm.reason)}</div></div>`:''}`)
+  openModal('Match centre',`<div>${esc(team(m.teamA).name)} <strong>vs</strong> ${esc(team(m.teamB).name)}</div><p class="muted">${fmtDate(m.date)} · ${esc(m.venue)} · Umpires: ${esc((m.umpires||[]).join(' / ')||'—')} · Scorer: ${esc(m.scorer||'—')}</p>${inn.map((i,n)=>`<div class="card" style="margin:10px 0"><strong>${esc(team(i.batting).name)}</strong><h2>${i.runs}/${i.wickets} <small class="muted">${Math.floor(i.legal/6)}.${i.legal%6} overs</small></h2><p class="muted">Extras: ${Object.values(i.extras).reduce((a,b)=>a+b,0)}</p><div class="table-wrap"><table><thead><tr><th>Batter</th><th>Dismissal</th><th>R</th><th>B</th><th>4s</th><th>6s</th><th>Dots</th></tr></thead><tbody>${Object.entries(i.batStats).map(([pid,s])=>{let d=(i.dismissals||[]).find(x=>x.player===pid);return `<tr><td>${esc(player(pid).name)}</td><td>${d?esc(d.kind)+(d.fielder?' · '+esc(player(d.fielder).name):''):'Not out'}</td><td>${s.runs}</td><td>${s.balls}</td><td>${s.fours||0}</td><td>${s.sixes||0}</td><td>${s.dots||0}</td></tr>`}).join('')}</tbody></table></div><h4>Bowling</h4><div class="table-wrap"><table><thead><tr><th>Bowler</th><th>O</th><th>R</th><th>W</th><th>4s</th><th>6s</th><th>Wd</th><th>Nb</th><th>Eco</th></tr></thead><tbody>${Object.entries(i.bowlStats||{}).map(([pid,s])=>`<tr><td>${esc(player(pid).name)}</td><td>${Math.floor((s.balls||0)/6)}.${(s.balls||0)%6}</td><td>${s.runs}</td><td>${s.wickets||0}</td><td>${s.foursConceded||0}</td><td>${s.sixesConceded||0}</td><td>${s.wides||0}</td><td>${s.noBalls||0}</td><td>${(s.balls?(s.runs/(s.balls/6)).toFixed(2):'0.00')}</td></tr>`).join('')}</tbody></table></div><p class="muted">Fall of wickets: ${(i.fow||[]).map(x=>`${x.r}/${x.w} (${esc(player(x.player).name)}, ${x.over})`).join(' · ')||'—'}</p></div>`).join('')||'<p class="muted">Match has not started yet.</p>'}<p><strong>${esc(m.result||m.status)}</strong></p>${m.motm?`<div class="motm-card"><div class="eyebrow">MAN OF THE MATCH PREDICTION</div><h3>🏆 ${esc(m.motm.name)}</h3><div class="motm-stats">${esc(m.motm.reason)}</div></div>`:''}`)
 }
 function exportData(){let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='msl-backup-season-'+db.season+'.json';a.click();URL.revokeObjectURL(url)}
 function importData(e){if(!requireAdmin())return;let file=e.target.files?.[0];if(!file)return;let r=new FileReader();r.onload=()=>{try{let v=JSON.parse(r.result);if(!v||!Array.isArray(v.teams)||!Array.isArray(v.matches)||!Array.isArray(v.players))throw Error('Missing teams, matches or players arrays.');if(v.teams.some(x=>!x||!x.id||!x.name)||v.players.some(x=>!x||!x.id||!x.name||!x.teamId)||v.matches.some(x=>!x||!x.id||!x.teamA||!x.teamB))throw Error('One or more records are missing required fields.');if(!confirm(`Backup preview\n\nSeason: ${v.season??'Not specified'}\nTeams: ${v.teams.length}\nPlayers: ${v.players.length}\nMatches: ${v.matches.length}\n\nThis will replace the current MSL data on all connected devices. Your current data will be downloaded as a backup first. Continue?`))return;exportData();db={...structuredClone(seed),...v,admin:true,teams:v.teams,players:v.players,matches:v.matches,archives:Array.isArray(v.archives)?v.archives:[],manualStandings:v.manualStandings||{}};save();render();alert('Backup imported. Keep the downloaded safety backup until you verify the website data.')}catch(err){alert('Import stopped: '+(err.message||'Invalid MSL backup file.'))}finally{e.target.value=''}};r.readAsText(file)}
