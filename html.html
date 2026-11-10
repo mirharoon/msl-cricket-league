@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#081426">
+<meta name="description" content="Official Mariwala Super League cricket scores, teams, players and standings.">
+<link rel="manifest" href="manifest.webmanifest">
+<title>MSL | Mariwala Super League</title>
+<style>
+:root{--bg:#081426;--panel:#101f34;--panel2:#152740;--line:#263b55;--text:#f4f7fb;--muted:#9aabc0;--gold:#f5b82e;--green:#38c98a;--red:#f16b72;--blue:#58a6ff;--radius:17px;--shadow:0 12px 35px #0003}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#071222,#0b1b30 55%,#101d31);color:var(--text);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{min-height:100vh}.topbar{height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;border-bottom:1px solid var(--line);background:#081426ed;position:sticky;top:0;z-index:20;backdrop-filter:blur(14px)}.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.5px}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(145deg,#f8c64a,#d77b13);display:grid;place-items:center;color:#111;font-weight:1000;font-size:17px;box-shadow:0 5px 18px #f5b82e33}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:2px;font-weight:700}.top-actions{display:flex;gap:10px;align-items:center}.pill{border:1px solid var(--line);border-radius:30px;padding:8px 13px;color:var(--muted);font-size:12px}.layout{display:grid;grid-template-columns:235px 1fr;max-width:1600px;margin:auto}.sidebar{padding:22px 14px;border-right:1px solid var(--line);min-height:calc(100vh - 70px)}.nav-label{font-size:10px;letter-spacing:1.7px;color:#71849c;font-weight:800;padding:12px 12px 8px}.nav button{width:100%;text-align:left;border:0;background:transparent;color:#aebdd0;padding:12px;border-radius:11px;margin:2px 0;display:flex;gap:12px;align-items:center;font-weight:650}.nav button:hover,.nav button.active{background:#1b304a;color:#fff}.nav button.active{box-shadow:inset 3px 0 var(--gold)}.nav .ico{width:20px;text-align:center;font-size:17px}.side-note{margin:25px 5px 0;padding:14px;border:1px solid var(--line);border-radius:14px;color:var(--muted);font-size:12px}.side-note strong{color:var(--gold);display:block;margin-bottom:5px}.main{padding:28px;min-width:0}.page-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;margin-bottom:23px}.eyebrow{font-size:11px;color:var(--gold);font-weight:800;letter-spacing:2px;text-transform:uppercase}.page-head h1{margin:5px 0 4px;font-size:clamp(25px,3vw,34px);letter-spacing:-.8px}.sub{color:var(--muted);margin:0}.actions{display:flex;gap:9px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:#1a2d46;color:#eaf1f9;border-radius:10px;padding:10px 14px;font-weight:750;font-size:13px}.btn:hover{filter:brightness(1.15)}.btn.primary{background:var(--gold);border-color:var(--gold);color:#172033}.btn.danger{background:#492530;border-color:#75404c;color:#ffdce0}.btn.ghost{background:transparent}.grid{display:grid;gap:15px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:18px}.card{background:linear-gradient(145deg,#12243a,#0f1e32);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);min-width:0}.stat{display:flex;justify-content:space-between;align-items:center}.stat .label{color:var(--muted);font-size:12px;font-weight:700}.stat .value{font-size:30px;font-weight:900;margin-top:7px}.stat .symbol{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:#233954;font-size:20px}.section-title{display:flex;justify-content:space-between;align-items:center;margin:22px 0 12px}.section-title h2{font-size:17px;margin:0}.section-title span{font-size:12px;color:var(--muted)}.two{grid-template-columns:1.25fr .75fr}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.match-card{background:linear-gradient(120deg,#1a304b,#112239);border:1px solid #314a65;border-radius:16px;padding:18px}.match-top{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;font-weight:800;letter-spacing:1px}.live{color:#ff777d}.teams-line{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin:18px 0}.team-mini{text-align:center}.team-badge{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;margin:0 auto 7px;background:#29415d;border:2px solid #48627f;font-weight:900}.team-mini strong{display:block;font-size:13px}.team-mini small{color:var(--muted)}.versus{color:var(--gold);font-size:12px;font-weight:900}.scoreline{text-align:center;font-size:24px;font-weight:900}.scoreline small{font-size:12px;color:var(--muted);font-weight:600}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:13px}table{border-collapse:collapse;width:100%;min-width:560px;font-size:13px}th{text-align:left;color:#91a5bd;background:#142740;font-size:10px;letter-spacing:1px;text-transform:uppercase}td,th{padding:12px 13px;border-bottom:1px solid #263a52}tr:last-child td{border-bottom:0}td strong{color:#fff}.team-cell{display:flex;align-items:center;gap:9px}.tiny-badge{width:29px;height:29px;border-radius:9px;background:#29415d;display:grid;place-items:center;font-size:10px;font-weight:900}.muted{color:var(--muted)}.empty{padding:30px;text-align:center;color:var(--muted)}.cards-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.team-card{position:relative;overflow:hidden}.team-card:before{content:"";position:absolute;width:120px;height:120px;border-radius:50%;right:-45px;top:-48px;background:var(--team-color,#f5b82e);opacity:.11}.team-card-head{display:flex;gap:13px;align-items:center}.team-emblem{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:var(--team-color,#f5b82e);color:#101a2b;font-weight:1000;font-size:17px;overflow:hidden}.team-emblem img,.team-badge img{width:100%;height:100%;object-fit:contain;background:#071222;border-radius:inherit}.avatar{overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}.upload-preview{width:72px;height:72px;object-fit:contain;border:1px solid var(--line);border-radius:12px;background:#071222;padding:4px}.upload-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.upload-card{min-width:0}.upload-help{font-size:11px;color:var(--muted);margin-top:5px}.team-card h3{margin:0 0 3px;font-size:16px}.team-card p{margin:0;color:var(--muted);font-size:12px}.team-meta{display:flex;gap:17px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.player-card{display:flex;gap:12px;align-items:center}.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(145deg,#314c6c,#1c3048);display:grid;place-items:center;font-weight:900;color:#f5c24b}.player-card h3{font-size:14px;margin:0 0 3px}.player-card p{font-size:12px;color:var(--muted);margin:0}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:15px}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}.field label{font-size:12px;color:#a9b9cc;font-weight:700}.field input,.field select,.field textarea{width:100%;background:#09182a;border:1px solid #304660;border-radius:10px;padding:11px 12px;color:#fff;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 13px}.modal-backdrop{position:fixed;inset:0;background:#020914c9;z-index:50;display:none;align-items:center;justify-content:center;padding:18px}.modal-backdrop.show{display:flex}.modal{width:min(560px,100%);max-height:90vh;overflow:auto;background:#102139;border:1px solid #39516c;border-radius:18px;padding:22px;box-shadow:0 25px 80px #0009}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.modal-head h2{margin:0;font-size:20px}.close{background:transparent;border:0;color:#a9b9cc;font-size:25px}.score-hero{background:linear-gradient(120deg,#1c3858,#10233b);border:1px solid #395673;border-radius:18px;padding:22px;text-align:center}.score-big{font-size:clamp(42px,7vw,64px);font-weight:1000;letter-spacing:-2px}.score-big small{font-size:19px;color:#a9bdd2;letter-spacing:0}.score-details{display:flex;justify-content:center;gap:18px;color:#bdcad9;font-size:12px;flex-wrap:wrap}.score-controls{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.run-btn{padding:17px 8px;border-radius:12px;border:1px solid #3b5876;background:#1a3553;color:white;font-size:22px;font-weight:900}.run-btn.boundary{background:#244c55;border-color:#397d78}.run-btn.six{background:#5a451d;border-color:#a47a29;color:#ffe3a0}.run-btn.wicket{background:#542733;border-color:#8c4655}.run-btn:active{transform:scale(.97)}.score-layout{display:grid;grid-template-columns:1fr 1fr;gap:15px}.ball-list{display:flex;gap:6px;flex-wrap:wrap}.ball{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#233b57;font-size:11px;font-weight:800}.admin-banner{border:1px solid #6e5a2b;background:#3b321d;border-radius:13px;padding:12px 15px;color:#f8d98e;font-size:12px;margin-bottom:16px}.notice{padding:12px 14px;border-radius:11px;background:#173a35;border:1px solid #28675a;color:#a7efd6;font-size:12px;margin-bottom:14px}.badge{display:inline-flex;padding:4px 8px;border-radius:30px;background:#263d59;color:#b9cce0;font-size:10px;font-weight:800}.badge.live{background:#512b35;color:#ff9ca2}.badge.done{background:#1c453b;color:#92e5c4}.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:15px}.tabs button{background:none;border:0;color:var(--muted);padding:10px 12px;border-bottom:2px solid transparent}.tabs button.active{color:var(--gold);border-color:var(--gold)}.footer{text-align:center;color:#657990;font-size:11px;padding:30px 0 10px}.mobile-nav{display:none}
+@media(max-width:1000px){.layout{grid-template-columns:190px 1fr}.main{padding:22px}.stats{grid-template-columns:repeat(2,1fr)}.cards-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.topbar{height:62px;padding:0 14px}.layout{display:block}.sidebar{display:none}.main{padding:18px 14px 90px}.page-head{flex-direction:column}.page-head .actions{width:100%}.stats{gap:9px}.stat .value{font-size:25px}.card{padding:14px}.two,.three,.cards-grid,.score-layout{grid-template-columns:1fr}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:30;background:#09172aef;border-top:1px solid var(--line);justify-content:space-around;padding:7px 3px calc(7px + env(safe-area-inset-bottom));backdrop-filter:blur(15px)}.mobile-nav button{background:none;border:0;color:#9eb0c5;font-size:9px;display:flex;flex-direction:column;gap:3px;align-items:center;padding:4px}.mobile-nav button span{font-size:18px}.mobile-nav button.active{color:var(--gold)}.score-controls{grid-template-columns:repeat(3,1fr)}.run-btn{padding:14px 5px}.form-grid{grid-template-columns:1fr}.top-actions .pill{display:none}}
+
+/* MSL PREMIUM MOBILE-FIRST REDESIGN */
+:root{--gold:#e9b94f;--gold2:#f5d98d;--bg:#061326;--panel:#0b1d34;--panel2:#102744;--line:#203b5a;--radius:18px;--shadow:0 10px 28px #0004}
+body{background:radial-gradient(ellipse at 50% -18%,#18385a 0%,#091a30 42%,#061326 78%);letter-spacing:.005em}
+.topbar{height:66px;padding:0 clamp(14px,3vw,30px);background:rgba(5,17,34,.92);border-bottom:1px solid rgba(233,185,79,.2)}
+.logo{border-radius:14px;background:linear-gradient(145deg,#ffe29a,#d69b32);box-shadow:0 5px 20px #e9b94f35}
+.brand{font-size:13px;letter-spacing:.7px}.brand small{font-size:9px;letter-spacing:1.7px}
+.main{padding:clamp(16px,3vw,30px)}
+.page-head{margin-bottom:20px;align-items:center}.page-head h1{font-size:clamp(25px,4vw,35px);line-height:1.12}.sub{font-size:13px;line-height:1.5}
+.card,.match-card{border-color:#244361;background:linear-gradient(155deg,rgba(17,43,70,.98),rgba(9,27,48,.98));box-shadow:0 8px 24px #0003}
+.card{border-radius:18px}.match-card{border-radius:19px;padding:16px}
+.section-title{margin:20px 0 11px}.section-title h2{font-size:16px;letter-spacing:-.2px}
+.btn{min-height:42px;border-radius:12px;padding:10px 15px;font-size:13px;transition:transform .15s ease,filter .15s ease,box-shadow .15s ease}
+.btn:active,.mobile-nav button:active{transform:scale(.97)}.btn.primary{background:linear-gradient(135deg,#f6d887,#e4ad3f);border-color:#f1c96e;color:#172238;box-shadow:0 5px 16px #dca63a22}
+.btn.ghost{border-color:#355371}.field input,.field select,.field textarea,.toolbar input,.toolbar select{min-height:44px;border-radius:12px}
+.tabs{gap:5px;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}.tabs button{white-space:nowrap;border-radius:10px 10px 0 0}
+.stat{min-height:94px}.stat .value{font-size:28px}.stat .symbol{border:1px solid #34516d;background:#193552;color:var(--gold2)}
+.team-badge{border-color:#9c793b}.team-mini strong{line-height:1.25}.match-top{letter-spacing:.6px}
+.mobile-nav{display:none}
+.mobile-nav .nav-icon{width:23px;height:22px;display:grid;place-items:center}.mobile-nav svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mobile-nav button{min-width:0;flex:1;min-height:49px;padding:5px 2px;color:#90a5bd;font-size:10px;gap:3px}
+.mobile-nav button small{font-size:10px;font-weight:650;letter-spacing:.1px}.mobile-nav button.active{color:var(--gold2)}.mobile-nav button.active .nav-icon{filter:drop-shadow(0 0 7px #e9b94f55)}
+.more-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.more-tile{display:flex;align-items:center;gap:12px;text-align:left;min-height:78px;padding:14px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,#112b47,#0a1d33);color:var(--text);width:100%;font-weight:750}.more-tile .tile-icon{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:#1b3858;color:var(--gold2);font-size:18px}.more-tile small{display:block;color:var(--muted);font-weight:500;font-size:11px;margin-top:3px}
+@media(max-width:700px){
+ .topbar{height:58px;padding:0 13px}.brand{gap:9px;font-size:11px}.brand small{font-size:8px}.logo{width:36px;height:36px;border-radius:11px}.top-actions{gap:6px}.top-actions .pill{display:none}.top-actions .btn{min-height:36px;padding:7px 10px;font-size:11px}
+ .layout{display:block}.sidebar{display:none}.main{padding:16px 13px calc(92px + env(safe-area-inset-bottom));min-height:calc(100vh - 58px)}
+ .page-head{display:block;margin-bottom:17px}.page-head .actions{margin-top:12px}.page-head .actions .btn{flex:1}.page-head h1{font-size:25px}.sub{font-size:12px}
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-bottom:16px}.stat{padding:12px;min-height:82px}.stat .label{font-size:10px;letter-spacing:.35px}.stat .value{font-size:24px;margin-top:4px}.stat .symbol{width:34px;height:34px;border-radius:11px;font-size:17px}
+ .two,.three,.cards-grid,.score-layout{grid-template-columns:1fr}.grid{gap:11px}.card{padding:14px}.match-card{padding:14px}.teams-line{gap:6px;margin:14px 0}.team-badge{width:43px;height:43px}.team-mini strong{font-size:12px}.scoreline{font-size:22px}
+ .mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:40;justify-content:space-around;align-items:center;gap:2px;padding:6px 7px calc(6px + env(safe-area-inset-bottom));background:rgba(5,17,33,.96);border-top:1px solid rgba(233,185,79,.2);backdrop-filter:blur(18px);box-shadow:0 -8px 25px #0004}
+ .score-controls{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.run-btn{min-height:54px;border-radius:14px}.form-grid{grid-template-columns:1fr}.modal-backdrop{align-items:flex-end;padding:0}.modal{width:100%;max-height:92vh;border-radius:22px 22px 0 0;padding:19px 16px calc(18px + env(safe-area-inset-bottom))}
+ .table-wrap{border-radius:12px}table{font-size:12px}.footer{padding:12px 0 4px;font-size:10px}.more-grid{gap:9px}.more-tile{min-height:74px;padding:11px}.more-tile .tile-icon{width:36px;height:36px}
+}
+@media(min-width:701px){.mobile-nav{display:none!important}}
+
+
+/* MSL REDESIGN — Stadium broadcast visual system */
+:root{--bg:#07111f;--panel:#0d1d30;--panel2:#122840;--line:#263d56;--text:#f6f8fc;--muted:#9aadc2;--gold:#f2bd55;--green:#49d7a0;--red:#ff737d;--blue:#73b8ff;--radius:19px;--shadow:0 16px 42px rgba(0,0,0,.28);--gold2:#f5cf83}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{background:radial-gradient(ellipse at 82% -12%,rgba(37,91,127,.32),transparent 38%),radial-gradient(ellipse at 5% 25%,rgba(196,139,49,.09),transparent 32%),linear-gradient(145deg,#060e1a,#0a192b 52%,#07111f);color:var(--text)}
+.topbar{height:76px;padding:0 clamp(14px,3vw,38px);background:rgba(5,14,26,.91);border-bottom:1px solid rgba(242,189,85,.19);box-shadow:0 8px 28px rgba(0,0,0,.16)}
+.logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(145deg,#ffe2a0,#d99a31 70%,#9d5c19);color:#142033;box-shadow:0 7px 22px rgba(218,157,54,.22);font-size:18px}
+.brand{font-size:13px;letter-spacing:1px}.brand small{font-size:9px;letter-spacing:2.3px;color:#9baec4}
+.layout{max-width:1680px;grid-template-columns:250px minmax(0,1fr)}
+.sidebar{padding:25px 16px;border-color:rgba(134,164,194,.14);background:linear-gradient(180deg,rgba(8,23,40,.72),rgba(8,20,35,.34));position:sticky;top:76px;height:calc(100vh - 76px);overflow:auto}
+.nav-label{padding:13px 13px 9px;color:#718ba5;letter-spacing:2px}
+.nav button{min-height:46px;border:1px solid transparent;border-radius:13px;padding:11px 13px;color:#aebed0;transition:background .18s,border-color .18s,color .18s}
+.nav button:hover{background:rgba(36,67,96,.48);color:#fff}.nav button.active{background:linear-gradient(100deg,rgba(242,189,85,.17),rgba(29,58,84,.65));border-color:rgba(242,189,85,.18);color:#ffe0a0;box-shadow:inset 3px 0 var(--gold)}
+.side-note{background:rgba(12,32,52,.7);border-color:rgba(130,160,190,.18);line-height:1.6}
+.main{padding:clamp(18px,3vw,38px);max-width:1450px;width:100%;margin:0 auto}
+.page-head{align-items:center;margin-bottom:26px}.eyebrow{letter-spacing:2.4px;color:var(--gold2);font-size:10px}.page-head h1{font-size:clamp(28px,3.3vw,40px);font-weight:850;letter-spacing:-1.2px}.sub{font-size:14px;color:#a8b9cc}
+.btn{border:1px solid #304c68;background:linear-gradient(145deg,#1b3551,#142a42);border-radius:12px;padding:11px 16px;min-height:42px;color:#edf4fb;box-shadow:0 4px 12px rgba(0,0,0,.12);transition:transform .16s,filter .16s,border-color .16s}
+.btn:hover{filter:brightness(1.16);border-color:#55718c}.btn:focus-visible,.nav button:focus-visible,.mobile-nav button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.btn.primary{background:linear-gradient(135deg,#ffe0a0,#e7ad47);border-color:#f2c66d;color:#152238;box-shadow:0 7px 20px rgba(215,157,57,.19)}
+.btn.danger{background:linear-gradient(135deg,#552b38,#3a202d);border-color:#874a58;color:#ffe0e3}
+.card{background:linear-gradient(150deg,rgba(18,43,68,.97),rgba(10,26,44,.98));border:1px solid rgba(105,143,178,.22);border-radius:20px;box-shadow:0 12px 32px rgba(0,0,0,.2)}
+.stat{min-height:112px;padding:20px}.stat .label{font-size:10px;letter-spacing:1.1px;color:#9eb1c7}.stat .value{font-size:34px;letter-spacing:-1px}.stat .symbol{width:48px;height:48px;border-radius:15px;background:linear-gradient(145deg,#203d5c,#142b45);border:1px solid rgba(242,189,85,.17);color:var(--gold2)}
+.section-title{margin:25px 0 13px}.section-title h2{font-size:17px;font-weight:800;letter-spacing:-.25px}.section-title span{font-size:10px;letter-spacing:1px;text-transform:uppercase}
+.match-card{background:radial-gradient(ellipse at 50% 0,rgba(67,107,140,.2),transparent 55%),linear-gradient(145deg,#183550,#0c2036);border:1px solid rgba(242,189,85,.2);border-radius:20px;padding:20px;box-shadow:0 12px 28px rgba(0,0,0,.18)}
+.match-top{font-size:10px;letter-spacing:1.1px}.team-badge{border:2px solid rgba(245,207,131,.38);box-shadow:0 5px 16px rgba(0,0,0,.2)}.versus{color:var(--gold2);letter-spacing:1.4px}.scoreline{font-size:27px}
+.table-wrap{border-color:rgba(111,147,179,.2);border-radius:15px}th{background:#142b43;color:#a9bdd2}td,th{border-color:rgba(111,147,179,.15)}tbody tr:hover{background:rgba(73,111,145,.12)}
+.field input,.field select,.field textarea,.toolbar input,.toolbar select{background:#09192b;border-color:#304b66;border-radius:12px;min-height:44px}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(242,189,85,.1)}
+.modal-backdrop{backdrop-filter:blur(7px)}.modal{background:linear-gradient(155deg,#142c46,#0b1b2e);border-color:rgba(242,189,85,.25);border-radius:22px}.close{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.06)}
+.score-hero{background:radial-gradient(ellipse at 50% 0,rgba(242,189,85,.14),transparent 65%),linear-gradient(130deg,#1c3b5b,#0c2037);border-color:rgba(242,189,85,.27)}.run-btn{border-radius:14px;background:linear-gradient(145deg,#23415f,#142b45);border-color:#3b5b79;min-height:58px}.run-btn.boundary{background:linear-gradient(145deg,#24615b,#17433f)}.run-btn.six{background:linear-gradient(145deg,#75561f,#483719);border-color:#b58a39}.run-btn.wicket{background:linear-gradient(145deg,#6a3444,#452330)}
+.badge{background:#1e3b57;color:#c5d7e9}.badge.live{background:#562a37;color:#ffb3b9}.badge.done{background:#174a3b;color:#9af0cb}.notice{background:#123e37;border-color:#287462}.admin-banner{background:#3c321c;border-color:#8b6b2c}
+.mobile-nav{background:rgba(5,15,28,.96);border-top:1px solid rgba(242,189,85,.23);box-shadow:0 -10px 32px rgba(0,0,0,.35);backdrop-filter:blur(20px)}
+.mobile-nav button{border:0;background:transparent;border-radius:12px}.mobile-nav button.active{background:rgba(242,189,85,.09);color:var(--gold2)}
+.footer{padding:20px 12px 16px;color:#7289a2;letter-spacing:.3px}
+.error-card{max-width:680px;margin:40px auto;border-color:rgba(255,115,125,.35)}
+@media(max-width:900px){.layout{grid-template-columns:210px minmax(0,1fr)}.main{padding:22px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.cards-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){
+ .topbar{height:62px;padding:0 12px}.brand{font-size:10px;letter-spacing:.7px}.brand small{font-size:7px;letter-spacing:1.7px}.logo{width:38px;height:38px;border-radius:12px}.top-actions .btn{min-height:36px;border-radius:10px}
+ .layout{display:block}.sidebar{display:none}.main{padding:17px 13px calc(100px + env(safe-area-inset-bottom));min-height:calc(100vh - 62px)}.page-head{display:block;margin-bottom:19px}.page-head h1{font-size:27px}.sub{font-size:12px}.page-head .actions{margin-top:13px}.page-head .actions .btn{flex:1}
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.stat{min-height:88px;padding:13px}.stat .value{font-size:26px}.stat .symbol{width:36px;height:36px;border-radius:12px;font-size:17px}
+ .two,.three,.cards-grid,.score-layout{grid-template-columns:1fr}.grid{gap:11px}.card{padding:15px}.match-card{padding:15px}.teams-line{gap:6px;margin:15px 0}.team-badge{width:43px;height:43px}.scoreline{font-size:23px}
+ .mobile-nav{display:flex;position:fixed;left:10px;right:10px;bottom:calc(8px + env(safe-area-inset-bottom));border:1px solid rgba(242,189,85,.23);border-radius:18px;padding:7px 6px;background:rgba(7,19,34,.97);z-index:60}.mobile-nav button{min-height:50px}.mobile-nav .nav-icon{width:24px;height:22px}.mobile-nav button small{font-size:9px}
+ .score-controls{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.run-btn{min-height:54px}.form-grid{grid-template-columns:1fr}.modal-backdrop{align-items:flex-end;padding:0}.modal{width:100%;max-height:92vh;border-radius:22px 22px 0 0;padding:19px 16px calc(18px + env(safe-area-inset-bottom))}
+ .table-wrap{border-radius:12px}table{font-size:12px}.footer{padding:12px 0 4px;font-size:10px}.more-grid{gap:9px}.more-tile{min-height:74px;padding:11px}
+}
+@media(min-width:701px){.mobile-nav{display:none!important}}
+
+
+/* MSL account controls and mobile modal usability */
+#adminLogout{padding:8px 11px;white-space:nowrap}
+@media(max-width:700px){.top-actions{gap:5px}.top-actions .pill{padding:6px 8px;font-size:10px}.top-actions .btn{padding:7px 9px;font-size:11px}}
+.modal-backdrop{z-index:1000!important;align-items:center!important;justify-content:center!important;padding:12px!important;overflow:hidden!important}
+.modal{display:flex!important;flex-direction:column!important;width:min(560px,100%)!important;max-height:calc(var(--msl-vh,100vh) - 24px)!important;overflow:hidden!important;padding:18px!important}
+.modal-head{flex:0 0 auto!important}
+#modalBody{min-height:0;flex:1 1 auto;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+#modalBody form>button[type=submit],#modalBody form>button.primary{position:sticky;bottom:0;z-index:2;width:100%;min-height:48px;margin-top:8px;box-shadow:0 -8px 18px #102139}
+@media(max-width:700px){.modal{width:100%!important;max-height:calc(var(--msl-vh,100vh) - 20px)!important;border-radius:18px!important;padding:15px!important}.mobile-nav{z-index:40!important}.field input,.field select,.field textarea{font-size:16px}}
+
+/* Live scorer layout: keep delivery controls near the top and easy to reach. */
+
+.score-workspace-flow{display:grid;grid-template-columns:1fr 1fr;gap:13px;align-items:start}
+.score-workspace-flow .batter-card,.score-workspace-flow .bowler-card{grid-row:auto}
+.batter-stat-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 12px;border:1px solid #304963;border-radius:12px;background:#10253d;margin:8px 0}
+.batter-stat-row>div{display:flex;flex-direction:column;gap:5px}.batter-stat-row strong{font-size:16px}.batter-stat-row strong small{font-size:12px;color:#a9bdd2;font-weight:600}.batter-stat-row.striker{border-color:#c49a48;background:#302b20}.strike-tag{font-size:9px;letter-spacing:1px;color:#f3d18b;font-weight:900}.batter-note{font-size:11px;color:#9eb0c5;margin:9px 0}.bowler-figures{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.bowler-figures div{background:#10253d;border:1px solid #304963;border-radius:11px;padding:12px 6px;text-align:center;display:flex;flex-direction:column;gap:4px}.bowler-figures strong{font-size:20px}.bowler-figures span{font-size:10px;color:#a9bdd2}.score-workspace-flow .score-action-card,.score-workspace-flow .over-card,.score-workspace-flow .innings-card{grid-column:1/-1}.delivery-list{display:grid;gap:6px}.delivery-row{display:grid;grid-template-columns:30px 1fr auto;align-items:center;gap:10px;padding:9px 11px;border-radius:10px;background:#10253d;border:1px solid #2d4660;font-size:13px}.delivery-number{width:25px;height:25px;display:grid;place-items:center;border-radius:50%;background:#29425f;font-size:11px;font-weight:800}.delivery-row strong{color:#f2d28d}.undo-btn{background:#60451f!important;border-color:#a77d37!important;color:#ffe4a5!important}.undo-btn:disabled{opacity:.4;cursor:not-allowed}
+
+.score-hero-redesigned{padding:18px 16px;margin-bottom:14px}
+.score-hero-redesigned .score-big{display:flex;align-items:baseline;justify-content:center;gap:7px;line-height:1.05;margin:7px 0 0}
+.score-hero-redesigned .score-big>span{font-size:clamp(54px,10vw,76px)}
+.score-hero-redesigned .score-big small{font-size:clamp(27px,5vw,38px)}
+.score-notation{font-size:9px;letter-spacing:2px;color:#d5b66e;font-weight:900;margin-top:2px}
+.score-opposition{font-size:12px;color:#c4d1df;margin-top:10px}
+.score-workspace{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:13px;align-items:start}
+.score-action-card{grid-row:span 2}
+.score-controls-redesigned{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.score-controls-redesigned .run-btn{min-height:64px;font-size:24px}
+.score-controls-redesigned.wicket-controls .run-btn{font-size:13px;min-height:48px}
+.ball-list-redesigned{min-height:42px;align-items:center}
+.ball-list-redesigned .ball{width:38px;height:38px;font-size:12px;border:1px solid #49627e}
+.over-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}
+.batter-row,.summary-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.batter-row span,.summary-row span{font-size:12px;color:var(--muted)}
+.batter-row strong{font-size:14px}
+@media(max-width:700px){.score-workspace,.score-workspace-flow{grid-template-columns:1fr}.score-workspace-flow .batter-card{order:0}.score-workspace-flow .bowler-card{order:1}.score-workspace-flow .score-action-card{order:2;grid-column:auto}.score-workspace-flow .over-card{order:3;grid-column:auto}.score-workspace-flow .innings-card{order:4;grid-column:auto}.score-action-card{grid-row:auto}.score-hero-redesigned{padding:15px 12px}.score-hero-redesigned .score-details{gap:8px 14px;font-size:11px}.score-controls-redesigned .run-btn{min-height:58px}.score-controls-redesigned.wicket-controls .run-btn{min-height:46px}.score-action-card{position:relative}.score-action-card .section-title{margin-top:13px}}
+@media(min-width:701px){.score-workspace .score-action-card{position:sticky;top:14px}}
+
+/* ===== NEW: Chase bar, match header, animations ===== */
+.msl-match-header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:14px 16px;margin-bottom:12px;border-radius:16px;background:linear-gradient(120deg,#173553,#0e2237);border:1px solid rgba(242,189,85,.25)}
+.msl-match-header .mh-team{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;min-width:0}
+.msl-match-header .mh-team .mh-badge{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-weight:1000;font-size:15px;background:#29415d;border:2px solid rgba(245,207,131,.45);overflow:hidden;color:#0f1c2c}
+.msl-match-header .mh-team .mh-badge img{width:100%;height:100%;object-fit:contain;background:#071222}
+.msl-match-header .mh-team .mh-name{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.msl-match-header .mh-team .mh-sub{font-size:10px;color:#9eb0c5}
+.msl-match-header .mh-vs{font-size:11px;font-weight:900;color:var(--gold2);letter-spacing:1.5px}
+.msl-match-header .mh-team.batting .mh-badge{box-shadow:0 0 0 3px rgba(242,189,85,.28)}
+
+.chase-bar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0 0}
+.chase-bar .chase-cell{padding:11px 10px;border-radius:12px;background:#10253d;border:1px solid #2d4660;text-align:center}
+.chase-bar .chase-cell .cc-label{font-size:9px;letter-spacing:1.2px;color:#9eb0c5;font-weight:800;text-transform:uppercase}
+.chase-bar .chase-cell .cc-value{font-size:20px;font-weight:1000;margin-top:3px;color:#f5cf83}
+.chase-bar.target .chase-cell .cc-value{color:#9af0cb}
+.chase-note{font-size:11px;color:#a8b9cc;text-align:center;margin:8px 0 0}
+
+.over-panel{margin-bottom:14px}
+.over-panel .delivery-list{max-height:220px;overflow:auto}
+
+/* Animations */
+#mslFxLayer{position:fixed;inset:0;pointer-events:none;z-index:9999;display:grid;place-items:center;overflow:hidden}
+.fx-burst{position:absolute;inset:0;display:grid;place-items:center;animation:fxFade 1.15s ease forwards}
+.fx-text{font-size:clamp(90px,22vw,190px);font-weight:1000;letter-spacing:-6px;line-height:1;color:#ffe0a0;text-shadow:0 0 40px rgba(242,189,85,.55),0 10px 40px rgba(0,0,0,.5);animation:fxPop .9s cubic-bezier(.2,.9,.3,1.2)}
+.fx-text.six{color:#ffe28a;text-shadow:0 0 50px rgba(255,209,102,.75),0 10px 40px rgba(0,0,0,.55)}
+.fx-text.four{color:#9af0cb;text-shadow:0 0 40px rgba(73,215,160,.55),0 10px 40px rgba(0,0,0,.5)}
+.fx-text.wicket{color:#ff9aa3;font-size:clamp(46px,10vw,96px);letter-spacing:0;text-shadow:0 0 40px rgba(255,115,125,.55),0 10px 40px rgba(0,0,0,.5)}
+.fx-ring{position:absolute;width:min(70vw,520px);height:min(70vw,520px);border-radius:50%;border:4px solid rgba(245,207,131,.55);animation:fxRing 1s ease-out forwards}
+.fx-ring.r2{animation-delay:.12s;border-color:rgba(245,207,131,.28)}
+.fx-ring.wicket{border-color:rgba(255,115,125,.6)}
+@keyframes fxPop{0%{transform:scale(.35);opacity:0}55%{transform:scale(1.08);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes fxRing{0%{transform:scale(.25);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+@keyframes fxFade{0%{opacity:0}12%{opacity:1}80%{opacity:1}100%{opacity:0}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand"><div class="logo" id="brandLogo">MSL</div><div>MARIWALA SUPER LEAGUE<small>CRICKET • COMMUNITY • LEGACY</small></div></div>
+  <div class="top-actions"><span class="pill" id="seasonPill">SEASON 9 • 2026</span><button class="btn" id="adminToggle" onclick="go('admin')">⚙ Admin Login</button><button class="btn danger" id="adminLogout" onclick="logout()" style="display:none">Logout</button></div>
+</header>
+<div class="layout">
+<aside class="sidebar">
+  <div class="nav-label">LEAGUE</div><nav class="nav" id="sideNav">
+    <button class="active" data-page="home"><span class="ico">⌂</span>Overview</button>
+    <button data-page="matches"><span class="ico">▣</span>Matches & Scores</button>
+    <button data-page="teams"><span class="ico">♜</span>Teams</button>
+    <button data-page="players"><span class="ico">♟</span>Players</button>
+    <button data-page="points"><span class="ico">▤</span>Points Table</button>
+    <button data-page="stats"><span class="ico">▥</span>Statistics & Records</button>
+    <button data-page="seasons"><span class="ico">◷</span>Season Archive</button>
+  </nav>
+  <div class="nav-label" style="margin-top:18px">MANAGEMENT</div>
+  <nav class="nav"><button data-page="admin"><span class="ico">⚙</span>Admin Panel</button></nav>
+  <div class="side-note"><strong>THE MSL SPIRIT</strong>Every season has a story. Every match makes history.<br><br><span id="storageStatus">● Local data enabled</span></div>
+</aside>
+<main class="main" id="main"></main>
+</div>
+<nav class="mobile-nav" id="mobileNav" aria-label="Main navigation">
+  <button data-page="home" class="active"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></span><small>Home</small></button>
+  <button data-page="matches"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4m8-4v4M3 9h18M8 13h3m2 0h3m-8 4h3"/></svg></span><small>Matches</small></button>
+  <button data-page="teams"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 2 20 6v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="m8 12 2.5 2.5L16 9"/></svg></span><small>Teams</small></button>
+  <button data-page="players"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><small>Players</small></button>
+  <button data-page="more"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></span><small>More</small></button>
+</nav>
+<div class="footer">MSL – Mariwala Super League · Season 9 · Jhabar Cricket Ground</div>
+</div>
+<div class="modal-backdrop" id="modalBackdrop" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="modal-head"><h2 id="modalTitle">Add item</h2><button class="close" onclick="closeModal()">×</button></div><div id="modalBody"></div></div></div>
+<div id="mslFxLayer" aria-hidden="true"></div>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script>
+const KEY='msl_league_v1';
+const firebaseConfig={apiKey:"AIzaSyBxcMJgbuu__w_EZcVxTH7IbyclIlO3UW8",authDomain:"msl-cricket-league.firebaseapp.com",projectId:"msl-cricket-league",storageBucket:"msl-cricket-league.firebasestorage.app",messagingSenderId:"907435432625",appId:"1:907435432625:web:24a1f484af333e3fcee090"};
+let auth=null, firestore=null;
+try{if(window.firebase){if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);auth=firebase.auth();firestore=firebase.firestore();}}catch(firebaseInitError){console.warn('Firebase unavailable; MSL will use this device until the connection returns.',firebaseInitError)}
+let cloudUser=null, cloudReady=false, applyingCloud=false, initialServerSnapshot=false;
+let localDirtyBeforeCloud=localStorage.getItem(KEY+'_dirty')==='1';
+let localRevision=0,lastSyncedRevision=0,syncTimer=null,syncInProgress=false;
+let knownCloudDocIds=new Set(),lastCloudPayload=new Map();
+try{if(firestore)firestore.enablePersistence({synchronizeTabs:true}).catch(e=>console.warn('Firestore offline cache unavailable; local saving remains enabled.',e));}catch(e){}
+const seed={
+ season:9,year:2026,admin:false,
+ teams:[
+  {id:'t1',name:'Thamewali Kings',captain:'Muzamil',color:'#f4bd3e',short:'TK',players:[]},
+  {id:'t2',name:'Mariwala Eleven',captain:'Shafiq',color:'#55a7e8',short:'ME',players:[]},
+  {id:'t3',name:'Tabasum Thunder',captain:'Haroon',color:'#ed6b68',short:'TT',players:[]},
+  {id:'t4',name:'Sea Warriors',captain:'Arshad',color:'#52c6a1',short:'SW',players:[]},
+  {id:'t5',name:'Malik Club',captain:'Aslam',color:'#ad8ae8',short:'MC',players:[]},
+  {id:'t6',name:'Black Gang',captain:'Moavia',color:'#a8b5c7',short:'BG',players:[]}
+ ],
+ players:[
+  {id:'p1',name:'Muzamil',teamId:'t1',role:'All-rounder',bat:'Right-hand',bowl:'Right-arm medium'},
+  {id:'p2',name:'Shafiq',teamId:'t2',role:'Batsman',bat:'Right-hand',bowl:'—'},
+  {id:'p3',name:'Haroon',teamId:'t3',role:'All-rounder',bat:'Right-hand',bowl:'Right-arm medium'},
+  {id:'p4',name:'Arshad',teamId:'t4',role:'Bowler',bat:'Right-hand',bowl:'Right-arm fast'},
+  {id:'p5',name:'Aslam',teamId:'t5',role:'Batsman',bat:'Right-hand',bowl:'—'},
+  {id:'p6',name:'Moavia',teamId:'t6',role:'All-rounder',bat:'Right-hand',bowl:'Right-arm spin'}
+ ],
+ matches:[
+  {id:'m1',teamA:'t1',teamB:'t2',date:'2026-11-15',venue:'Jhabar Cricket Ground',status:'Upcoming',oversLimit:8,innings:[],result:''},
+  {id:'m2',teamA:'t3',teamB:'t4',date:'2026-11-16',venue:'Jhabar Cricket Ground',status:'Upcoming',oversLimit:8,innings:[],result:''},
+  {id:'m3',teamA:'t5',teamB:'t6',date:'2026-11-17',venue:'Jhabar Cricket Ground',status:'Upcoming',oversLimit:8,innings:[],result:''}
+ ],
+ activeMatch:null,archives:[{season:8,year:2025,champion:'To be added'},{season:7,year:2024,champion:'To be added'}]
+};
+let db=load(); db.admin=false;
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||structuredClone(seed)}catch(e){return structuredClone(seed)}}
+function status(text){let el=document.getElementById('storageStatus');if(el)el.textContent=text}
+function hasLeagueData(x){return !!(x&&(x.teams?.length||x.players?.length||x.matches?.length))}
+function makeCloudDocs(snapshot){const docs=[
+ {id:'settings',kind:'settings',data:{season:snapshot.season,year:snapshot.year,archives:snapshot.archives||[],mslLogo:snapshot.mslLogo||null,activeMatch:snapshot.activeMatch||null}},
+ {id:'standings',kind:'standings',data:snapshot.manualStandings||{}}
+ ];(snapshot.teams||[]).forEach(x=>docs.push({id:'team_'+x.id,kind:'team',data:x}));
+ (snapshot.players||[]).forEach(x=>docs.push({id:'player_'+x.id,kind:'player',data:x}));
+ (snapshot.matches||[]).forEach(x=>docs.push({id:'match_'+x.id,kind:'match',data:x}));return docs;}
+function save(){
+ try{localStorage.setItem(KEY,JSON.stringify(db));localStorage.setItem(KEY+'_dirty','1');status('● Saved on this device · cloud sync queued');}
+ catch(e){status('● Device storage full · cloud copy may be incomplete');}
+ localRevision++;localDirtyBeforeCloud=true;
+ if(!cloudReady||!firestore||!cloudUser||applyingCloud)return;
+ clearTimeout(syncTimer);syncTimer=setTimeout(()=>syncLatestToCloud(),650);
+}
+async function syncLatestToCloud(){
+ if(!firestore||!cloudReady||!cloudUser||applyingCloud||syncInProgress)return;
+ const revision=localRevision,snapshot=JSON.parse(JSON.stringify(db)),docs=makeCloudDocs(snapshot);
+ if(docs.length>450){status('● Saved on device · too many records for one cloud batch');return;}
+ syncInProgress=true;status('● Saved on device · syncing changes…');
+ try{
+  const col=firestore.collection('mslData'),batch=firestore.batch(),nextIds=new Set(docs.map(x=>x.id));let writes=0;
+  for(const d of docs){const payload=JSON.stringify({kind:d.kind,data:d.data});if(lastCloudPayload.get(d.id)!==payload){batch.set(col.doc(d.id),{kind:d.kind,data:d.data,updatedAt:firebase.firestore.FieldValue.serverTimestamp()});lastCloudPayload.set(d.id,payload);writes++;}}
+  for(const id of knownCloudDocIds){if(!nextIds.has(id)){batch.delete(col.doc(id));lastCloudPayload.delete(id);writes++;}}
+  if(writes)await batch.commit();
+  knownCloudDocIds=nextIds;lastSyncedRevision=revision;
+  if(localRevision===revision){localDirtyBeforeCloud=false;try{localStorage.removeItem(KEY+'_dirty')}catch(e){}status('● Saved on this device · synced with cloud');}
+  else{status('● Latest changes saved locally · syncing…');clearTimeout(syncTimer);syncTimer=setTimeout(()=>syncLatestToCloud(),250);}
+ }catch(err){console.error('MSL cloud sync:',err);status('● Saved on this device · cloud sync pending');}
+ finally{syncInProgress=false;}
+}
+function applyCloudDocs(snapshot){
+ const docs=snapshot.docs;knownCloudDocIds=new Set(docs.map(d=>d.id));
+ docs.forEach(d=>{const v=d.data()||{};lastCloudPayload.set(d.id,JSON.stringify({kind:v.kind,data:v.data}));});
+ if(!docs.length){if(!initialServerSnapshot)return;if(hasLeagueData(db)){if(cloudUser)syncLatestToCloud();return;}db=structuredClone(seed);render();return;}
+ if(syncInProgress||localRevision>lastSyncedRevision&&localDirtyBeforeCloud){status('● Local changes protected · cloud sync pending');return;}
+ if(localDirtyBeforeCloud&&cloudUser&&confirm('This device has changes saved while offline. Replace the shared cloud data with this device copy? Choose Cancel to keep the shared cloud data and discard the unsynced local changes.')){cloudReady=true;syncLatestToCloud();return;}
+ localDirtyBeforeCloud=false;try{localStorage.removeItem(KEY+'_dirty')}catch(e){}
+ const next={season:9,year:2026,admin:!!cloudUser,teams:[],players:[],matches:[],archives:[],manualStandings:{},activeMatch:null};
+ docs.forEach(d=>{const v=d.data()||{},x=v.data;if(v.kind==='settings'&&x){next.season=x.season??9;next.year=x.year??2026;next.archives=x.archives||[];next.mslLogo=x.mslLogo||null;next.activeMatch=x.activeMatch||null;}else if(v.kind==='standings')next.manualStandings=x||{};else if(v.kind==='team')next.teams.push(x);else if(v.kind==='player')next.players.push(x);else if(v.kind==='match')next.matches.push(x)});
+ if(!next.teams.length&&!next.players.length&&!next.matches.length){if(hasLeagueData(db)){if(cloudUser)syncLatestToCloud();return;}Object.assign(next,structuredClone(seed));}
+ applyingCloud=true;db=next;try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}applyingCloud=false;localRevision=lastSyncedRevision;render();status(snapshot.metadata.fromCache?'● Offline copy · reconnecting':'● Cloud data loaded');
+}
+if(firestore){firestore.collection('mslData').onSnapshot({includeMetadataChanges:true},snap=>{if(snap.metadata.fromCache&&!initialServerSnapshot){status('● Opening saved device copy · checking cloud…');return;}initialServerSnapshot=true;cloudReady=true;applyCloudDocs(snap)},err=>{console.error(err);status('● Saved on this device · cloud unavailable');});}
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(err=>console.warn('Offline app shell unavailable',err)));
+if(auth){auth.onAuthStateChanged(user=>{cloudUser=user;db.admin=!!(user&&user.email&&user.email.toLowerCase()==='mirharoonofficial@gmail.com');render();if(user)status('● Admin signed in · cloud connected');else status('● Public view · cloud connected')});}else{status('● Local mode · cloud connection unavailable');}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function team(id){return db.teams.find(t=>t.id===id)||{name:'Unknown',short:'??',color:'#778899',captain:'—'}}
+function player(id){return db.players.find(p=>p.id===id)||{name:'—'}}
+function initials(s){return (s||'?').split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase()}
+function fmtDate(d){if(!d)return 'Date TBC';return new Date(d+'T00:00:00').toLocaleDateString('en-US',{day:'numeric',month:'short',year:'numeric'})}
+let page='home';
+let activeScoreMatchId=null;
+// Restore the last in-app destination after refresh, especially the live scorer.
+try{const savedRoute=JSON.parse(localStorage.getItem(KEY+'_route')||'null');if(savedRoute&&typeof savedRoute.page==='string'){page=savedRoute.page;if(page==='score'&&savedRoute.matchId)activeScoreMatchId=savedRoute.matchId;}}catch(e){}
+function persistRoute(){try{localStorage.setItem(KEY+'_route',JSON.stringify({page,matchId:activeScoreMatchId,updatedAt:Date.now()}))}catch(e){}}
+function go(p){page=p;if(p!=='score')activeScoreMatchId=null;persistRoute();document.querySelectorAll('[data-page]').forEach(b=>{const active=b.dataset.page===p;b.classList.toggle('active',active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});render()}
+document.addEventListener('click',event=>{const navButton=event.target.closest('[data-page]');if(navButton){event.preventDefault();go(navButton.dataset.page)}});
+function head(title,sub,buttons=''){return `<div class="page-head"><div><div class="eyebrow">MARIWALA SUPER LEAGUE / SEASON ${db.season}</div><h1>${title}</h1><p class="sub">${sub}</p></div><div class="actions">${buttons}</div></div>`}
+function btn(label,fn,cls=''){return `<button type="button" class="btn ${cls}" onclick="${fn}">${label}</button>`}
+function render(){const m=document.getElementById('main');try{document.getElementById('seasonPill').textContent=`SEASON ${db.season} • ${db.year}`;const adminToggle=document.getElementById('adminToggle'),adminLogout=document.getElementById('adminLogout');if(adminToggle){adminToggle.textContent=db.admin?`✓ ${cloudUser?.displayName||'Haroon'}`:'⚙ Admin Login';adminToggle.title=db.admin?'Open administrator panel':'Administrator login';adminToggle.onclick=()=>go('admin');}if(adminLogout)adminLogout.style.display=db.admin?'':'none';const brand=document.getElementById('brandLogo');if(brand)brand.innerHTML=db.mslLogo?`<img src="${db.mslLogo}" alt="MSL logo" style="width:100%;height:100%;object-fit:contain;border-radius:inherit">`:'MSL';const pages={home:homePage,matches:matchesPage,teams:teamsPage,players:playersPage,points:pointsPage,stats:statsPage,seasons:seasonsPage,admin:adminPage,score:()=>scorePageContent(activeScoreMatchId),more:morePage};m.innerHTML=(pages[page]||homePage)()}catch(err){console.error('MSL page render failed:',err);m.innerHTML=`<div class="card error-card"><div class="eyebrow">MSL DISPLAY ERROR</div><h2>This section could not be displayed</h2><p class="muted">Your saved league data has not been deleted. Please return to Home or reload the page.</p><button type="button" class="btn primary" onclick="go('home')">Return to Home</button></div>`}}
+function stat(label,value,symbol){return `<div class="card stat"><div><div class="label">${label}</div><div class="value">${value}</div></div><div class="symbol">${symbol}</div></div>`}
+function matchCard(m){let a=team(m.teamA),b=team(m.teamB),status=m.status;let inn=m.innings||[],score=inn.length?`${inn[inn.length-1].runs}/${inn[inn.length-1].wickets}`:'—';return `<div class="match-card"><div class="match-top"><span>${esc(m.venue||'Jhabar Cricket Ground')}</span><span class="${status==='Live'?'live':''}">${status==='Live'?'● LIVE':status.toUpperCase()}</span></div><div class="teams-line"><div class="team-mini"><div class="team-badge" style="background:${a.color};color:#101a2b">${a.short}</div><strong>${esc(a.name)}</strong><small>${esc(a.captain)}</small></div><div class="versus">VS</div><div class="team-mini"><div class="team-badge" style="background:${b.color};color:#101a2b">${b.short}</div><strong>${esc(b.name)}</strong><small>${esc(b.captain)}</small></div></div><div class="scoreline">${score} <small>${inn.length?`(${Math.floor((inn[inn.length-1].legal||0)/6)}.${(inn[inn.length-1].legal||0)%6}/${m.oversLimit||8} ov)`:'• '+fmtDate(m.date)}</small></div><div style="display:flex;justify-content:center;margin-top:13px">${status==='Live'?btn('Open live score',`openMatch('${m.id}')`,'primary'):status==='Completed'?btn('View scorecard',`openMatch('${m.id}')`):btn('Match details',`openMatch('${m.id}')`)}${db.admin?` <div style="display:flex;justify-content:center;gap:7px;margin-top:8px">${btn('Edit',`editMatch('${m.id}')`)}${btn('Delete',`deleteMatch('${m.id}')`,'danger')}</div>`:''}</div></div>`}
+function homePage(){let live=db.matches.filter(m=>m.status==='Live'),up=db.matches.filter(m=>m.status==='Upcoming'),done=db.matches.filter(m=>m.status==='Completed');let organizers=db.teams.map(t=>{let cp=db.players.find(p=>p.teamId===t.id&&(p.isCaptain||p.name.trim().toLowerCase()===String(t.captain||'').trim().toLowerCase()))||db.players.find(p=>p.teamId===t.id&&p.name.trim().toLowerCase()===String(t.captain||'').trim().toLowerCase());return {team:t, name:t.captain||cp?.name||'Team Captain', photo:t.organizerPhoto||cp?.photo||''}});return `${head('League overview','Welcome to the home of Mariwala Super League.',db.admin?btn('+ Schedule match','matchForm()','primary'): '')}<div class="grid stats">${stat('TEAMS',db.teams.length,'♜')}${stat('PLAYERS',db.players.length,'♟')}${stat('MATCHES PLAYED',done.length,'▣')}${stat('UPCOMING',up.length,'◷')}</div><div class="card" style="margin-bottom:18px;background:linear-gradient(120deg,#182e49,#102139);border-color:#705b2d"><div class="section-title" style="margin-top:0"><div><div class="eyebrow">THE PEOPLE BEHIND MSL</div><h2 style="font-size:22px;margin-top:4px">MSL Organizers</h2></div><span>${organizers.length} team captains</span></div><p class="muted" style="font-size:13px;margin-top:0">Our team captains are also the organizers who bring the league together.</p><div class="grid cards-grid" style="grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px">${organizers.map((o,i)=>`<div style="text-align:center;padding:15px 9px;border-radius:15px;background:linear-gradient(160deg,#203a58,#12243a);border:1px solid ${o.team.color||'#304660'}66"><div style="width:94px;height:94px;border-radius:50%;padding:3px;margin:0 auto 10px;background:linear-gradient(135deg,${o.team.color||'#f5b82e'},#e7edf5);box-shadow:0 7px 22px #0006"><div style="width:100%;height:100%;border-radius:50%;overflow:hidden;background:#09182a;display:grid;place-items:center;font-size:27px;font-weight:900;color:#f5c24b">${o.photo?`<img src="${o.photo}" alt="${esc(o.name)}" style="width:100%;height:100%;object-fit:cover">`:initials(o.name)}</div></div><div style="font-weight:850;font-size:14px">${esc(o.name)}</div><div style="font-size:11px;color:var(--gold);font-weight:800;margin-top:3px">ORGANIZER</div><div style="font-size:11px;color:var(--muted);margin-top:4px">${esc(o.team.name)}</div>${db.admin?`<div style="margin-top:8px">${btn('Edit organizer photo',`organizerPhotoForm('${o.team.id}')`)}</div>`:''}</div>`).join('')}</div></div><div class="grid two"><div><div class="section-title"><h2>${live.length?'Live match':'Featured matches'}</h2><span>${live.length?'FOLLOW THE ACTION':'SEASON '+db.season}</span></div>${live.length?live.map(matchCard).join(''):(up.length?matchCard(up[0]):`<div class="card empty">No scheduled matches yet.</div>`)}<div class="section-title"><h2>Upcoming fixtures</h2><span>${up.length} scheduled</span></div><div class="grid">${up.slice(live.length?0:1,3).map(matchCard).join('')||'<div class="card empty">More fixtures will appear here.</div>'}</div></div><div><div class="section-title"><h2>Teams this season</h2><span>${db.teams.length} teams</span></div><div class="card">${db.teams.map(t=>`<div class="player-card" style="margin:10px 0"><div class="team-badge" style="background:${t.color};color:#101a2b;overflow:hidden">${t.logo?`<img src="${t.logo}" alt="">`:t.short}</div><div style="flex:1"><h3>${esc(t.name)}</h3><p>Captain: ${esc(t.captain)}</p></div><span class="badge">${db.players.filter(p=>p.teamId===t.id).length} players</span></div>`).join('')}</div><div class="section-title"><h2>League information</h2></div><div class="card"><div class="eyebrow">HOME GROUND</div><h3 style="margin:7px 0">Jhabar Cricket Ground</h3><p class="muted" style="font-size:13px;margin:0">Thamewali, Mianwali · Pakistan</p><div style="border-top:1px solid var(--line);margin-top:15px;padding-top:13px;color:var(--muted);font-size:12px">MSL brings local cricket communities together through competition, teamwork and sportsmanship.</div></div></div></div>`}
+function matchesPage(){let all=db.matches;return `${head('Matches & scores','Live action, upcoming fixtures and completed results.',db.admin?btn('+ Create fixture','matchForm()')+' '+btn('▶ Start a match','quickStartMatch()','primary'):'' )}<div class="tabs"><button class="active" onclick="filterMatches('All',this)">All matches</button><button onclick="filterMatches('Live',this)">Live</button><button onclick="filterMatches('Upcoming',this)">Upcoming</button><button onclick="filterMatches('Completed',this)">Results</button></div><div id="matchList" class="grid cards-grid">${all.map(matchCard).join('')||'<div class="card empty">No matches scheduled.</div>'}</div>`}
+function filterMatches(f,b){document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');let list=f==='All'?db.matches:db.matches.filter(m=>m.status===f);document.getElementById('matchList').innerHTML=list.map(matchCard).join('')||'<div class="card empty">No matches in this category.</div>'}
+function teamsPage(){return `${head('The teams','Meet the clubs competing in MSL Season '+db.season+'.',db.admin?btn('+ Add team','teamForm()','primary'):'')}<div class="grid cards-grid">${db.teams.map(t=>`<div class="card team-card" style="--team-color:${t.color}"><div class="team-card-head"><div class="team-emblem">${t.logo?`<img src="${t.logo}" alt="${esc(t.name)} logo">`:t.short}</div><div><h3>${esc(t.name)}</h3><p>Captain: ${esc(t.captain)}</p></div></div><div class="team-meta"><span>♟ ${db.players.filter(p=>p.teamId===t.id).length} players</span><span>Season ${db.season}</span></div>${db.admin?`<div style="margin-top:12px">${btn('Edit team',`teamForm('${t.id}')`,'')}</div>`:''}</div>`).join('')}</div>`}
+function playersPage(){return `${head('Players','Explore the MSL player directory.',db.admin?btn('+ Add player','playerForm()','primary'):'')}<div class="toolbar"><input id="playerSearch" placeholder="Search player..." oninput="searchPlayers()" style="flex:1;min-width:180px;background:#09182a;border:1px solid #304660;border-radius:10px;padding:10px;color:white"><select id="teamFilter" onchange="searchPlayers()" style="background:#09182a;border:1px solid #304660;border-radius:10px;padding:10px;color:white"><option value="">All teams</option>${db.teams.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join('')}</select></div><div class="grid cards-grid" id="playerList">${playerCards(db.players)}</div>`}
+function playerCards(list){return list.map(p=>`<div class="card"><div class="player-card"><div class="avatar">${p.photo?`<img src="${p.photo}" alt="${esc(p.name)}">`:initials(p.name)}</div><div style="flex:1"><h3>${esc(p.name)}</h3><p>${esc(team(p.teamId).name)} · ${esc(p.role||'Player')}</p></div><span class="badge">${p.playerType==='Open'?'✈ OPEN':'LOCAL'}</span></div><div class="team-meta"><span>${esc(p.bat||'—')}</span><span>${esc(p.bowl||'—')}</span></div>${db.admin?`<div style="margin-top:12px">${btn('Edit',`playerForm('${p.id}')`)}</div>`:''}</div>`).join('')||'<div class="card empty">No players found. Add players from the admin panel.</div>'}
+function searchPlayers(){let q=(document.getElementById('playerSearch')?.value||'').toLowerCase(),t=document.getElementById('teamFilter')?.value||'';document.getElementById('playerList').innerHTML=playerCards(db.players.filter(p=>p.name.toLowerCase().includes(q)&&(!t||p.teamId===t)))}
+function getStandings(){return db.teams.map(t=>{let ms=db.matches.filter(m=>m.status==='Completed'&&[m.teamA,m.teamB].includes(t.id));let won=ms.filter(m=>m.winner===t.id).length,lost=ms.length-won;let x=db.manualStandings?.[t.id];return x?{team:t,...x}:{team:t,p:ms.length,w:won,l:lost,nr:0,pts:won*2,nrr:0}}).sort((a,b)=>b.pts-a.pts||b.nrr-a.nrr)}
+function pointsPage(){let rows=getStandings();return `${head('Points table','Season ${db.season} standings · 2 points for a win.',db.admin?btn('Edit table','editPointsTable()','primary'):'')}<div class="card"><div class="section-title" style="margin-top:0"><h2>MSL Season ${db.season} – ${db.year}</h2><span>UPDATED FROM MATCH RESULTS</span></div><div class="table-wrap"><table><thead><tr><th>Pos</th><th>Team</th><th>Played</th><th>Won</th><th>Lost</th><th>NR</th><th>Points</th><th>NRR</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td>${i+1}</td><td><div class="team-cell"><span class="tiny-badge" style="background:${r.team.color};color:#111">${r.team.short}</span><strong>${esc(r.team.name)}</strong></div></td><td>${r.p}</td><td>${r.w}</td><td>${r.l}</td><td>${r.nr||0}</td><td><strong>${r.pts}</strong></td><td>${Number(r.nrr||0).toFixed(3)}</td></tr>`).join('')}</tbody></table></div><p class="muted" style="font-size:11px;margin-bottom:0">NRR will be calculated from completed innings once full match scorecards are recorded.</p></div>`}
+function statsPage(){return `${head('Statistics & records','Season leaders and memorable performances.')}<div class="grid stats">${stat('TOP RUN SCORER','—','🏏')}${stat('MOST WICKETS','—','🎯')}${stat('MOST SIXES','—','🚀')}${stat('PLAYER OF THE MATCH','—','🏆')}</div><div class="grid two"><div class="card"><div class="section-title" style="margin-top:0"><h2>Batting leaderboard</h2><span>SEASON ${db.season}</span></div><div class="empty">Player rankings will populate as match scorecards are recorded.</div></div><div class="card"><div class="section-title" style="margin-top:0"><h2>Bowling leaderboard</h2><span>SEASON ${db.season}</span></div><div class="empty">Bowling rankings will populate as match scorecards are recorded.</div></div></div><div class="section-title"><h2>League records</h2></div><div class="grid three"><div class="card"><div class="muted">Highest team total</div><h2>—</h2></div><div class="card"><div class="muted">Highest individual score</div><h2>—</h2></div><div class="card"><div class="muted">Best bowling figures</div><h2>—</h2></div></div>`}
+function seasonsPage(){return `${head('Season archive','Explore MSL history.',db.admin?btn('+ Create season','seasonForm()','primary'):'')}<div class="grid cards-grid"><div class="card team-card"><span class="badge live">CURRENT SEASON</span><h2>Season ${db.season} · ${db.year}</h2><p class="muted">Active season · ${db.teams.length} teams</p><div class="team-meta"><span>${db.matches.length} fixtures</span><span>${db.matches.filter(m=>m.status==='Completed').length} completed</span></div></div>${db.archives.map((a,n)=>`<div class="card"><span class="badge">ARCHIVED</span><h2>Season ${a.season} · ${a.year}</h2><p class="muted">Champion: <strong>${esc(a.champion||'To be added')}</strong></p>${db.admin?btn('Edit season winner',`editArchive(${n})`):''}</div>`).join('')}</div>`}
+
+function editArchive(n){if(!requireAdmin())return;let a=db.archives[n];if(!a)return;openModal('Edit previous season',`<form onsubmit="saveArchive(event,${n})"><div class="field"><label>Season</label><input name="season" type="number" min=1 value="${a.season}" required></div><div class="field"><label>Year</label><input name="year" type="number" value="${a.year}" required></div><div class="field"><label>Previous season champion</label><input name="champion" value="${esc(a.champion||'')}" placeholder="Enter winning team" required></div><button class="btn primary">Save season details</button></form>`)}
+function saveArchive(e,n){e.preventDefault();if(!requireAdmin())return;let f=Object.fromEntries(new FormData(e.target));Object.assign(db.archives[n],{season:Number(f.season),year:Number(f.year),champion:f.champion.trim()});save();closeModal();render()}
+
+
+function morePage(){return `${head('Explore MSL','League tables, records, season history and administration.')}<div class="more-grid">
+<button class="more-tile" onclick="go('points')"><span class="tile-icon">🏆</span><span>Points table<small>Standings & rankings</small></span></button>
+<button class="more-tile" onclick="go('stats')"><span class="tile-icon">📊</span><span>Statistics<small>Records & leaders</small></span></button>
+<button class="more-tile" onclick="go('seasons')"><span class="tile-icon">◷</span><span>Season archive<small>Past MSL seasons</small></span></button>
+<button class="more-tile" onclick="go('admin')"><span class="tile-icon">⚙</span><span>Admin panel<small>League management</small></span></button>
+</div><div class="card" style="margin-top:15px"><div class="eyebrow">MSL SEASON ${db.season}</div><h3 style="margin:7px 0">Cricket • Community • Legacy</h3><p class="muted" style="font-size:12px;margin:0">Jhabar Cricket Ground · Thamewali, Mianwali</p></div>`}
+
+function adminPage(){if(!db.admin)return `${head('Admin access','Sign in to manage MSL.')}<div class="card" style="max-width:460px;margin:25px auto"><div class="eyebrow">RESTRICTED AREA</div><h2>Administrator login</h2><p class="muted">Sign in with the authorized MSL administrator email and password.</p><form onsubmit="login(event)"><div class="field"><label>Administrator email</label><input id="loginEmail" type="email" autocomplete="username" required placeholder="Admin email"></div><div class="field"><label>Password</label><input id="loginPass" type="password" autocomplete="current-password" required placeholder="Firebase password"></div><button class="btn primary" style="width:100%">Sign in</button></form><p class="muted" style="font-size:11px">Only the authorized administrator account can make changes.</p></div>`;return `${head('Admin control panel','Manage your league, squads, fixtures and match scoring.',btn('Public view','toggleAdmin()'))}<div class="admin-banner"><span id="cloudAdminStatus">✓ Firebase administrator session active. Changes sync to the shared league database.</span></div><div class="card upload-card" style="margin-bottom:16px"><div class="section-title" style="margin-top:0"><h2>📸 Upload photos & logos</h2><span>Admin only</span></div><p class="muted" style="font-size:12px">Images are saved in this browser and included in your JSON backup. Use JPG, PNG or WebP images. For best results, upload images under 2 MB.</p><div class="grid three"><div><h3>MSL league logo</h3><div class="upload-row"><img class="upload-preview" id="mslLogoPreview" src="${db.mslLogo||''}" style="${db.mslLogo?'':'display:none'}"><span class="muted" id="mslLogoEmpty" style="${db.mslLogo?'display:none':''}">No logo uploaded</span></div><div class="field" style="margin-top:10px"><input type="file" accept="image/*" onchange="uploadImage(event,'msl','')"></div>${btn('Remove MSL logo',"removeImage('msl','')",'danger')}</div><div><h3>Team logo</h3><div class="field"><label>Select existing team</label><select id="uploadTeam" onchange="refreshUploadPreviews()">${db.teams.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join('')}</select></div><div class="upload-row"><img class="upload-preview" id="teamLogoPreview" src="${db.teams[0]?.logo||''}" style="${db.teams[0]?.logo?'':'display:none'}"><span class="muted" id="teamLogoEmpty" style="${db.teams[0]?.logo?'display:none':''}">No logo uploaded</span></div><div class="field" style="margin-top:10px"><input type="file" accept="image/*" onchange="uploadImage(event,'team')"></div>${btn('Remove selected logo',"removeImage('team')",'danger')}</div><div><h3>Player photo</h3><div class="field"><label>Select player</label><select id="uploadPlayer" onchange="refreshUploadPreviews()">${db.players.map(p=>`<option value="${p.id}">${esc(p.name)} — ${esc(team(p.teamId).name)}</option>`).join('')}</select></div><div class="upload-row"><img class="upload-preview" id="playerPhotoPreview" src="${db.players[0]?.photo||''}" style="${db.players[0]?.photo?'':'display:none'}"><span class="muted" id="playerPhotoEmpty" style="${db.players[0]?.photo?'display:none':''}">No photo uploaded</span></div><div class="field" style="margin-top:10px"><input type="file" accept="image/*" onchange="uploadImage(event,'player')"></div>${btn('Remove selected photo',"removeImage('player')",'danger')}</div><div><h3>Organizer photo</h3><div class="field"><label>Select team organizer</label><select id="uploadOrganizer" onchange="refreshUploadPreviews()">${db.teams.map(t=>`<option value="${t.id}">${esc(t.captain||t.name)}</option>`).join('')}</select></div><div class="upload-row"><img class="upload-preview" id="organizerPhotoPreview" src="${db.teams[0]?.organizerPhoto||''}" style="${db.teams[0]?.organizerPhoto?'':'display:none'}"><span class="muted" id="organizerPhotoEmpty" style="${db.teams[0]?.organizerPhoto?'display:none':''}">No organizer photo uploaded</span></div><div class="field" style="margin-top:10px"><input type="file" accept="image/*" onchange="uploadImage(event,'organizer')"></div>${btn('Remove organizer photo',"removeImage('organizer')",'danger')}</div></div><p class="upload-help">Tip: Player photos appear in the player directory. Organizer photos appear separately on the MSL home page.</p></div><div class="grid stats">${stat('TEAMS',db.teams.length,'♜')}${stat('PLAYERS',db.players.length,'♟')}${stat('MATCHES',db.matches.length,'▣')}${stat('LIVE MATCHES',db.matches.filter(m=>m.status==='Live').length,'●')}</div><div class="grid cards-grid"><div class="card"><h3>♜ Teams</h3><p class="muted">Create and update clubs, captains and colors.</p>${btn('Add team','teamForm()','primary')} ${btn('View teams',"go('teams')")}</div><div class="card"><h3>♟ Players</h3><p class="muted">Register players and assign their teams.</p>${btn('Add player','playerForm()','primary')} ${btn('Bulk upload photos','bulkPlayerUpload()')} ${btn('View players',"go('players')")}</div><div class="card"><h3>▣ Matches</h3><p class="muted">Schedule fixtures and manage match status.</p>${btn('Create match','matchForm()','primary')} ${btn('▶ Start a match','quickStartMatch()')} ${btn('View matches',"go('matches')")}</div><div class="card"><h3>🏏 Live scoring</h3><p class="muted">Operate the scorer console for a match.</p>${btn('Open scorer','chooseScoringMatch()','primary')}</div><div class="card"><h3>◷ Seasons</h3><p class="muted">Create and preserve separate seasons.</p>${btn('Create season','seasonForm()','primary')} ${btn('Season archive',"go('seasons')")}</div><div class="card"><h3>⇧ Data backup</h3><p class="muted">Export or restore your MSL data.</p>${btn('Export JSON','exportData()','primary')} <label class="btn" style="display:inline-block">Import JSON<input type="file" accept="application/json" onchange="importData(event)" hidden></label></div></div><div class="section-title"><h2>Recent fixtures</h2></div><div class="card"><div class="table-wrap"><table><thead><tr><th>Match</th><th>Date</th><th>Status</th><th>Action</th></tr></thead><tbody>${db.matches.map(m=>`<tr><td>${esc(team(m.teamA).name)} vs ${esc(team(m.teamB).name)}</td><td>${fmtDate(m.date)}</td><td>${m.status}</td><td>${btn(m.status==='Upcoming'?'Start scoring':'Open match',m.status==='Upcoming'?`startMatch('${m.id}')`:`openMatch('${m.id}')`)} ${btn('Edit',`editMatch('${m.id}')`)} ${btn('Delete',`deleteMatch('${m.id}')`,'danger')}</td></tr>`).join('')}</tbody></table></div></div>`}
+function refreshUploadPreviews(){let t=team(document.getElementById('uploadTeam')?.value),p=player(document.getElementById('uploadPlayer')?.value),o=team(document.getElementById('uploadOrganizer')?.value);[['teamLogoPreview','teamLogoEmpty',t.logo],['playerPhotoPreview','playerPhotoEmpty',p.photo],['organizerPhotoPreview','organizerPhotoEmpty',o.organizerPhoto]].forEach(([a,b,src])=>{let im=document.getElementById(a),empty=document.getElementById(b);if(im){im.src=src||'';im.style.display=src?'':'none'}if(empty)empty.style.display=src?'none':''})}
+function imageTarget(type,id){return type==='msl'?db:(type==='team'||type==='organizer')?team(id||(type==='organizer'?document.getElementById('uploadOrganizer')?.value:document.getElementById('uploadTeam')?.value)):player(id||document.getElementById('uploadPlayer')?.value)}
+function uploadImage(e,type,id=''){if(!requireAdmin())return;let file=e.target.files?.[0];if(!file)return;if(!file.type.startsWith('image/')){alert('Please choose an image file.');e.target.value='';return}if(file.size>8*1024*1024){alert('Please choose an image smaller than 8 MB.');e.target.value='';return}let reader=new FileReader();reader.onload=()=>{let img=new Image();img.onload=()=>{let max=500,scale=Math.min(1,max/Math.max(img.width,img.height)),canvas=document.createElement('canvas');canvas.width=Math.round(img.width*scale);canvas.height=Math.round(img.height*scale);canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);let data=canvas.toDataURL('image/jpeg',.55),target=imageTarget(type,id);if(data.length>700000){alert('This image is still too large for the free database limit. Please crop it or choose a smaller image.');return}if(!target){alert('Select a team or player first.');return}let prop=type==='msl'?'mslLogo':type==='team'?'logo':type==='organizer'?'organizerPhoto':'photo';target[prop]=data;try{save();render()}catch(err){alert('This image could not be saved. Try a smaller image or remove older photos.');target[prop]=null;save();render()}};img.onerror=()=>alert('Could not read this image.');img.src=reader.result};reader.readAsDataURL(file)}
+function removeImage(type,id=''){if(!requireAdmin())return;let target=imageTarget(type,id);if(!target)return;let prop=type==='msl'?'mslLogo':type==='team'?'logo':type==='organizer'?'organizerPhoto':'photo';if(!target[prop])return;delete target[prop];save();render()}
+function toggleAdmin(){if(db.admin){go('home');return}go('admin')}
+async function login(e){if(e)e.preventDefault();if(!auth){alert('The sign-in service is not available right now. Reconnect to the internet and reload the app.');return}const email=document.getElementById('loginEmail')?.value.trim(),password=document.getElementById('loginPass')?.value;if(!email||!password)return;try{await auth.signInWithEmailAndPassword(email,password)}catch(err){alert(err.code==='auth/invalid-credential'?'Incorrect email or password.':(err.message||'Sign-in failed.'))}}
+async function logout(){if(!auth){db.admin=false;render();return}try{await auth.signOut()}catch(err){alert('Could not sign out: '+err.message)}}
+function requireAdmin(){if(!db.admin||!cloudUser){alert('Please sign in with the authorized MSL administrator account first.');return false}return true}
+function updateModalViewport(){const h=window.visualViewport?.height||window.innerHeight;document.documentElement.style.setProperty('--msl-vh',h+'px')}
+window.addEventListener('resize',updateModalViewport);if(window.visualViewport)window.visualViewport.addEventListener('resize',updateModalViewport);
+function openModal(title,body){updateModalViewport();document.getElementById('modalTitle').textContent=title;document.getElementById('modalBody').innerHTML=body;document.getElementById('modalBody').scrollTop=0;document.getElementById('modalBackdrop').classList.add('show')}
+function closeModal(){document.getElementById('modalBackdrop').classList.remove('show')}
+function teamForm(id=''){if(!requireAdmin())return;let t=db.teams.find(x=>x.id===id)||{name:'',captain:'',short:'',color:'#f5b82e'};openModal(id?'Edit team':'Add team',`<form onsubmit="saveTeam(event,'${id}')"><div class="field"><label>Team name</label><input name="name" required value="${esc(t.name)}"></div><div class="form-grid"><div class="field"><label>Captain</label><input name="captain" required value="${esc(t.captain)}"></div><div class="field"><label>Short name (2–3 letters)</label><input name="short" maxlength="3" required value="${esc(t.short)}"></div></div><div class="field"><label>Team color</label><input name="color" type="color" value="${t.color}"></div><button class="btn primary">Save team</button></form>`)}
+function saveTeam(e,id){e.preventDefault();let f=new FormData(e.target),v=Object.fromEntries(f);if(id)Object.assign(team(id),v);else db.teams.push({id:'t'+Date.now(),...v});save();closeModal();render()}
+function playerForm(id=''){if(!requireAdmin())return;let p=db.players.find(x=>x.id===id)||{name:'',teamId:db.teams[0]?.id||'',role:'All-rounder',bat:'Right-hand',bowl:'—',playerType:'Local'};openModal(id?'Edit player':'Register player',`<form onsubmit="savePlayer(event,'${id}')"><div class="field"><label>Player name</label><input name="name" required value="${esc(p.name)}"></div><div class="field"><label>Player photo</label><div class="upload-row"><img id="playerFormPhotoPreview" class="upload-preview" src="${p.photo||''}" style="${p.photo?'':'display:none'};width:82px;height:82px;border-radius:50%;object-fit:cover"><span id="playerFormPhotoEmpty" class="muted" style="${p.photo?'display:none':''}">No photo selected</span></div><input id="playerFormPhoto" type="file" accept="image/*" onchange="previewPlayerPhoto(event)">${p.photo?'<label style="display:flex;align-items:center;gap:8px;margin-top:8px"><input type="checkbox" name="removePhoto" value="yes" style="width:auto"> Remove current photo</label>':''}<span class="upload-help">Choose a new photo to add or replace the current one.</span></div><div class="field"><label>Team</label><select name="teamId">${db.teams.map(t=>`<option value="${t.id}" ${p.teamId===t.id?'selected':''}>${esc(t.name)}</option>`).join('')}</select></div><div class="field"><label>Player category</label><select name="playerType"><option value="Local" ${p.playerType!=='Open'?'selected':''}>Local player</option><option value="Open" ${p.playerType==='Open'?'selected':''}>Open player (✈)</option></select></div><div class="field"><label>Playing role</label><select name="role">${['Batsman','Bowler','All-rounder','Wicketkeeper'].map(x=>`<option ${p.role===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="form-grid"><div class="field"><label>Batting style</label><select name="bat"><option>Right-hand</option><option>Left-hand</option></select></div><div class="field"><label>Bowling style</label><input name="bowl" value="${esc(p.bowl)}"></div></div><button class="btn primary">Save player</button></form>`)}
+function previewPlayerPhoto(e){const file=e.target.files?.[0],img=document.getElementById('playerFormPhotoPreview'),empty=document.getElementById('playerFormPhotoEmpty');if(!file)return;if(!file.type.startsWith('image/')){alert('Please choose an image file.');e.target.value='';return}const reader=new FileReader();reader.onload=()=>{if(img){img.src=reader.result;img.style.display=''}if(empty)empty.style.display='none'};reader.readAsDataURL(file)}
+function compressPlayerPhoto(file){return new Promise((resolve,reject)=>{if(!file.type.startsWith('image/')||file.size>8*1024*1024){reject(new Error('Choose an image smaller than 8 MB.'));return}const reader=new FileReader();reader.onerror=()=>reject(new Error('Could not read this photo.'));reader.onload=()=>{const image=new Image();image.onerror=()=>reject(new Error('Could not open this photo.'));image.onload=()=>{const scale=Math.min(1,500/Math.max(image.width,image.height)),canvas=document.createElement('canvas');canvas.width=Math.round(image.width*scale);canvas.height=Math.round(image.height*scale);canvas.getContext('2d').drawImage(image,0,0,canvas.width,canvas.height);const data=canvas.toDataURL('image/jpeg',.55);if(data.length>700000){reject(new Error('Photo is too large for the free database limit. Please crop it or choose a smaller image.'));return}resolve(data)};image.src=reader.result};reader.readAsDataURL(file)})}
+async function savePlayer(e,id){e.preventDefault();if(!requireAdmin())return;const form=e.target,v=Object.fromEntries(new FormData(form)),file=document.getElementById('playerFormPhoto')?.files?.[0],removePhoto=!!v.removePhoto;delete v.removePhoto;try{if(file)v.photo=await compressPlayerPhoto(file);else if(removePhoto)v.photo=null;const existing=id?player(id):null;if(existing)Object.assign(existing,v);else db.players.push({id:'p'+Date.now(),...v});save();closeModal();render()}catch(err){alert(err.message||'Could not save player photo. Please try another image.')}}
+function organizerPhotoForm(teamId){if(!requireAdmin())return;const t=team(teamId);openModal('Organizer photo · '+esc(t.captain||t.name),`<form onsubmit="saveOrganizerPhoto(event,'${teamId}')"><div class="upload-row" style="margin-bottom:14px"><img id="organizerFormPhotoPreview" class="upload-preview" src="${t.organizerPhoto||''}" style="width:92px;height:92px;border-radius:50%;object-fit:cover;${t.organizerPhoto?'':'display:none'}"><span id="organizerFormPhotoEmpty" class="muted" style="${t.organizerPhoto?'display:none':''}">No organizer photo uploaded</span></div><div class="field"><label>Choose organizer photo</label><input id="organizerFormPhoto" type="file" accept="image/*" onchange="previewOrganizerPhoto(event)"></div>${t.organizerPhoto?'<label style="display:flex;align-items:center;gap:8px;margin:8px 0 14px"><input type="checkbox" name="removePhoto" value="yes" style="width:auto"> Remove current photo</label>':''}<button class="btn primary" type="submit">Save organizer photo</button></form>`)}
+function previewOrganizerPhoto(e){const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=document.getElementById('organizerFormPhotoPreview'),empty=document.getElementById('organizerFormPhotoEmpty');im.src=r.result;im.style.display='';if(empty)empty.style.display='none'};r.readAsDataURL(f)}
+async function saveOrganizerPhoto(e,id){e.preventDefault();if(!requireAdmin())return;const f=document.getElementById('organizerFormPhoto')?.files?.[0],remove=!!new FormData(e.target).get('removePhoto');try{if(f)team(id).organizerPhoto=await compressPlayerPhoto(f);else if(remove)delete team(id).organizerPhoto;else{alert('Choose a photo or select remove current photo.');return}save();closeModal();render()}catch(err){alert(err.message||'Could not save organizer photo.')}}
+function matchForm(){if(!requireAdmin())return;if(db.teams.length<2){alert('Add at least two teams first.');return}openModal('Schedule a match',`<form onsubmit="saveMatch(event)"><div class="form-grid"><div class="field"><label>Team A</label><select name="teamA">${db.teams.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join('')}</select></div><div class="field"><label>Team B</label><select name="teamB">${db.teams.map((t,i)=>`<option value="${t.id}" ${i===1?'selected':''}>${esc(t.name)}</option>`).join('')}</select></div></div><div class="form-grid"><div class="field"><label>Date</label><input type="date" name="date" required></div><div class="field"><label>Overs per innings</label><input type="number" name="oversLimit" min="1" max="50" value="8"></div></div><div class="field"><label>Venue</label><input name="venue" value="Jhabar Cricket Ground"></div><button class="btn primary">Create fixture</button></form>`)}
+function saveMatch(e){e.preventDefault();let v=Object.fromEntries(new FormData(e.target));if(v.teamA===v.teamB){alert('Select two different teams.');return}v.id='m'+Date.now();v.status='Upcoming';v.oversLimit=Number(v.oversLimit);v.innings=[];v.result='';db.matches.push(v);save();closeModal();render()}
+function editMatch(id){if(!requireAdmin())return;let m=db.matches.find(x=>x.id===id);if(!m)return;openModal('Edit match',`<form onsubmit="saveMatchEdit(event,'${id}')"><div class="form-grid"><div class="field"><label>Team A</label><select name="teamA">${db.teams.map(t=>`<option value="${t.id}" ${m.teamA===t.id?'selected':''}>${esc(t.name)}</option>`).join('')}</select></div><div class="field"><label>Team B</label><select name="teamB">${db.teams.map(t=>`<option value="${t.id}" ${m.teamB===t.id?'selected':''}>${esc(t.name)}</option>`).join('')}</select></div></div><div class="form-grid"><div class="field"><label>Date</label><input type="date" name="date" value="${m.date||''}" required></div><div class="field"><label>Overs per innings</label><input type="number" name="oversLimit" min="1" max="50" value="${m.oversLimit||8}" required></div></div><div class="field"><label>Venue</label><input name="venue" value="${esc(m.venue||'Jhabar Cricket Ground')}"></div><div class="field"><label>Status</label><select name="status">${['Upcoming','Live','Completed','Abandoned'].map(x=>`<option ${m.status===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="field"><label>Result / notes</label><input name="result" value="${esc(m.result||'')}"></div><button class="btn primary">Save match changes</button></form><p class="upload-help">Editing fixture details preserves the recorded innings. Changing teams after scoring may affect scorecard interpretation.</p>`)}
+function saveMatchEdit(e,id){e.preventDefault();if(!requireAdmin())return;let m=db.matches.find(x=>x.id===id),v=Object.fromEntries(new FormData(e.target));if(v.teamA===v.teamB){alert('Choose two different teams.');return}if((m.innings||[]).length&& (v.teamA!==m.teamA||v.teamB!==m.teamB)){if(!confirm('This match already has score data. Changing teams may affect the scorecard. Continue?'))return}Object.assign(m,v,{oversLimit:Number(v.oversLimit)});save();closeModal();render()}
+function deleteMatch(id){if(!requireAdmin())return;let m=db.matches.find(x=>x.id===id);if(!m)return;if(!confirm(`Delete ${team(m.teamA).name} vs ${team(m.teamB).name}, including its scorecard? This cannot be undone unless you have a backup.`))return;db.matches=db.matches.filter(x=>x.id!==id);if(db.activeMatch===id)db.activeMatch=null;save();render()}
+function quickStartMatch(){if(!requireAdmin())return;if(db.teams.length<2){alert('Add at least two teams first.');return}openModal('Start a match · Choose teams',`<form onsubmit="createQuickMatch(event)"><div class="form-grid"><div class="field"><label>Team A</label><select name="teamA">${db.teams.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join('')}</select></div><div class="field"><label>Team B</label><select name="teamB">${db.teams.map((t,i)=>`<option value="${t.id}" ${i===1?'selected':''}>${esc(t.name)}</option>`).join('')}</select></div></div><div class="form-grid"><div class="field"><label>Date</label><input type="date" name="date" value="${new Date().toISOString().slice(0,10)}"></div><div class="field"><label>Overs per innings</label><input type="number" name="oversLimit" min="1" max="50" value="8"></div></div><div class="field"><label>Venue</label><input name="venue" value="Jhabar Cricket Ground"></div><button class="btn primary">Continue to toss & team selection</button></form>`)}
+function createQuickMatch(e){e.preventDefault();let v=Object.fromEntries(new FormData(e.target));if(v.teamA===v.teamB){alert('Choose two different teams.');return}let m={id:'m'+Date.now(),teamA:v.teamA,teamB:v.teamB,date:v.date||new Date().toISOString().slice(0,10),venue:v.venue||'Jhabar Cricket Ground',status:'Upcoming',oversLimit:Number(v.oversLimit)||8,innings:[],result:'',practice:true};db.matches.unshift(m);save();closeModal();startMatch(m.id)}
+function bulkPlayerUpload(){if(!requireAdmin())return;openModal('Bulk player photo upload',`<p class="muted">Select multiple player photos. After they load, enter each player's name, team and player type. Photos are resized before saving.</p><div class="field"><label>Select multiple photos</label><input id="bulkPhotos" type="file" accept="image/*" multiple onchange="prepareBulkPlayers(event)"></div><div id="bulkPlayerRows"></div>`)}
+function prepareBulkPlayers(e){let files=[...(e.target.files||[])];if(!files.length)return;let host=document.getElementById('bulkPlayerRows');host.innerHTML='<div class="notice">Preparing selected photos…</div>';Promise.all(files.map(file=>new Promise(resolve=>{if(!file.type.startsWith('image/')||file.size>8*1024*1024){resolve(null);return}let r=new FileReader();r.onload=()=>{let im=new Image();im.onload=()=>{let sc=Math.min(1,900/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);c.getContext('2d').drawImage(im,0,0,c.width,c.height);resolve({name:file.name.replace(/\.[^.]+$/,'').replace(/[_-]+/g,' '),photo:c.toDataURL('image/jpeg',.78)})};im.onerror=()=>resolve(null);im.src=r.result};r.onerror=()=>resolve(null);r.readAsDataURL(file)}))).then(items=>{let good=items.filter(Boolean);window._mslBulk=good;host.innerHTML=good.map((x,i)=>`<div class="card" style="margin:9px 0"><div class="upload-row"><img class="upload-preview" src="${x.photo}"><div style="flex:1"><div class="field"><label>Player name</label><input id="bulkName${i}" value="${esc(x.name)}" required></div><div class="form-grid"><div class="field"><label>Team</label><select id="bulkTeam${i}">${db.teams.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join('')}</select></div><div class="field"><label>Player type</label><select id="bulkType${i}"><option>Local</option><option>Open</option></select></div></div></div></div></div>`).join('')+`<button class="btn primary" onclick="saveBulkPlayers()">Save ${good.length} players</button>`;if(!good.length)host.innerHTML='<p class="muted">No valid photos selected. Use image files smaller than 8 MB.</p>'})}
+function saveBulkPlayers(){if(!requireAdmin())return;let list=window._mslBulk||[];if(!list.length)return;let made=[];for(let i=0;i<list.length;i++){let name=document.getElementById('bulkName'+i)?.value.trim(),teamId=document.getElementById('bulkTeam'+i)?.value,playerType=document.getElementById('bulkType'+i)?.value;if(!name||!teamId){alert('Enter a name and team for every photo.');return}made.push({id:'p'+Date.now()+'_'+i,name,teamId,playerType,photo:list[i].photo,role:'Player',bat:'Right-hand',bowl:'—'})}db.players.push(...made);save();window._mslBulk=[];closeModal();render();alert(`${made.length} players added.`)}
+function editPointsTable(){if(!requireAdmin())return;let rows=getStandings();openModal('Edit points table',`<p class="muted">Adjust played, wins, losses, no-results, points and NRR. Manual values override calculated standings until reset.</p>${rows.map((r,i)=>`<div class="card" style="margin:8px 0"><strong>${esc(r.team.name)}</strong><div class="form-grid"><div class="field"><label>Played</label><input type="number" id="ptp_${r.team.id}" value="${r.p}"></div><div class="field"><label>Won</label><input type="number" id="ptw_${r.team.id}" value="${r.w}"></div><div class="field"><label>Lost</label><input type="number" id="ptl_${r.team.id}" value="${r.l}"></div><div class="field"><label>No result</label><input type="number" id="ptnr_${r.team.id}" value="0"></div><div class="field"><label>Points</label><input type="number" id="ptpts_${r.team.id}" value="${r.pts}"></div><div class="field"><label>NRR</label><input type="number" step="0.001" id="ptnrr_${r.team.id}" value="${r.nrr}"></div></div></div>`).join('')}<button class="btn primary" onclick="savePointsTable()">Save table</button> <button class="btn" onclick="resetPointsTable()">Reset to match results</button>`)}
+function savePointsTable(){if(!requireAdmin())return;db.manualStandings={};db.teams.forEach(t=>{let g=id=>Number(document.getElementById(id+'_'+t.id)?.value||0);db.manualStandings[t.id]={p:g('ptp'),w:g('ptw'),l:g('ptl'),nr:g('ptnr'),pts:g('ptpts'),nrr:g('ptnrr')}});save();closeModal();render()}
+function resetPointsTable(){if(!requireAdmin())return;delete db.manualStandings;save();closeModal();render()}
+function seasonForm(){if(!requireAdmin())return;openModal('Create new season',`<form onsubmit="saveSeason(event)"><div class="field"><label>Season number</label><input name="season" type="number" min="1" required value="${db.season+1}"></div><div class="field"><label>Year</label><input name="year" type="number" required value="${new Date().getFullYear()}"></div><div class="notice">Creating a new season archives the current season metadata. This prototype does not yet implement full historical database snapshots.</div><button class="btn primary">Create season</button></form>`)}
+function saveSeason(e){e.preventDefault();let f=new FormData(e.target),s=Number(f.get('season')),y=Number(f.get('year'));if(s===db.season){alert('Choose a different season number.');return}db.archives.unshift({season:db.season,year:db.year,champion:'To be added'});db.season=s;db.year=y;db.matches=[];db.players=[];db.teams.forEach(t=>t.players=[]);save();closeModal();render()}
+function chooseScoringMatch(){if(!requireAdmin())return;let choices=db.matches.filter(m=>m.status!=='Completed');if(!choices.length){alert('Create a match first.');return}openModal('Select match to score',`<div class="grid">${choices.map(m=>`<button class="btn" style="text-align:left" onclick="closeModal();startMatch('${m.id}')">${esc(team(m.teamA).name)} vs ${esc(team(m.teamB).name)} · ${m.status}</button>`).join('')}</div>`)}
+function startMatch(id){if(!requireAdmin())return;let m=db.matches.find(x=>x.id===id);if(!m)return;if(!m.innings)m.innings=[];if(m.innings.length){m.status='Live';db.activeMatch=id;save();scorePage(id);return}let playersA=db.players.filter(p=>p.teamId===m.teamA),playersB=db.players.filter(p=>p.teamId===m.teamB);if(playersA.length<2||playersB.length<1){alert('Add at least two players to the batting team and one to the bowling team before starting.');return}openModal('Match setup · Toss & officials',`<form onsubmit="setupMatch(event,'${id}')"><div class="field"><label>Toss winner</label><select name="tossWinner"><option value="${m.teamA}">${esc(team(m.teamA).name)}</option><option value="${m.teamB}">${esc(team(m.teamB).name)}</option></select></div><div class="field"><label>Toss decision</label><select name="decision"><option value="bat">Elected to bat</option><option value="bowl">Elected to bowl</option></select></div><div class="field"><label>First innings batting team</label><select name="batting" id="setupBatting" onchange="refreshSetupPlayers('${id}')"><option value="${m.teamA}">${esc(team(m.teamA).name)}</option><option value="${m.teamB}">${esc(team(m.teamB).name)}</option></select></div><div class="field"><label>Opening striker</label><select name="striker" id="setupStriker" required>${[...playersA,...playersB].map(p=>`<option value="${p.id}">${esc(p.name)} · ${esc(team(p.teamId).name)}</option>`).join('')}</select></div><div class="field"><label>Opening non-striker</label><select name="nonStriker" id="setupNonStriker" required>${[...playersA,...playersB].map(p=>`<option value="${p.id}">${esc(p.name)} · ${esc(team(p.teamId).name)}</option>`).join('')}</select></div><div class="field"><label>Opening bowler</label><select name="bowler" id="setupBowler" required>${[...playersA,...playersB].map(p=>`<option value="${p.id}">${esc(p.name)} · ${esc(team(p.teamId).name)}</option>`).join('')}</select></div><div class="form-grid"><div class="field"><label>Umpire 1</label><input name="umpire1" placeholder="Umpire name"></div><div class="field"><label>Umpire 2</label><input name="umpire2" placeholder="Umpire name"></div></div><div class="field"><label>Scorer</label><input name="scorer" placeholder="Scorer name"></div><button class="btn primary">Confirm toss & start innings</button></form>`)}
+function refreshSetupPlayers(id){let m=db.matches.find(x=>x.id===id),bat=document.getElementById('setupBatting')?.value;if(!m||!bat)return;let bowl=bat===m.teamA?m.teamB:m.teamA;let batters=db.players.filter(p=>p.teamId===bat),bowlers=db.players.filter(p=>p.teamId===bowl);['setupStriker','setupNonStriker'].forEach(k=>{let el=document.getElementById(k),old=el.value;el.innerHTML=batters.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');if(batters.some(p=>p.id===old))el.value=old});let be=document.getElementById('setupBowler'),old=be.value;be.innerHTML=bowlers.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('');if(bowlers.some(p=>p.id===old))be.value=old}
+function setupMatch(e,id){e.preventDefault();let v=Object.fromEntries(new FormData(e.target)),m=db.matches.find(x=>x.id===id);let batting=v.batting,bowling=batting===m.teamA?m.teamB:m.teamA;let validBat=db.players.filter(p=>p.teamId===batting).map(p=>p.id);let validBowl=db.players.filter(p=>p.teamId===bowling).map(p=>p.id);if(!validBat.includes(v.striker)||!validBat.includes(v.nonStriker)||v.striker===v.nonStriker||!validBowl.includes(v.bowler)){alert('Choose two different batters from the batting team and a bowler from the opposing team.');return}m.tossWinner=v.tossWinner;m.tossDecision=v.decision;m.umpires=[v.umpire1,v.umpire2].filter(Boolean);m.scorer=v.scorer||'';m.innings=[newInnings(batting,bowling,v.striker,v.nonStriker,v.bowler)];m.status='Live';db.activeMatch=id;save();closeModal();scorePage(id)}
+function newInnings(bat,bowl,striker,non,bowler){return {batting:bat,bowling:bowl,runs:0,wickets:0,legal:0,balls:[],striker:striker||'',nonStriker:non||'',bowler:bowler||'',batStats:{},bowlStats:{},extras:{wide:0,noBall:0,bye:0,legBye:0,penalty:0},fow:[],dismissals:[],overBowlers:[],pendingBowler:false,undoStack:[]}}
+
+/* ============================================================
+   Match header (both teams + logos) — used inside scorer.
+============================================================ */
+function matchHeaderHTML(m){
+  const a=team(m.teamA), b=team(m.teamB);
+  const lastInn=m.innings?.[m.innings.length-1];
+  const battingId=lastInn?.batting;
+  const logoOrShort=(t)=>t.logo?`<img src="${t.logo}" alt="${esc(t.name)} logo">`:t.short;
+  const subFor=(t)=>{
+    const inn=m.innings||[];
+    const own=inn.filter(i=>i.batting===t.id);
+    if(!own.length)return 'Yet to bat';
+    const i=own[own.length-1];
+    return `${i.runs}/${i.wickets} (${Math.floor(i.legal/6)}.${i.legal%6})`;
+  };
+  return `<div class="msl-match-header">
+    <div class="mh-team ${battingId===m.teamA?'batting':''}">
+      <div class="mh-badge" style="background:${a.color}">${logoOrShort(a)}</div>
+      <div class="mh-name">${esc(a.name)}</div>
+      <div class="mh-sub">${esc(subFor(a))}</div>
+    </div>
+    <div class="mh-vs">VS</div>
+    <div class="mh-team ${battingId===m.teamB?'batting':''}">
+      <div class="mh-badge" style="background:${b.color}">${logoOrShort(b)}</div>
+      <div class="mh-name">${esc(b.name)}</div>
+      <div class="mh-sub">${esc(subFor(b))}</div>
+    </div>
+  </div>`;
+}
+
+/* ============================================================
+   Chase info: runs required + balls remaining.
+============================================================ */
+function chaseInfoHTML(m){
+  const inn=m.innings||[];
+  if(inn.length<2)return '';
+  const first=inn[0], second=inn[1];
+  const target=first.runs+1;
+  const runsNeeded=Math.max(0, target-second.runs);
+  const ballsTotal=m.oversLimit*6;
+  const ballsRemaining=Math.max(0, ballsTotal-second.legal);
+  const wicketsLeft=Math.max(0,10-second.wickets);
+  if(runsNeeded===0){
+    return `<div class="chase-bar target">
+      <div class="chase-cell"><div class="cc-label">Result</div><div class="cc-value">WON</div></div>
+      <div class="chase-cell"><div class="cc-label">Balls left</div><div class="cc-value">${ballsRemaining}</div></div>
+      <div class="chase-cell"><div class="cc-label">Wkts in hand</div><div class="cc-value">${wicketsLeft}</div></div>
+    </div><p class="chase-note">${esc(team(second.batting).name)} chased down ${target} with ${ballsRemaining} ball${ballsRemaining===1?'':'s'} to spare.</p>`;
+  }
+  return `<div class="chase-bar">
+    <div class="chase-cell"><div class="cc-label">Runs required</div><div class="cc-value">${runsNeeded}</div></div>
+    <div class="chase-cell"><div class="cc-label">Balls remaining</div><div class="cc-value">${ballsRemaining}</div></div>
+    <div class="chase-cell"><div class="cc-label">Wickets left</div><div class="cc-value">${wicketsLeft}</div></div>
+  </div><p class="chase-note">${esc(team(second.batting).name)} need ${runsNeeded} run${runsNeeded===1?'':'s'} from ${ballsRemaining} ball${ballsRemaining===1?'':'s'} · Target ${target}</p>`;
+}
+
+/* ============================================================
+   Animation: 4 / 6 / Wicket.
+============================================================ */
+function playFx(kind){
+  const layer=document.getElementById('mslFxLayer');
+  if(!layer)return;
+  layer.innerHTML='';
+  let cls='',text='',ringCls='';
+  if(kind==='four'){cls='four';text='4';}
+  else if(kind==='six'){cls='six';text='6';}
+  else if(kind==='wicket'){cls='wicket';text='OUT';ringCls='wicket';}
+  else return;
+  const burst=document.createElement('div');
+  burst.className='fx-burst';
+  const ring1=document.createElement('div');ring1.className='fx-ring '+ringCls;
+  const ring2=document.createElement('div');ring2.className='fx-ring r2 '+ringCls;
+  const t=document.createElement('div');t.className='fx-text '+cls;t.textContent=text;
+  burst.appendChild(ring1);burst.appendChild(ring2);burst.appendChild(t);
+  layer.appendChild(burst);
+  setTimeout(()=>{if(layer.firstChild===burst)layer.innerHTML='';},1250);
+}
+
+/* ============================================================
+   Extras prompt (wide/no-ball/bye/leg-bye) — asks runs.
+============================================================ */
+function askExtraRuns(id,type){
+  if(!requireAdmin())return;
+  const titleMap={wide:'Wide',noBall:'No-ball',bye:'Bye',legBye:'Leg-bye'};
+  const isNoBall=type==='noBall', isWide=type==='wide';
+  const isBye=type==='bye'||type==='legBye';
+  openModal(titleMap[type]+' · how many runs?', `
+    <form onsubmit="confirmExtra(event,'${id}','${type}')">
+      ${isNoBall?`
+        <div class="field">
+          <label>Runs off the bat</label>
+          <select name="batRuns">${[0,1,2,3,4,6].map(n=>`<option value="${n}">${n}</option>`).join('')}</select>
+        </div>
+        <div class="field">
+          <label>Extra runs run (byes/leg-byes on top of no-ball)</label>
+          <select name="extraRuns">${[0,1,2,3,4].map(n=>`<option value="${n}">${n}</option>`).join('')}</select>
+        </div>
+        <p class="upload-help">No-ball penalty (1 run) is added automatically. The delivery does not count as a legal ball.</p>`:''}
+      ${isWide?`
+        <div class="field">
+          <label>Total wide runs (including the penalty)</label>
+          <select name="totalRuns">${[1,2,3,4,5].map(n=>`<option value="${n}">${n}</option>`).join('')}</select>
+        </div>
+        <p class="upload-help">Wide penalty (1 run) plus any runs run. Not a legal ball, and no bat runs are allowed.</p>`:''}
+      ${isBye?`
+        <div class="field">
+          <label>Runs completed (${titleMap[type].toLowerCase()})</label>
+          <select name="extraRuns">${[1,2,3,4].map(n=>`<option value="${n}">${n}</option>`).join('')}</select>
+        </div>
+        <p class="upload-help">Byes and leg-byes are legal deliveries. The bowler is not charged for these runs.</p>`:''}
+      <button class="btn primary" type="submit">Record delivery</button>
+    </form>`);
+}
+
+function confirmExtra(e,id,type){
+  e.preventDefault();
+  if(!requireAdmin())return;
+  const v=Object.fromEntries(new FormData(e.target));
+  const [m,i]=getInn(id);
+  // Guard overs limit for legal-ball extras
+  if((type==='bye'||type==='legBye')&&i.legal>=m.oversLimit*6){alert('Overs limit reached.');return;}
+  pushUndo(i);
+  const bat=addBat(i,i.striker), bw=addBowl(i,i.bowler);
+  let fxKind=null;
+
+  if(type==='wide'){
+    const total=Number(v.totalRuns)||1;
+    i.runs+=total;
+    i.extras.wide=(i.extras.wide||0)+total;
+    bw.runs+=total;
+    i.balls.push({label:'Wd'+(total>1?`+${total-1}`:''),runs:total,legal:false,kind:'wide',batter:i.striker,bowler:i.bowler});
+    if(total%2===1){/* runs run, striker keeps strike on odd runs but wide penalty (1) alone doesn't rotate */ if(total>1)[i.striker,i.nonStriker]=[i.nonStriker,i.striker];}
+    save();closeModal();scorePage(id);return;
+  }
+
+  if(type==='noBall'){
+    const batRuns=Number(v.batRuns)||0;
+    const extraRuns=Number(v.extraRuns)||0;
+    const penalty=1;
+    const total=penalty+extraRuns+batRuns;
+    i.runs+=total;
+    i.extras.noBall=(i.extras.noBall||0)+penalty+extraRuns;
+    if(batRuns>0){bat.runs+=batRuns;bat.balls+=1;}
+    bw.runs+=total;
+    i.balls.push({label:'Nb'+(batRuns?`+${batRuns}`:'')+(extraRuns?`+${extraRuns}b`:''),runs:total,legal:false,kind:'noBall',batter:i.striker,bowler:i.bowler});
+    if(batRuns%2===1)[i.striker,i.nonStriker]=[i.nonStriker,i.striker];
+    else if(batRuns===0&&extraRuns%2===1)[i.striker,i.nonStriker]=[i.nonStriker,i.striker];
+    save();closeModal();scorePage(id);return;
+  }
+
+  // bye / legBye
+  const runs=Number(v.extraRuns)||0;
+  if(runs<1){alert('Select at least 1 run.');return;}
+  i.runs+=runs;
+  i.extras[type]=(i.extras[type]||0)+runs;
+  bat.balls+=1;
+  bw.balls+=1;
+  i.legal+=1;
+  i.balls.push({label:(type==='bye'?'B':'Lb')+(runs>1?String(runs):''),runs,legal:true,kind:type,batter:i.striker,bowler:i.bowler});
+  if(runs%2===1)[i.striker,i.nonStriker]=[i.nonStriker,i.striker];
+  if(i.legal%6===0){
+    [i.striker,i.nonStriker]=[i.nonStriker,i.striker];
+    if(i.legal<m.oversLimit*6)i.pendingBowler=true;
+  }
+  save();closeModal();
+  if(i.pendingBowler)chooseNextBowler(id);else scorePage(id);
+}
+
+/* ============================================================
+   Live scorer page.
+============================================================ */
+function scorePageContent(id){
+ let m=db.matches.find(x=>x.id===id);
+ if(!m)return '<div class="card"><h2>Match not found</h2><p class="muted">The saved match could not be found on this device yet.</p>'+btn('Back to matches',"go('matches')")+'</div>';
+ let inn=m.innings?.[m.innings.length-1];
+ if(!inn)return '<div class="card"><h2>Innings not started</h2><p class="muted">Start the innings setup to open live scoring.</p>'+btn('Back to admin',"go('admin')")+'</div>';
+ let bat=team(inn.batting),bowl=team(inn.bowling),over=Math.floor((inn.legal||0)/6),ball=(inn.legal||0)%6;
+ let sr=player(inn.striker),ns=player(inn.nonStriker),bw=player(inn.bowler);
+ let extras=Object.values(inn.extras||{}).reduce((a,b)=>a+Number(b||0),0);
+ let bs=inn.batStats||{},bws=inn.bowlStats||{},srs=bs[inn.striker]||{runs:0,balls:0},nss=bs[inn.nonStriker]||{runs:0,balls:0},bwsNow=bws[inn.bowler]||{runs:0,balls:0,wickets:0};
+ let overBalls=inn.balls||[];let currentOverStart=0,legalSeen=0;overBalls.forEach((delivery,index)=>{if(delivery.legal){legalSeen++;if(legalSeen%6===0)currentOverStart=index+1}});overBalls=overBalls.slice(currentOverStart);
+ const ballName=b=>{if(b.kind==='wide')return 'Wide';if(b.kind==='noBall')return 'No-ball';if(b.kind==='bye')return 'Bye';if(b.kind==='legBye')return 'Leg-bye';if(b.kind==='wicket')return 'Wicket'+(b.dismissal?' · '+b.dismissal:'');if(b.kind==='run')return b.runs===0?'Dot ball':b.runs+' run'+(b.runs===1?'':'s');return b.label||'Delivery'};
+ return `${head('Live scoring',`${esc(team(m.teamA).name)} vs ${esc(team(m.teamB).name)} · ${esc(m.venue||'Jhabar Cricket Ground')}`,btn('Match centre',`openMatch('${id}')`))}
+ ${matchHeaderHTML(m)}
+ <div class="admin-banner"><span>● LIVE SCORING</span><span style="float:right">${fmtDate(m.date)} · ${m.oversLimit} overs</span></div>
+ <section class="score-hero score-hero-redesigned"><div class="eyebrow">${esc(bat.name)} BATTING · INNINGS ${m.innings.length}</div><div class="score-big"><span>${Number(inn.runs)||0}</span><small>/ ${Number(inn.wickets)||0}</small></div><div class="score-notation">RUNS / WICKETS</div><div class="score-details"><span><b>${over}.${ball}</b> Overs</span><span><b>${inn.legal||0}</b> Legal balls</span><span><b>${inn.legal?(inn.runs/(inn.legal/6)).toFixed(2):'0.00'}</b> Run rate</span><span><b>${extras}</b> Extras</span></div><div class="score-opposition">Bowling: ${esc(bowl.name)}</div>${chaseInfoHTML(m)}</section>
+ <div class="score-workspace score-workspace-flow">
+  <section class="card batter-card"><div class="section-title" style="margin-top:0"><div><div class="eyebrow">AT THE CREASE</div><h2>Batters</h2></div><span class="badge live">● LIVE</span></div>
+   <div class="batter-stat-row striker"><div><strong>${esc(sr.name)} *</strong><span class="strike-tag">ON STRIKE</span></div><strong>${srs.runs||0} <small>(${srs.balls||0})</small></strong></div>
+   <div class="batter-stat-row"><div><strong>${esc(ns.name)}</strong><span class="muted">NON-STRIKER</span></div><strong>${nss.runs||0} <small>(${nss.balls||0})</small></strong></div>
+   <div class="batter-note">* = currently facing the next delivery · Runs (balls faced)</div>
+   <div class="field"><label>Change striker / batter at crease</label><select id="newStriker">${db.players.filter(p=>p.teamId===inn.batting).map(p=>`<option value="${p.id}" ${p.id===inn.striker?'selected':''}>${esc(p.name)}</option>`).join('')}</select></div><button class="btn" onclick="changePlayer('${id}','striker')">Update striker</button>
+  </section>
+  <section class="card bowler-card"><div class="section-title" style="margin-top:0"><div><div class="eyebrow">CURRENT BOWLER</div><h2>${esc(bw.name)}</h2></div><span class="badge">BOWLING</span></div>
+   <div class="bowler-figures"><div><strong>${Math.floor((bwsNow.balls||0)/6)}.${(bwsNow.balls||0)%6}</strong><span>Overs</span></div><div><strong>${bwsNow.runs||0}</strong><span>Runs</span></div><div><strong>${bwsNow.wickets||0}</strong><span>Wickets</span></div></div>
+   <div class="field"><label>Change bowler</label><select id="newBowler">${db.players.filter(p=>p.teamId===inn.bowling).map(p=>`<option value="${p.id}" ${p.id===inn.bowler?'selected':''}>${esc(p.name)}</option>`).join('')}</select></div><button class="btn" onclick="changePlayer('${id}','bowler')">Update bowler</button>
+  </section>
+  <section class="card over-card over-panel"><div class="section-title" style="margin-top:0"><div><div class="eyebrow">BALL-BY-BALL</div><h2>Over ${over+1} deliveries</h2></div><span class="badge">${overBalls.length} recorded</span></div>
+   <div class="delivery-list">${overBalls.map((b,n)=>`<div class="delivery-row"><span class="delivery-number">${n+1}</span><span>${esc(ballName(b))}</span><strong>${esc(b.label||'—')}</strong></div>`).join('')||'<p class="muted">No deliveries recorded in this over yet.</p>'}</div>
+   <div class="over-actions"><button class="btn undo-btn" onclick="undoBall('${id}')" ${!inn.balls?.length||!inn.undoStack?.length?'disabled':''}>↶ Undo last action</button>${btn('End innings',`endInnings('${id}')`,'danger')}</div>
+   <p class="batter-note">Undo reverses the last recorded delivery and restores the score, batters, bowler figures and wickets.</p>
+  </section>
+  <section class="card score-action-card"><div class="section-title"><div><div class="eyebrow">SCORER CONTROLS</div><h2>Record this ball</h2></div><span class="muted">One tap per delivery</span></div>
+   <div class="score-controls score-controls-redesigned"><button class="run-btn" onclick="recordBall('${id}',0)">0</button><button class="run-btn" onclick="recordBall('${id}',1)">1</button><button class="run-btn" onclick="recordBall('${id}',2)">2</button><button class="run-btn" onclick="recordBall('${id}',3)">3</button><button class="run-btn boundary" onclick="recordBall('${id}',4)">4</button><button class="run-btn six" onclick="recordBall('${id}',6)">6</button></div>
+   <div class="section-title"><h2>Extras</h2><span class="muted">Select if applicable</span></div><div class="score-controls score-controls-redesigned"><button class="run-btn" onclick="askExtraRuns('${id}','wide')">Wide</button><button class="run-btn" onclick="askExtraRuns('${id}','noBall')">No-ball</button><button class="run-btn" onclick="askExtraRuns('${id}','bye')">Bye</button><button class="run-btn" onclick="askExtraRuns('${id}','legBye')">Leg-bye</button></div>
+   <div class="section-title"><h2>Wicket</h2></div><div class="score-controls score-controls-redesigned wicket-controls"><button class="run-btn wicket" onclick="recordWicket('${id}','Bowled')">Bowled</button><button class="run-btn wicket" onclick="recordWicket('${id}','Caught')">Caught</button><button class="run-btn wicket" onclick="recordWicket('${id}','LBW')">LBW</button><button class="run-btn wicket" onclick="recordWicket('${id}','Run out')">Run out</button><button class="run-btn wicket" onclick="recordWicket('${id}','Stumped')">Stumped</button><button class="run-btn wicket" onclick="recordWicket('${id}','Hit wicket')">Hit wicket</button></div>
+  </section>
+  <section class="card innings-card"><div class="section-title" style="margin-top:0"><h2>Innings summary</h2></div><div class="summary-row"><span>Legal deliveries</span><strong>${inn.legal||0}</strong></div><div class="summary-row"><span>Wickets</span><strong>${inn.wickets||0}</strong></div><div class="summary-row"><span>Extras</span><strong>${extras}</strong></div><div class="summary-row"><span>Umpires</span><strong>${esc((m.umpires||[]).join(' / ')||'—')}</strong></div><div class="section-title"><h2>Match controls</h2></div>${btn('Complete match',`completeMatch('${id}')`,'danger')}</section>
+ </div>`;
+}
+function scorePage(id){activeScoreMatchId=id;page='score';persistRoute();render()}
+function getInn(id){let m=db.matches.find(x=>x.id===id);return [m,m.innings[m.innings.length-1]]}
+function snapshot(inn){return JSON.parse(JSON.stringify(inn))}
+function pushUndo(i){i.undoStack=i.undoStack||[];let c=snapshot(i);delete c.undoStack;i.undoStack.push(c);if(i.undoStack.length>100)i.undoStack.shift()}
+function addBat(inn,id){if(!inn.batStats[id])inn.batStats[id]={runs:0,balls:0,fours:0,sixes:0};return inn.batStats[id]}
+function addBowl(inn,id){if(!inn.bowlStats[id])inn.bowlStats[id]={runs:0,balls:0,wickets:0};return inn.bowlStats[id]}
+
+/* ============================================================
+   recordBall now fires animations for 4 and 6.
+============================================================ */
+function recordBall(id,r){
+  if(!requireAdmin())return;
+  let [m,i]=getInn(id);
+  if(i.legal>=m.oversLimit*6){alert('Overs limit reached.');return}
+  pushUndo(i);
+  let b=addBat(i,i.striker),bw=addBowl(i,i.bowler);
+  i.runs+=r;b.runs+=r;b.balls++;
+  if(r===4)b.fours++;
+  if(r===6)b.sixes++;
+  bw.runs+=r;bw.balls++;i.legal++;
+  i.balls.push({label:String(r),runs:r,legal:true,kind:'run',batter:i.striker,bowler:i.bowler});
+  if(r%2)[i.striker,i.nonStriker]=[i.nonStriker,i.striker];
+  if(i.legal%6===0){
+    [i.striker,i.nonStriker]=[i.nonStriker,i.striker];
+    if(i.legal<m.oversLimit*6)i.pendingBowler=true
+  }
+  save();
+  if(r===4)playFx('four');else if(r===6)playFx('six');
+  if(i.pendingBowler)chooseNextBowler(id);else scorePage(id)
+}
+function recordExtra(id,type){/* legacy — unused; kept for safety. */askExtraRuns(id,type)}
+function recordWicket(id,kind){if(!requireAdmin())return;let [m,i]=getInn(id);if(i.legal>=m.oversLimit*6){alert('Overs limit reached.');return}pushUndo(i);let out=i.striker;let remaining=db.players.filter(p=>p.teamId===i.batting&&! [i.striker,i.nonStriker].includes(p.id)&&!i.dismissals.some(d=>d.player===p.id));let fielders=db.players.filter(p=>p.teamId===i.bowling);openModal('Wicket details',`<form onsubmit="confirmWicket(event,'${id}','${kind}','${out}')"><p><strong>${esc(player(out).name)}</strong> · ${esc(kind)}</p><div class="field"><label>Dismissed batter</label><select name="dismissed"><option value="${i.striker}">Striker: ${esc(player(i.striker).name)}</option><option value="${i.nonStriker}">Non-striker: ${esc(player(i.nonStriker).name)}</option></select></div>${kind==='Caught'?`<div class="field"><label>Caught by</label><select name="fielder">${fielders.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div>`:''}${kind==='Run out'?`<div class="field"><label>Run out by (fielder)</label><select name="fielder">${fielders.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Which end / batter dismissed?</label><select name="dismissed"><option value="${i.striker}">${esc(player(i.striker).name)} (striker)</option><option value="${i.nonStriker}">${esc(player(i.nonStriker).name)} (non-striker)</option></select></div><div class="field"><label>Completed runs before run out</label><select name="completedRuns"><option>0</option><option>1</option><option>2</option><option>3</option></select></div>`:''}<div class="field"><label>Next batter</label><select name="nextBatter"><option value="">Select after wicket</option>${remaining.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><button class="btn primary">Confirm wicket</button></form>`)}
+function confirmWicket(e,id,kind,out){e.preventDefault();let [m,i]=getInn(id),v=Object.fromEntries(new FormData(e.target)),dismissed=v.dismissed||out,legal=true;pushUndo(i);let completed=Number(v.completedRuns||0);i.runs+=completed;i.wickets++;i.legal++;let bw=addBowl(i,i.bowler);bw.balls++;if(!['Run out'].includes(kind))bw.wickets++;i.fow.push({w:i.wickets,r:i.runs,over:`${Math.floor((i.legal-1)/6)}.${(i.legal-1)%6}`,player:dismissed});i.dismissals.push({player:dismissed,kind,fielder:v.fielder||'',bowler:i.bowler,over:i.legal});m.fielding=m.fielding||{};if(v.fielder){m.fielding[v.fielder]=m.fielding[v.fielder]||{catches:0,runOuts:0};if(kind==='Caught')m.fielding[v.fielder].catches++;if(kind==='Run out')m.fielding[v.fielder].runOuts++;}i.balls.push({label:'W',runs:completed,legal,kind:'wicket',dismissal:kind,player:dismissed,fielder:v.fielder||'',bowler:i.bowler});let next=v.nextBatter,end=dismissed===i.striker?'striker':'nonStriker';i[end]=next||'';i.pendingWicketEnd=end;if(i.legal%6===0){[i.striker,i.nonStriker]=[i.nonStriker,i.striker];if(i.legal<m.oversLimit*6)i.pendingBowler=true}save();closeModal();playFx('wicket');if(i.wickets>=10||i.legal>=m.oversLimit*6){scorePage(id);return}if(!next){openModal('Select next batter',`<p>Choose the incoming batter to continue.</p><div class="field"><select id="nextBatter">${db.players.filter(p=>p.teamId===i.batting&&!i.dismissals.some(d=>d.player===p.id)).map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><button class="btn primary" onclick="setNextBatter('${id}','${dismissed}')">Continue</button>`);return}if(i.pendingBowler)chooseNextBowler(id);else scorePage(id)}
+function setNextBatter(id,dismissed){let [m,i]=getInn(id),v=document.getElementById('nextBatter').value;if(!v)return;i[i.pendingWicketEnd||'striker']=v;delete i.pendingWicketEnd;closeModal();save();if(i.pendingBowler)chooseNextBowler(id);else scorePage(id)}
+function chooseNextBowler(id){let [m,i]=getInn(id);let eligible=db.players.filter(p=>p.teamId===i.bowling&&p.id!==i.bowler);openModal('Over complete · Select next bowler',`<p>Six legal balls completed. Select the bowler for over ${Math.floor(i.legal/6)+1}.</p><div class="field"><label>Next over bowler</label><select id="nextBowler">${eligible.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><button class="btn primary" onclick="setNextBowler('${id}')">Start next over</button>`)}
+function setNextBowler(id){let [m,i]=getInn(id),v=document.getElementById('nextBowler').value;if(!v){alert('Select a bowler.');return}i.bowler=v;i.pendingBowler=false;i.overBowlers.push(v);closeModal();save();scorePage(id)}
+function confirmNextBatter(id){let [m,i]=getInn(id);i.striker=document.getElementById('nextBatter').value;closeModal();save();scorePage(id)}
+function changePlayer(id,which){let [m,i]=getInn(id);let v=document.getElementById(which==='striker'?'newStriker':'newBowler').value;if(which==='striker')i.striker=v;else i.bowler=v;save();scorePage(id)}
+function undoBall(id){if(!requireAdmin())return;let [m,i]=getInn(id);if(!i.balls.length||!i.undoStack?.length){alert('Nothing to undo.');return}let history=i.undoStack;let prev=history.pop();Object.keys(i).forEach(k=>delete i[k]);Object.assign(i,prev);i.undoStack=history;save();scorePage(id)}
+function endInnings(id){let [m,i]=getInn(id);if(m.innings.length>=2){alert('Both innings have been recorded. Complete the match.');return}let batting=i.bowling,bowling=i.batting;let eligible=db.players.filter(p=>p.teamId===batting);let other=db.players.filter(p=>p.teamId===bowling);openModal('Start second innings',`<form onsubmit="secondInnings(event,'${id}','${batting}','${bowling}')"><div class="field"><label>Opening striker</label><select name="striker">${eligible.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Non-striker</label><select name="nonStriker">${eligible.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>Opening bowler</label><select name="bowler">${other.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></div><button class="btn primary">Start second innings</button></form>`)}
+function secondInnings(e,id,bat,bowl){e.preventDefault();let v=Object.fromEntries(new FormData(e.target)),m=db.matches.find(x=>x.id===id);m.innings.push(newInnings(bat,bowl,v.striker,v.nonStriker,v.bowler));save();closeModal();scorePage(id)}
+function completeMatch(id){let m=db.matches.find(x=>x.id===id);if(m.innings.length<2){alert('Complete both innings first.');return}let [a,b]=m.innings;let winner=a.runs>b.runs?a.batting:b.runs>a.runs?b.batting:null;m.winner=winner;m.result=winner?`${team(winner).name} won`:'Match tied';m.status='Completed';save();openModal('Match completed',`<h2>${esc(m.result)}</h2><p>${esc(team(a.batting).name)} ${a.runs}/${a.wickets} · ${esc(team(b.batting).name)} ${b.runs}/${b.wickets}</p><button class="btn primary" onclick="closeModal();go('matches')">View matches</button>`)}
+function openMatch(id){let m=db.matches.find(x=>x.id===id);if(!m)return;if(m.status==='Live'&&db.admin){scorePage(id);return}let inn=m.innings||[];openModal('Match centre',`<div>${esc(team(m.teamA).name)} <strong>vs</strong> ${esc(team(m.teamB).name)}</div><p class="muted">${fmtDate(m.date)} · ${esc(m.venue)} · Umpires: ${esc((m.umpires||[]).join(' / ')||'—')} · Scorer: ${esc(m.scorer||'—')}</p>${inn.map((i,n)=>`<div class="card" style="margin:10px 0"><strong>${esc(team(i.batting).name)}</strong><h2>${i.runs}/${i.wickets} <small class="muted">${Math.floor(i.legal/6)}.${i.legal%6} overs</small></h2><p class="muted">Extras: ${Object.values(i.extras).reduce((a,b)=>a+b,0)} · ${Math.floor(i.legal/6)}.${i.legal%6} overs</p><div class="table-wrap"><table><thead><tr><th>Batter</th><th>Dismissal</th><th>Runs</th><th>Balls</th><th>4s</th><th>6s</th></tr></thead><tbody>${Object.entries(i.batStats).map(([pid,s])=>{let d=(i.dismissals||[]).find(x=>x.player===pid);return `<tr><td>${esc(player(pid).name)}</td><td>${d?esc(d.kind)+(d.fielder?' · '+esc(player(d.fielder).name):''):'Not out'}</td><td>${s.runs}</td><td>${s.balls}</td><td>${s.fours}</td><td>${s.sixes}</td></tr>`}).join('')}</tbody></table></div><h4>Bowling</h4><div class="table-wrap"><table><thead><tr><th>Bowler</th><th>Legal balls</th><th>Runs</th><th>Wickets</th></tr></thead><tbody>${Object.entries(i.bowlStats||{}).map(([pid,s])=>`<tr><td>${esc(player(pid).name)}</td><td>${s.balls}</td><td>${s.runs}</td><td>${s.wickets}</td></tr>`).join('')}</tbody></table></div><p class="muted">Fall of wickets: ${(i.fow||[]).map(x=>`${x.r}/${x.w} (${esc(player(x.player).name)}, ${x.over})`).join(' · ')||'—'}</p></div>`).join('')||'<p class="muted">Match has not started yet.</p>'}<p><strong>${esc(m.result||m.status)}</strong></p>`)}
+function exportData(){let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='msl-backup-season-'+db.season+'.json';a.click();URL.revokeObjectURL(url)}
+function importData(e){if(!requireAdmin())return;let file=e.target.files?.[0];if(!file)return;let r=new FileReader();r.onload=()=>{try{let v=JSON.parse(r.result);if(!v||!Array.isArray(v.teams)||!Array.isArray(v.matches)||!Array.isArray(v.players))throw Error('Missing teams, matches or players arrays.');if(v.teams.some(x=>!x||!x.id||!x.name)||v.players.some(x=>!x||!x.id||!x.name||!x.teamId)||v.matches.some(x=>!x||!x.id||!x.teamA||!x.teamB))throw Error('One or more records are missing required fields.');if(!confirm(`Backup preview\n\nSeason: ${v.season??'Not specified'}\nTeams: ${v.teams.length}\nPlayers: ${v.players.length}\nMatches: ${v.matches.length}\n\nThis will replace the current MSL data on all connected devices. Your current data will be downloaded as a backup first. Continue?`))return;exportData();db={...structuredClone(seed),...v,admin:true,teams:v.teams,players:v.players,matches:v.matches,archives:Array.isArray(v.archives)?v.archives:[],manualStandings:v.manualStandings||{}};save();render();alert('Backup imported. Keep the downloaded safety backup until you verify the website data.')}catch(err){alert('Import stopped: '+(err.message||'Invalid MSL backup file.'))}finally{e.target.value=''}};r.readAsText(file)}
+render();
+</script>
+</body>
+</html>
